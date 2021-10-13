@@ -1,5 +1,10 @@
 \documentclass[11pt, a4paper, notitlepage]{report}
 \usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\hypersetup{
+    hidelinks
+}
+
 \title{Smart Kart (Project Initiation Document)}
 \date{November 2021}
 \author{George Jacob Anthony Kokinis}
@@ -19,4 +24,62 @@
 The usefulness of this project is the safety benefits it may provide. If the 
 Artefact produced can reduce the frequency that a driver needs to check their 
 speedometer, then they will be more aware of road conditions.
+
+This project is motivated by the increasing deployment of average speed check zones 
+throughout the UK, and the potential they have for causing distracted driving.
+% Source??
+
+\subsection{Primary Objectives} \label{PrimaryObjectives}
+The Primary Objectives of this project are as follows:
+\begin{itemize}
+    \item An app (for a smartphone) that determines when the user is in an 
+average speed check zone, and begins tracking average speed.
+    \item Said app then warns, with an audbile warning, if the average speed 
+is above the limit.
+    \item Voice commands may be used to launch the app on command (for 
+example, if there is temporary speed check area).
+\end{itemize}
+\subsection{Secondary Objectives}
+If time allows, the project may achieve the following objectives:
+\begin{itemize}
+    \item The app allows for the user to manually set what the speed limit is 
+(for example if a road has a temporarily reduced speed limit).
+    \item The app allows for setting the audbile warning to a custom sound.
+\end{itemize}
+\subsection{Tertiary Objectives}
+In many territories globally, the use of devices and apps to detect speed 
+cameras is frowned upon by police, if not outright illegal. It would be ideal 
+if the app could detect this, and prevent its own usage.
+%% source
+
+\section{Scope}
+There is scope within the project to provide an app that is cross 
+platform, using technologies such as Flutter, UNO, and .NET MAUI (née 
+Xamarin.Forms). 
+This would allow users of the two major mobile ecosystems to use the app. 
+However, doing so may hamper the ability of the developer to write suffecient 
+code in the time provided.
+Hence, a cross-platform app is not included in the project at this time.
+
+There is also scope to build an independent database of average speed check 
+areas. 
+This would be a significant undertaking, and there are already public datasets 
+available for use. As such, making such a database is not 
+in the scope of this project.
+However, allowing for contribution to such datasets from within the app would 
+serve the public good, and may well be within the scope of the project.
+
+\section{Deliverables}
+The Project will deliver an Android Application that meets the Primary 
+Objectives (in section \ref{PrimaryObjectives}).
+
+The project will have met its objectives when the app matches provides 
+features defined by the Primary Objectives. It will exceed them if it 
+\textbf{also} implements Secondary or Tertiary Objectives.
+
+\section{Constraints}
+%% Externally Imposed requirements.
+
+\section{Assumptions}
+%% If Unknown Elements, what assumptions made to account for these.
 \end{document}
