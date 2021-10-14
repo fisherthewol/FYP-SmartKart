@@ -1,4 +1,6 @@
 \documentclass[11pt, a4paper, notitlepage]{report}
+\usepackage[authoryear]{natbib}
+\bibliographystyle{agsm}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 \hypersetup{
@@ -25,16 +27,17 @@ The usefulness of this project is the safety benefits it may provide. If the
 Artefact produced can reduce the frequency that a driver needs to check their 
 speedometer, then they will be more aware of road conditions.
 
-This project is motivated by the increasing deployment of average speed check zones 
-throughout the UK, and the potential they have for causing distracted driving.
-% Source??
+This project is motivated by the increasing deployment of average speed check 
+zones throughout the UK, and the potential they have for leading to distracted 
+driving.
+% Source?? Can't find source on "increasing" deployment.
 
 \subsection{Primary Objectives} \label{PrimaryObjectives}
 The Primary Objectives of this project are as follows:
 \begin{itemize}
     \item An app (for a smartphone) that determines when the user is in an 
 average speed check zone, and begins tracking average speed.
-    \item Said app then warns, with an audbile warning, if the average speed 
+    \item Said app then warns, with an audible warning, if the average speed 
 is above the limit.
     \item Voice commands may be used to launch the app on command (for 
 example, if there is temporary speed check area).
@@ -44,20 +47,21 @@ If time allows, the project may achieve the following objectives:
 \begin{itemize}
     \item The app allows for the user to manually set what the speed limit is 
 (for example if a road has a temporarily reduced speed limit).
-    \item The app allows for setting the audbile warning to a custom sound.
+    \item The app allows for setting the audible warning to a custom sound.
 \end{itemize}
 \subsection{Tertiary Objectives}
-In many territories globally, the use of devices and apps to detect speed 
-cameras is explicitly or potentially illegal. It would be ideal 
-if the app could detect this, and prevent its own usage.
+In many territories globally, the use of devices to detect speed cameras is 
+illegal, and apps are either explicitly or potentially illegal. It would be 
+ideal if the app could detect it was in such a territory, and prevent its own 
+usage.
 %% source
 
 \section{Scope}
 There is scope within the project to provide an app that is cross 
 platform, using technologies such as Flutter, UNO, and .NET MAUI (née 
-Xamarin.Forms). 
+Xamarin.Forms)\footnote{Flutter (citation), UNO (Citation), .NET MAUI (Citation).}. 
 This would allow users of the two major mobile ecosystems to use the app. 
-However, doing so may hamper the ability of the developer to write suffecient 
+However, doing so may hamper the ability of the developer to write sufficient 
 code in the time provided.
 Hence, a cross-platform app is not included in the project at this time.
 
@@ -71,15 +75,18 @@ serve the public good, and may well be within the scope of the project.
 
 \section{Deliverables}
 The Project will deliver an Android Application that meets the Primary 
-Objectives (in section \ref{PrimaryObjectives}).
+Objectives (in section \ref{PrimaryObjectives}). The development will be 
+demonstrating Agile Methodologies and Modern Internal Structuring.
+%% Such as??
 
 The project will have met its objectives when the app matches provides 
 features defined by the Primary Objectives. It will exceed them if it 
 \textbf{also} implements Secondary or Tertiary Objectives.
 
 \section{Constraints}
-%% Externally Imposed requirements.
+%% Externally imposed constraints.
 
 \section{Assumptions}
 %% If Unknown Elements, what assumptions made to account for these.
+\
 \end{document}
