@@ -32,7 +32,7 @@ zones throughout the UK, and the potential they have for leading to distracted
 driving.
 % Source?? Can't find source on "increasing" deployment.
 
-\subsection{Primary Objectives} \label{PrimaryObjectives}
+\subsection{Primary Objectives}\label{subsec:PrimaryObjectives}
 The Primary Objectives of this project are as follows:
 \begin{itemize}
     \item An app (for a smartphone) that determines when the user is in an 
@@ -56,7 +56,7 @@ ideal if the app could detect it was in such a territory, and prevent its own
 usage.
 %% source
 
-\section{Scope}
+\section{Scope}\label{sec:Scope}
 There is scope within the project to provide an app that is cross platform, 
 using technologies such as Flutter, UNO, and .NET MAUI (née 
 Xamarin.Forms)\footnote{Flutter (citation), UNO (Citation), .NET MAUI 
@@ -75,7 +75,7 @@ the project.
 
 \section{Deliverables}
 The Project will deliver an Android Application that meets the Primary 
-Objectives (in section \ref{PrimaryObjectives}).
+Objectives (defined in section \ref{subsec:PrimaryObjectives}).
 
 The project will have met its objectives when the app matches provides features 
 defined by the Primary Objectives. It will exceed them if it \textbf{also} 
@@ -103,30 +103,68 @@ As well, by providing \textit{advance} warning of exceeding the average speed,
 they may be able to drive in a smoother manner and avoid the kangaroo-ing" 
 effect; this can reduce congestion and prevent accidents.
 % Sources, again!
-\section{Project Operation}\label{projectOperation}
-Agile Software Development is a paradigm, commonly defined by the Manifesto 
-(source); within this paradigm are many varied methodologies. For projects such 
-as this one, where there is only one team member, methodologies such as Kanban, 
-Scrum (as modified by Scrum for One (source)), and Extreme Programming 
-(source!!).
-Kanban is the most suitable methodology for this project...% - why?????
 
-The overall planning for this project is laid out in the Gantt Chart in 
-Appendix \ref{planGanttChart}. The intention is to stick to that plan; however, 
-the agile paradigm requires flexibility, so this may change with time.
+\section{Project Operation}\label{sec:projectOperation}
+Agile Software Development is a paradigm, commonly defined by the Manifesto 
+(source); within this paradigm are many varied methodologies. For projects 
+where there is only one team member, methodologies such as Kanban, 
+Scrum (as modified by Scrum for One (source)), and Extreme Programming are 
+optimal. (source!!).
+
+Kanban is the most suitable methodology for the software development in this 
+project...% - why?????
+
+The overall planning and schedule for this project is laid out in the Gantt 
+Chart in section \ref{sec:schedGanttCt}. The intention is to stick with this 
+schedule; however, the agile paradigm requires flexibility, so this may change 
+with time.
+
 \section{Options}
-Kotlin vs Java vs cross-platform. Sources of speed camera data. 
-%What options are available to you for the tools, techniques and design parameters of your project?  How will you evaluate them and make the best selection?
+As discussed in the section on Scope (\ref{sec:Scope}), for developing this 
+project there is certainly one choice to be made: is the app developed using 
+one of various cross-platform frameworks, or using platform-native frameworks.
+
+In that discussion, it was already decided that using a cross-platform 
+framework is not in the scope; however, even within the realm of 
+platform-native, there are more choices to be made:
+\subsection{Which Platform?}
+The Project's nature requires a mobile platform. However, there is a choice 
+within this; despite Android and iOS' apparent dominance of the market (with 
+(source) claiming combined a 99.19\% share, as of September 2021), there 
+are various other mobile platforms, such as Tizen\footnote{Backed by the Linux 
+Foundation, but primarily developed by Samsung.}, KaiOS, and Sailfish OS; as 
+well as mobile implementations of desktop platforms, such as pureOS.
+
+Despite this variety, Android stands tall as the easiest to develop for and 
+most accessible platform. The Android Open Source Project means that obtaining 
+an image to test on, or examining the source to aid in debugging, is relatively 
+easy. Hence, Android is an ideal platform to develop this project on. 
+Furthermore, using Android Jetpack\footnote{Android Jetpack (citation)} 
+whenever possible will provide the project with a consistent base to build upon.
+
+\subsection{Which Language?}
+Android applications have historically been written in Java, and the foundation 
+of the OS is a JVM (originally Dalvik but later ART). The ecosystem around Java 
+on Android is mature and well-documented.
+
+However, in 2011 JetBrains\texttrademark\ announced Kotlin, a JVM language 
+"having the features so desperately wanted by the developers" (source). Being a 
+JVM language, it was inherently "usable" on Android; but the Android Team 
+announced "first-class support" in 2017 (source) and "Android development will 
+become increasingly Kotlin-first," in 2019 (source).
+
+Hence, this project will develop the app in Kotlin (rather than Java); it is 
+the contemporary language, and Google suggests that "If you’re starting a new 
+project, you should write it in Kotlin" (source).
+
 \section{Risk Analysis}
-Covid (personal, or another lockdown), personal trauma, equipment breakdown, 
-etc. - Make a table in an appendix. Mitigation.
+%%Covid (personal, or another lockdown), personal trauma, equipment breakdown, 
+%%etc. - Make a table in an appendix. Mitigation.
 %What risks might affect the outcome of your project or its stakeholders?  How severe are they, and what steps will you take to mitigate against them?
 \section{Resources Required}
 My android device, android studio, anything else?
-%What resources will you need for the project?  Are any non-standard?  Are they already available?  What effect will it have if they are not available or are delayed, and how would you manage that?
-
-\appendix
-\chapter{Planning Gantt Chart}\label{planGanttChart}
-% Insert Gantt chart here.
+%What resources will you need for the project?  Are any non-standard?  Are they 
+%already available?  What effect will it have if they are not available or are 
+%delayed, and how would you manage that?
 
 \end{document}
