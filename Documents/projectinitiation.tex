@@ -1,24 +1,28 @@
 \documentclass[11pt, a4paper, notitlepage]{report}
-\usepackage[authoryear]{natbib}
-\bibliographystyle{agsm}
-\usepackage[utf8]{inputenc}
-\usepackage{hyperref}
+% Bibliography stuff to do later.
+%\usepackage[authoryear]{natbib}
+%\bibliographystyle{agsm}
+\usepackage[utf8]{inputenc} % Ensures we can use UTF8.
+\usepackage{hyperref} % Must come last; allows for links.
 \hypersetup{
     hidelinks
 }
-
+% Details.
 \title{Smart Kart (Project Initiation Document)}
 \date{November 2021}
 \author{George Jacob Anthony Kokinis}
 
 \begin{document}
+
 \maketitle
 \begin{center}
-    Student Number 201910280
-
-    Word Count: XXXX
+    Student Number 201910280\newline
+    Word Count: XXXX % You must also replace “XXXX” with the actual word count 
+    %(excluding acknowledgements, abstract, table of contents, references and 
+    %appendices) of your document.
 \end{center}
 \newpage
+
 \tableofcontents
 
 \chapter{Project Background and Purpose}
@@ -42,6 +46,7 @@ The Primary Objectives of this project are as follows:
     \item Voice commands may be used to launch the app at the user's request 
     (for example, if there is temporary speed check area).
 \end{itemize}
+
 \subsection{Secondary Objectives}
 If time allows, the project may achieve the following objectives:
 \begin{itemize}
@@ -49,30 +54,34 @@ If time allows, the project may achieve the following objectives:
     (for example if a road has a temporarily reduced speed limit).
     \item The app allows for setting the audible warning to a custom sound.
 \end{itemize}
+
 \subsection{Tertiary Objectives}
 In many territories globally, the use of devices to detect speed cameras is 
 illegal, and apps are either explicitly or potentially illegal %(france code de 
 %la route).
 It would be ideal if the app could detect it was in such a territory, and 
 prevent its own usage.
-%% source
+
+As well, the app may allow the users to contribute to an open dataset of 
+average speed checks.
 
 \section{Scope}\label{sec:Scope}
 There is scope within the project to provide an app that is cross platform, 
 using technologies such as Flutter, UNO, and .NET MAUI (née 
 Xamarin.Forms)\footnote{Flutter (citation), UNO (Citation), .NET MAUI 
-(Citation).}. This would allow users of the two major mobile ecosystems to use 
-the app. However, doing so may hamper the ability of the developer to write 
-sufficient code in the time provided. Hence, a cross-platform app is not 
-included in the project at this time.
+(Citation).}. This would allow users of the major mobile ecosystems to use the 
+app. 
+
+However, doing so may hamper the ability of the developer to write 
+sufficient code in the time provided. Hence, a cross-platform app is not in 
+scope.
 
 There is also scope to build an independent database of average speed check 
 areas. This would be a significant undertaking, and there are already public 
-datasets available for use. As such, making such a database is not in the scope 
-of this project. However, allowing for contribution to such datasets from 
-within the app would serve the public good, and may well be within the scope of 
-the project.
-% source the datasets. ?
+datasets available for use. As such, making such a database is not in scope. 
+However, allowing for contribution to such datasets from within the app would 
+serve the public good, and may well be within the scope of the project.
+% source which datasets?
 
 \section{Deliverables}
 The Project will deliver an Android Application that meets the Primary 
@@ -103,7 +112,7 @@ conscious of the road around them, and be more alert to potential incidents.
 As well, by providing \textit{advance} warning of exceeding the average speed, 
 they may be able to drive in a smoother manner and avoid the kangaroo-ing" 
 effect; this can reduce congestion and prevent accidents.
-% Sources, again!
+% Sources?
 
 \section{Project Operation}\label{sec:projectOperation}
 Agile Software Development is a paradigm, commonly defined by the Manifesto 
@@ -116,7 +125,7 @@ Kanban is the most suitable methodology for the software development in this
 project...% - why?????
 
 The overall planning and schedule for this project is laid out in the Gantt 
-Chart in section \ref{sec:schedGanttCt}. The intention is to stick with this 
+Chart in section \ref{subsec:schedGanttCt}. The intention is to stick with this 
 schedule; however, the agile paradigm requires flexibility, so this may change 
 with time.
 
@@ -139,10 +148,15 @@ well as mobile implementations of desktop platforms, such as pureOS.
 
 Despite this variety, Android stands tall as the easiest to develop for and 
 most accessible platform. The Android Open Source Project means that obtaining 
-an image to test on, or examining the source to aid in debugging, is relatively 
-easy. Hence, Android is an ideal platform to develop this project on. 
-Furthermore, using Android Jetpack\footnote{Android Jetpack (citation)} 
+an image to test on, or examining the OS' source to aid in debugging, is 
+relatively easy. Hence, Android is an ideal platform to develop this project 
+on. Furthermore, using Android Jetpack\footnote{Android Jetpack (citation)} 
 whenever possible will provide the project with a consistent base to build upon.
+
+In comparison, developing platform-native applications for iOS devices requires 
+a MacOSX device to use Xcode, and a payment of \$99 if you wish to distribute 
+your application. The other mobile platforms have significantly small market 
+share.
 
 \subsection{Which Language?}
 Android applications have historically been written in Java, and the foundation 
@@ -168,11 +182,34 @@ others as well.
 
 There are various other risks, such as personal illness, strikes, and equipment 
 breakdowns; the analysis table is in Appendix \ref{app:RiskAnalysis}.
+
 \section{Resources Required}
-My android device, android studio, anything else?
+There are no abnormal resources required for this project. All that is needed 
+is a computer to develop on, and an android phone (or the AVD emulator) to test 
+with.
+
+If any of these were unavailable (for example, if the computer being used 
+became non-functional), it would delay the project until an alternative could 
+be sourced (or until the university's Labs are available).
 %What resources will you need for the project?  Are any non-standard?  Are they 
 %already available?  What effect will it have if they are not available or are 
 %delayed, and how would you manage that?
+
+\chapter{Project Methodology and Outcomes}
+\section{Initial Project Plan}
+\subsection{Tasks and Milestones}
+%Present a realistic task list for the entire project, broken down to a 
+%suitable level of detail.  Indicate milestones against which progress can be 
+%monitored.
+\subsection{Schedule Gantt Chart}\label{subsec:schedGanttCt}
+%Present a Gantt chart showing a schedule for all tasks, milestones and 
+%deliverables. Show dependencies amongst tasks.
+\section{Project Control}
+%How will you manage the project day-to-day?  How will its performance be 
+%monitored? How will you judge if it has been successful?
+\section{Project Evaluation}
+%How will you evaluate the project’s artefacts and overall outcomes?  What user 
+%evaluation will you do?
 
 \appendix
 \chapter{Risk Analysis Table}\label{app:RiskAnalysis}
