@@ -33,17 +33,16 @@ Artefact produced can reduce the frequency that a driver needs to check their
 speedometer, then they will be more aware of road conditions.
 
 This project is motivated by the increasing deployment of average speed check 
-zones throughout the UK, and the potential they have for leading to distracted 
-driving.
-% Source?? Can't find source on "increasing" deployment.
+zones throughout the UK (doubling between 2013 and 2016 (source)), and the 
+potential they may have for leading to distracted driving.
 
 \subsection{Primary Objectives}\label{subsec:PrimaryObjectives}
 The Primary Objectives of this project are as follows:
 \begin{itemize}
     \item An app (for a smartphone) that determines when the user is in an 
-    average speed check zone, and begins tracking average speed.
-    \item Said app then warns, with an audible warning, if the average speed is 
-    above the limit.
+    "average speed check zone", and begins tracking average speed.
+    \item Said app then warns, with an audible warning, if the user's average 
+    speed is above the limit.
     \item Voice commands may be used to launch the app at the user's request 
     (for example, if there is temporary speed check area).
 \end{itemize}
@@ -64,7 +63,7 @@ It would be ideal if the app could detect it was in such a territory, and
 prevent its own usage.
 
 As well, the app may allow the users to contribute to an open dataset of 
-average speed checks.
+average speed check zones.
 
 \section{Scope}\label{sec:Scope}
 There is scope within the project to provide an app that is cross platform, 
@@ -73,28 +72,45 @@ Xamarin.Forms)\footnote{Flutter (citation), UNO (Citation), .NET MAUI
 (Citation).}. This would allow users of the major mobile ecosystems to use the 
 app. 
 
-However, doing so may hamper the ability of the developer to write 
-sufficient code in the time provided. Hence, a cross-platform app is not in 
-scope.
+However, doing so requires a developer to be familiar with the relevant tooling 
+and languages (Dart for Flutter, C\textsubscript{\#} for UNO and MAUI). If a 
+developer is not familiar, learning the tooling may take up a significant 
+amount of time that should be spent on the actual programming. Hence, we are 
+presented with a choice to be made during the analysis stage of the project.
 
 There is also scope to build an independent database of average speed check 
-areas. This would be a significant undertaking, and there are already public 
-datasets available for use. As such, making such a database is not in scope. 
-However, allowing for contribution to such datasets from within the app would 
-serve the public good, and may well be within the scope of the project.
-% source which datasets?
+areas; this would bring "server-side" programming into the project. 
+Alternatively, there may already be public datasets available for use. Whether 
+to use existing datasets (if possible) or build an independent one is another 
+decision for the analysis stage. 
+
+Should the project opt to use public dataset(s), allowing for contribution to 
+such datasets from within the app would serve the public good and benefit the 
+app's users; so this may well be within the scope of the project.
+% include example datasets?
 
 \section{Deliverables}
-The Project will deliver an Android Application that meets the Primary 
+The Project will deliver a smartphone application that meets the Primary 
 Objectives (defined in section \ref{subsec:PrimaryObjectives}).
 
 The project will have met its objectives when the app matches provides features 
-defined by the Primary Objectives. It will exceed them if it \textbf{also} 
-implements Secondary or Tertiary Objectives.
+defined by the Primary Objectives. If the project \textbf{also} implements 
+Secondary or Tertiary Objectives, it may be considered to have "exceeded" its 
+objectives.
 
 \section{Constraints}
-Testing the application in the most \textit{straightforward} way may be 
-constrained by applicable law, insurance, and ethics. Otherwise, there are no 
+Testing the application in the most \textit{straightforward} way (running the 
+app while driving) may be constrained by
+\begin{itemize}
+	\item Law: It's illegal to use a mobile phone whilst driving, under the 
+	(source, (Road Vehicles (Construction and Use) Regulations, 1986(amended 
+	2003):110))
+	\item Insurance: most motor insurers aren't favourable to claimants using 
+	their mobile phones. Furthermore, most insurance doesn't cover "testing" on 
+	public nor private roads.
+	\item Ethics: 
+\end{itemize}, insurance, and 
+ethics. Otherwise, there are no 
 external constraints known at this time.
 
 \section{Assumptions}
@@ -170,9 +186,10 @@ JVM language, it was inherently "usable" on Android; but the Android Team
 announced "first-class support" in 2017 (source) and "Android development will 
 become increasingly Kotlin-first," in 2019 (source).
 
-Hence, this project will develop the app in Kotlin (rather than Java); it is 
+Hence, this project could develop the app in Kotlin or in Java. Kotlin is now 
 the contemporary language, and Google suggests that "If you’re starting a new 
-project, you should write it in Kotlin" (source).
+project, you should write it in Kotlin" (source); however, Java already has a 
+massive ecosystem surrounding it.
 
 \section{Risk Analysis}
 The most major risks to the Project at this time are those associated with 
@@ -202,6 +219,11 @@ be sourced (or until the university's Labs are available).
 %Present a realistic task list for the entire project, broken down to a 
 %suitable level of detail.  Indicate milestones against which progress can be 
 %monitored.
+The Task list can be broken down as follows:
+\begin{enumerate}
+	\item 
+\end{enumerate}
+
 \subsection{Schedule Gantt Chart}\label{subsec:schedGanttCt}
 %Present a Gantt chart showing a schedule for all tasks, milestones and 
 %deliverables. Show dependencies amongst tasks.
