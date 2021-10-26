@@ -2,6 +2,8 @@
 % Bibliography stuff to do later.
 %\usepackage[authoryear]{natbib}
 %\bibliographystyle{agsm}
+% for landscape table etc.
+%\usepackage{lscape}
 \usepackage[utf8]{inputenc} % Ensures we can use UTF8.
 \usepackage{hyperref} % Must come last; allows for links.
 \hypersetup{
@@ -99,8 +101,8 @@ Secondary or Tertiary Objectives, it may be considered to have "exceeded" its
 objectives.
 
 \section{Constraints}
-Testing the application in the most \textit{straightforward} way (running the 
-app while driving) may be constrained by
+Testing the application in the most \textit{direct} way - using the app while 
+driving - may be constrained by:
 \begin{itemize}
 	\item Law: It's illegal to use a mobile phone whilst driving, under the 
 	(source, (Road Vehicles (Construction and Use) Regulations, 1986(amended 
@@ -108,10 +110,15 @@ app while driving) may be constrained by
 	\item Insurance: most motor insurers aren't favourable to claimants using 
 	their mobile phones. Furthermore, most insurance doesn't cover "testing" on 
 	public nor private roads.
-	\item Ethics: 
-\end{itemize}, insurance, and 
-ethics. Otherwise, there are no 
-external constraints known at this time.
+	\item Ethics: The University of Hull's Research Ethics Policy (source) 
+	defines "non-malfeasance" as the "avoidance of harm". Testing the 
+	application in the above way flies in the face of this, as driving 
+	distracted is an easy way to cause harm.
+\end{itemize}
+The obstruction this causes to testing can be mitigated through the use of an 
+emulated device and "falsified" location data.
+
+Otherwise, there are no external constraints known at this time.
 
 \section{Assumptions}
 There are currently no unknowns for this project; hence, there are no 
@@ -119,27 +126,28 @@ assumptions to be made.
 
 \chapter{Project Rationale and Operation}
 \section{Project Benefits}
-Successful delivery of this project will most benefit drivers (primarily in the 
-UK, but possibly in other territories), with phones, who often drive in areas 
-with average speed check zones. 
+Successful delivery of this project will most benefit car drivers (primarily in 
+the UK, but possibly in other territories), with phones, who often drive in 
+areas with average speed check zones. 
 
 By reducing the time spent monitoring their speedometer, they can be more 
 conscious of the road around them, and be more alert to potential incidents.
 
 As well, by providing \textit{advance} warning of exceeding the average speed, 
-they may be able to drive in a smoother manner and avoid the kangaroo-ing" 
-effect; this can reduce congestion and prevent accidents.
-% Sources?
+they may be able to drive in a smoother manner and avoid the "kangaroo-ing" 
+effect, as seen when a driver brakes harshly to avoid a ticket; this can reduce 
+congestion and prevent accidents.
 
 \section{Project Operation}\label{sec:projectOperation}
 Agile Software Development is a paradigm, commonly defined by the Manifesto 
 (source); within this paradigm are many varied methodologies. For projects 
-where there is only one team member, methodologies such as Kanban, 
-Scrum (as modified by Scrum for One (source)), and Extreme Programming are 
-optimal. (source!!).
+where there is only one team member, methodologies such as Kanban and Scrum (as 
+modified by Scrum for One (source)) are optimal. (source??).
 
-Kanban is the most suitable methodology for the software development in this 
-project...% - why?????
+The Kanban board is a useful tool to understand the current state of the 
+project; what is in progress, what needs to be started, etc. Combined with the 
+user-input and cyclical nature of the Agile paradigm, this is ideal for a 
+project like this one, with one developer and fast development times.
 
 The overall planning and schedule for this project is laid out in the Gantt 
 Chart in section \ref{subsec:schedGanttCt}. The intention is to stick with this 
@@ -235,6 +243,8 @@ The Task list can be broken down as follows:
 %evaluation will you do?
 
 \appendix
+\chapter{Initial Kanban Board}\label{app:KanBan}
+%Insert kanban image here.
 \chapter{Risk Analysis Table}\label{app:RiskAnalysis}
 %What risks might affect the outcome of your project or its stakeholders?  How 
 %severe are they, and what steps will you take to mitigate against them?
