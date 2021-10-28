@@ -9,6 +9,7 @@
 \hypersetup{
     hidelinks
 }
+\usepackage{pdflscape}
 % Details.
 \title{Smart Kart (Project Initiation Document)}
 \date{November 2021}
@@ -106,7 +107,7 @@ defined by the Primary Objectives. If the project \textbf{also} implements
 Secondary or Tertiary Objectives, it may be considered to have "exceeded" its 
 objectives.
 
-\section{Constraints}
+\section{Constraints}\label{sec:Constraints}
 Testing the application in the most \textit{direct} way - using the app while 
 driving - may be constrained by:
 \begin{itemize}
@@ -236,6 +237,7 @@ be sourced, or until the University's Labs are available.
 The tasks for developing the application can be broken down into Milestones. 
 Within milestones, tasks may be performed asynchronously and simultaneously; 
 but generally, milestones are dependant on the previous milestone.
+
 \begin{enumerate}
     \item [Milestone 1:]Design and Architecture.
     \begin{itemize}
@@ -273,17 +275,48 @@ but generally, milestones are dependant on the previous milestone.
         delivered under this milestone.
         \item Delivery of the final Artefact.
     \end{itemize}
-\end{enumerate}
 
+Alongside these tasks, there is the singular long-running task of writing the 
+final report.
+\end{enumerate}
 \subsection{Schedule Gantt Chart}\label{subsec:schedGanttCt}
+The Gantt chart here is not as detailed as the task list above. This is due to 
+the project using Agile and Kanban, meaning that tasks can be running 
+out-of-order, simultaneously, and asynchronously; which isn't easily 
+represented on a Gantt chart. Hence, the chart is more of a "timeline", and 
+this PID also includes a snapshot of the initial state of the Kanban board, 
+found in appendix \ref{app:KanBan}. This initial state may change upon 
+commencement of the report and the creation of User Stories, Epics, etc.
+\begin{landscape}
+    GanttChart here!
+\end{landscape}
 %Present a Gantt chart showing a schedule for all tasks, milestones and 
 %deliverables. Show dependencies amongst tasks.
+
 \section{Project Control}
-%How will you manage the project day-to-day?  How will its performance be 
-%monitored? How will you judge if it has been successful?
+Management of the project will be through the use of the Kanban board. The 
+start of any development session begins by inspecting the board to understand 
+the state of play. Then, the developer shall choose a task that is already in 
+development (or if there are none, a task that hasn't been started), and work 
+on it for the session.
+
+Performance will be monitored based on the rate of progress through tasks. 
+Should tasks take too long to complete, this is an indicator of a low 
+performance. However, the inverse, tasks being completed quickly, is not 
+inherently an indicator of high performance; it may well mean that tasks are 
+not being completed to sufficient depth.
+
+Whether the project is successful will be judged based on the resulting 
+artefact, and whether this artefact has met the objectives in 
+\ref{subsec:PrimaryObjectives}.
+
 \section{Project Evaluation}
-%How will you evaluate the project’s artefacts and overall outcomes?  What user 
-%evaluation will you do?
+Evaluation of the Project's artefact(s) will be based on how close it adheres 
+to the objectives in \ref{sec:projectOperation}.
+
+In terms of User Evaluation, testing the entire application is limited by the 
+constraints layed out in \ref{sec:Constraints}. However, the UI/UX could 
+possibly be tested by users, independent of the underlying application.
 
 \appendix
 \chapter{Initial Kanban Board}\label{app:KanBan}
