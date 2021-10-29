@@ -1,7 +1,6 @@
 \documentclass[11pt, a4paper, notitlepage]{report}
-% Bibliography stuff to do later.
-%\usepackage[authoryear]{natbib}
-%\bibliographystyle{agsm}
+\usepackage[round,colon]{natbib}
+\bibliographystyle{hull}
 % for landscape table etc.
 %\usepackage{lscape}
 \usepackage[utf8]{inputenc} % Ensures we can use UTF8.
@@ -21,9 +20,7 @@
 \begin{center}
     Student Number 201910280
     
-    Word Count: XXXX % You must also replace “XXXX” with the actual word count 
-    %(excluding acknowledgements, abstract, table of contents, references and 
-    %appendices) of your document.
+    Word Count: XXXX %exclude acknowledgements, abstract, table of contents, references and appendices) of your document.
 \end{center}
 \newpage
 
@@ -42,8 +39,9 @@ their speedometer, then they will be more aware of road conditions; which can
 lead to safer driving.
 
 This project is motivated by the increasing deployment of average speed check 
-zones throughout the UK (doubling between 2013 and 2016 (source)), and the 
-potential they may have for leading to distracted driving.
+zones throughout the UK (doubling between 2013 and 2016 
+\citep{BBCSpeedCameraDoubled}, and the potential they may have for leading to 
+distracted driving.
 
 \subsection{Primary Objectives}\label{subsec:PrimaryObjectives}
 The Primary Objectives of this project are:
@@ -66,8 +64,10 @@ If time allows, the project may achieve the following objectives:
 
 \subsection{Tertiary Objectives}
 In many territories globally, the use of devices to detect speed cameras is 
-illegal, and apps are either explicitly or potentially illegal %(france code de 
-%la route).
+illegal, and apps are either explicitly or potentially illegal; for example in 
+France, any device or system used to "detect the presence" of devices for 
+regulation of road traffic, is illegal under the Code de la route 
+\citep{CodeDeLaRoute}.
 It would be ideal if the app could detect it was in such a territory, and 
 prevent its own usage.
 
@@ -77,9 +77,9 @@ average speed check zones.
 \section{Scope}\label{sec:Scope}
 There is scope within the project to provide an app that is cross platform, 
 using technologies such as Flutter, UNO, and .NET MAUI (née 
-Xamarin.Forms)\footnote{Flutter (citation), UNO (Citation), .NET MAUI 
-(Citation).}. This would allow users of the major mobile ecosystems to use the 
-app. 
+Xamarin.Forms)\footnote{Flutter \citep{FlutterWebsite}, UNO \citep{UnoWebsite}, 
+.NET MAUI \citep{UnoWebsite}}. This would allow users of the major mobile 
+ecosystems to use the app. 
 
 However, doing so requires a developer to be familiar with the relevant tooling 
 and languages (Dart for Flutter, C\textsubscript{\#} for UNO and MAUI). If a 
@@ -112,15 +112,15 @@ Testing the application in the most \textit{direct} way - using the app while
 driving - may be constrained by:
 \begin{itemize}
     \item Law: It's illegal to use a mobile phone whilst driving, under the 
-	(source, (Road Vehicles (Construction and Use) Regulations, 1986(amended 
-	2003):110))
+    Road Vehicles (Construction and Use) Regulations, 1986 (amended 2003):110 
+    \citep{RoadVehiclesSI}.
     \item Insurance: most motor insurers aren't favourable to claimants using 
 	their mobile phones. Furthermore, most insurance doesn't cover "testing" on 
 	public nor private roads.
-    \item Ethics: The University of Hull's Research Ethics Policy (source) 
-	defines "non-malfeasance" as the "avoidance of harm". Testing the 
-	application in the above way flies in the face of this, as driving 
-	distracted is an easy way to cause harm.
+    \item Ethics: The University of Hull's Research Ethics Policy 
+    \citep{HullEthicsPolicy} defines "non-malfeasance" as the "avoidance of 
+    harm". Testing the application in the above way flies in the face of this, 
+    as driving distracted is an easy way to cause harm.
 \end{itemize}
 The obstruction this causes to testing can be mitigated through the use of an 
 emulated device and "falsified" location data.
@@ -146,10 +146,9 @@ effect, as seen when a driver brakes harshly to avoid a ticket; this can reduce
 congestion and prevent accidents.
 
 \section{Project Operation}\label{sec:projectOperation}
-Agile Software Development is a paradigm, commonly defined by the Manifesto 
-(source); within this paradigm are many varied methodologies. For projects 
-where there is only one team member, methodologies such as Kanban and Scrum (as 
-modified by Scrum for One (source)) are optimal. (source??).
+Agile Software Development is a paradigm, commonly defined by the Manifesto \citep{AgileManifesto}; within this paradigm are many varied methodologies. For 
+projects where there is only one team member, methodologies such as Kanban and 
+Scrum (as modified by Scrum for One \citep{ScrumForOne}) are optimal. %% FInd a source on this!!
 
 The Kanban board is a useful tool to understand the current state of the 
 project; what is in progress, what needs to be started, etc. Combined with the 
@@ -166,29 +165,20 @@ As discussed in the section on Scope (\ref{sec:Scope}), for developing this
 project there is certainly one choice to be made: is the app developed using 
 one of various cross-platform frameworks, or using platform-native frameworks.
 
-In that discussion, it was already decided that using a cross-platform 
-framework is not in the scope; however, even within the realm of 
-platform-native, there are more choices to be made.
+While it was not decided in that discussion whether to use cross-platform or platform native, there are choices within platform-native that are pertinent to discuss here.
 
 \subsection{Which Platform?}
 The Project's nature requires a mobile platform. However, there is a choice 
 within this; despite Android and iOS' apparent dominance of the market (with 
-(source) claiming combined a 99.19\% share, as of September 2021), there 
-are various other mobile platforms, such as Tizen\footnote{Backed by the Linux 
-Foundation, but primarily developed by Samsung.}, KaiOS, and Sailfish OS; as 
-well as mobile implementations of desktop platforms, such as pureOS.
+\citet{MobileMarketShare} claiming combined a 99.19\% share, as of September 2021), there are various other mobile platforms, such as Tizen\footnote{Backed by the Linux Foundation, but primarily developed by Samsung.}, KaiOS, and Sailfish OS; as well as mobile implementations of desktop platforms, such as pureOS.
 
 Despite this variety, Android stands tall as the easiest to develop for and 
 most accessible platform. The Android Open Source Project means that obtaining 
 an image to test on, or examining the OS' source to aid in debugging, is 
-relatively easy. Hence, Android is an ideal platform to develop this project 
-on. Furthermore, using Android Jetpack\footnote{Android Jetpack (citation)} 
-whenever possible will provide the project with a consistent base to build upon.
+relatively easy. Hence, should platform-native be chosen, Android is an ideal platform to develop this project for. Furthermore, using Android Jetpack\footnote{Android Jetpack \citep{AndroidJetpack}} whenever possible will provide the project with a consistent base to build upon.
 
 In comparison, developing platform-native applications for iOS devices requires 
-a MacOSX device to use Xcode, and a payment of \$99 if you wish to distribute 
-your application. The other mobile platforms have significantly small market 
-share.
+a MacOSX device (real or emulated, either of which are expensive) to use Xcode, and a payment of \$99 if you wish to distribute your application on the Apple App Store \citep{AppleDevProgram}. This is significant outlay for a small development team. The other mobile platforms have significantly small market share.
 
 \subsection{Which Language?}
 Android applications have historically been written in Java, and the foundation 
@@ -196,15 +186,11 @@ of the OS is a JVM (originally Dalvik but later ART). The ecosystem around Java
 on Android is mature and well-documented.
 
 However, in 2011 JetBrains\texttrademark\ announced Kotlin, a JVM language 
-"having the features so desperately wanted by the developers" (source). Being a 
-JVM language, it was inherently "usable" on Android; but the Android Team 
-announced "first-class support" in 2017 (source) and "Android development will 
-become increasingly Kotlin-first," in 2019 (source).
+"having the features so desperately wanted by the developers" \citep{KotlinAnnounced}. Being a JVM language, it was inherently "usable" on Android; but the Android Team announced "first-class support" in 2017 \citep{KotlinPreferred} and "Android development will become increasingly Kotlin-first," in 2019 \citep{KotlinFirst}.
 
 Hence, this project could develop the app in Kotlin or in Java. Kotlin is now 
 the contemporary language, and Google suggests that "If you’re starting a new 
-project, you should write it in Kotlin" (source); however, Java already has a 
-massive ecosystem surrounding it.
+project, you should write it in Kotlin" \citep{KotlinFirst}; however, Java already has a massive ecosystem surrounding it.
 
 \section{Risk Analysis}
 The most major risks to the Project at this time are those associated with 
@@ -359,4 +345,5 @@ possibly be tested by users, independent of the underlying application.
 	&  &  &  &  &  \\
 	\hline
 \end{tabular}
+\bibliography{pidbib}
 \end{document}
