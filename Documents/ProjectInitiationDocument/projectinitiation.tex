@@ -1,4 +1,5 @@
 \documentclass[11pt, a4paper, notitlepage]{report}
+\newcounter{objectivesCounter}
 \usepackage[round,colon]{natbib}
 \bibliographystyle{hull}
 \usepackage[utf8]{inputenc} % Ensures we can use UTF8.
@@ -44,22 +45,24 @@ distracted driving.
 
 \subsection{Primary Objectives}\label{subsec:PrimaryObjectives}
 The Primary Objectives of this project are:
-\begin{itemize}
+\begin{enumerate}
     \item To develop an app (for a smartphone) that determines when the user is 
     in an "average speed check zone", and begins tracking average speed.
     \item Said app then warns, with an audible warning, if the user's average 
     speed is above the limit.
     \item Voice commands may be used to launch the app at the user's request 
     (for example, if there is temporary speed check area).
-\end{itemize}
+    \setcounter{objectivesCounter}{\value{enumi}}
+\end{enumerate}
 
 \subsection{Secondary Objectives}
 If time allows, the project may achieve the following objectives:
-\begin{itemize}
+\begin{enumerate}
+    \setcounter{enumi}{\value{objectivesCounter}}
     \item The app allows for the user to manually set what the speed limit is 
     (for example if a road has a temporarily reduced speed limit).
     \item The app allows for setting the audible warning to a custom sound.
-\end{itemize}
+\end{enumerate}
 
 \subsection{Tertiary Objectives}
 In many territories globally, the use of devices to detect speed cameras is 
