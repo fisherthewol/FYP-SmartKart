@@ -311,63 +311,60 @@ possibly be tested by users, independent of the underlying application.
     \label{fig:kanbanboardmerged}
 \end{figure}
 
-
-\begin{landscape}
-    \chapter{Risk Analysis Table}\label{app:RiskAnalysis}
-    \begin{table}[]
-        \begin{tabular}{lllllll}
-            Risk &
-            Description &
-            Likelihood &
-            Severity &
-            Impact Score &
-            Mitigation Taken &
-            Recovery \\
-            Total Equipment Failure &
-            The Author's equipment (computer, phone) experiences total failure, preventing progress on the project until repaired. &
-            1 &
-            4 &
-            4 &
-            Regular Maintenance is performed on the equipment, and backups are made. As well, the data for this Project is stored as a repository on Github, so data loss should be minimal. &
-            The Author shall use the University of Hull's library computers, until such a time as replacement equipment can be sourced. \\
-            Partial Equipment Failure &
-            A part of the Author's equipment fails, degrading the ability to progress with the project. &
-            1 &
-            3 &
-            3 &
-            Very similar to Total Equipment Failure, mitigation relies on maintenance, backup, and Github. &
-            Similar to Total Failure, Hull University's library has computers available for student use. \\
-            Covid Lockdown &
-            The UK goes into another lockdown due to rising covid cases, preventing access to campus and &
-            2 &
-            3 &
-            6 &
-            Covid is a public health issue, hence mitigation requires societal collaboration on individual actions, such as mask wearing and social distancing. &
-            Lockdown won't directly affect the writing of code in this project, but may affect the Author's mental health, or other health aspects. Hence, recovery involves mental wellbeing and awaiting the end of lockdown. \\
-            Use of Phone in a Car &
-            While testing the application, bugs or other issues cause distracted driving, which leads to a vehicular accident, injury, or death. &
-            1 &
-            4 &
-            4 &
-            The app will not be tested on the public roads. Instead it will be tested using the Android Emulator. &
-            There is no recovery from death. However recovery from Injury involves various medical treatments. \\
-            Application causes Damage to a device. &
-            The application, through serious errors, causes physical or "software"" damage to a user's device." &
-            1 &
-            4 &
-            4 &
-            The app will not use obscure and undocumented features of the platform, unless absolutely necessary. This shifts the risk from the application to the developers of the standard library of the platform. &
-            A device damaged by the application would be sent to a repair shop/manufacturer for repair. \\
-            Application gives user false average speed. &
-            The application either miscalculates the average speed of the vehicle, or believes the speed limit is higher than it actually is; leading to the user speeding and receiving a fine. &
-            2 &
-            2 &
-            4 &
-            Regarding the miscalculation: comprehensive software tests and a thorough review and understanding of the relevant kinematics will reduce the chance of miscalculation. Regarding the erroneous speed limit: this is mitigated by allowing the user to set their own speed limit outside of what is automatically detected, and by attempting to keep the dataset in use up to date. &
-            There is not much the application can do to recover the speeding fine the user may receive; however, reports of such issues should be used as feedback to improve the application.
-        \end{tabular}
-    \end{table}
-\end{landscape}
+\chapter{Risk Analysis Table}\label{app:RiskAnalysis}
+\begin{table}
+    \begin{tabular}{p{0.3\textwidth} p{0.5\textwidth} c c c p{0.5\textwidth} p{0.5\textwidth}}
+        Risk &
+        Description &
+        Likelihood &
+        Severity &
+        Impact Score &
+        Mitigation Taken &
+        Recovery \\
+        Total Equipment Failure &
+        The Author's equipment (computer, phone) experiences total failure, preventing progress on the project until repaired. &
+        1 &
+        4 &
+        4 &
+        Regular Maintenance is performed on the equipment, and backups are made. As well, the data for this Project is stored as a repository on Github, so data loss should be minimal. &
+        The Author shall use the University of Hull's library computers, until such a time as replacement equipment can be sourced. \\
+        Partial Equipment Failure &
+        A part of the Author's equipment fails, degrading the ability to progress with the project. &
+        1 &
+        3 &
+        3 &
+        Very similar to Total Equipment Failure, mitigation relies on maintenance, backup, and Github. &
+        Similar to Total Failure, Hull University's library has computers available for student use. \\
+        Covid Lockdown &
+        The UK goes into another lockdown due to rising covid cases, preventing access to campus and &
+        2 &
+        3 &
+        6 &
+        Covid is a public health issue, hence mitigation requires societal collaboration on individual actions, such as mask wearing and social distancing. &
+        Lockdown won't directly affect the writing of code in this project, but may affect the Author's mental health, or other health aspects. Hence, recovery involves mental wellbeing and awaiting the end of lockdown. \\
+        Use of Phone in a Car &
+        While testing the application, bugs or other issues cause distracted driving, which leads to a vehicular accident, injury, or death. &
+        1 &
+        4 &
+        4 &
+        The app will not be tested on the public roads. Instead it will be tested using the Android Emulator. &
+        There is no recovery from death. However recovery from Injury involves various medical treatments. \\
+        Application causes Damage to a device. &
+        The application, through serious errors, causes physical or "software"" damage to a user's device." &
+        1 &
+        4 &
+        4 &
+        The app will not use obscure and undocumented features of the platform, unless absolutely necessary. This shifts the risk from the application to the developers of the standard library of the platform. &
+        A device damaged by the application would be sent to a repair shop/manufacturer for repair. \\
+        Application gives user false average speed. &
+        The application either miscalculates the average speed of the vehicle, or believes the speed limit is higher than it actually is; leading to the user speeding and receiving a fine. &
+        2 &
+        2 &
+        4 &
+        Regarding the miscalculation: comprehensive software tests and a thorough review and understanding of the relevant kinematics will reduce the chance of miscalculation. Regarding the erroneous speed limit: this is mitigated by allowing the user to set their own speed limit outside of what is automatically detected, and by attempting to keep the dataset in use up to date. &
+        There is not much the application can do to recover the speeding fine the user may receive; however, reports of such issues should be used as feedback to improve the application.
+    \end{tabular}
+\end{table}
 
 \bibliography{pidbib}
 \end{document}
