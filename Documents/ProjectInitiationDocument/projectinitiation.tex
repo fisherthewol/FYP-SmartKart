@@ -1,4 +1,5 @@
 \documentclass[11pt, a4paper, notitlepage]{report}
+\newcounter{objectivesCounter}
 \usepackage[round,colon]{natbib}
 \bibliographystyle{hull}
 \usepackage[utf8]{inputenc} % Ensures we can use UTF8.
@@ -19,47 +20,41 @@
 \begin{center}
     Student Number 201910280
     
-    Word Count: 2054 %exclude acknowledgements, abstract, table of contents, references and appendices) of your document.
+    Word Count: 2058 %exclude acknowledgements, abstract, table of contents, references and appendices) of your document.
 \end{center}
 \newpage
 
 \tableofcontents
 
 \chapter{Project Background and Purpose}
+\section {Project Background}
+Average speed check zones \citep{specsjenop} are being increasingly deployed in throughout the UK, doubling between 2013 and 2016 \citep{BBCSpeedCameraDoubled}. While useful for enforcing speed limits, and increasing safety \citep{owenAllsop}, they can lead to distracted driving, as the driver has to monitor their speed, which means looking away from the road to their speedometer for brief periods of time.
+
 \section{Objectives}
 This project seeks to create a software application for a smartphone, that 
 detects when a vehicle the phone is in enters an "Average Speed Check zone", 
 starts tracking the vehicle's speed, and gives the driver an audible alert if 
-they are at risk of breaking the speed limit.
-
-The usefulness of this project is the safety benefits it may provide. If the 
-application produced can reduce the frequency that a driver needs to check 
-their speedometer, then they will be more aware of road conditions; which can 
-lead to safer driving.
-
-This project is motivated by the increasing deployment of average speed check 
-zones throughout the UK (doubling between 2013 and 2016 
-\citep{BBCSpeedCameraDoubled}), and the potential they may have for leading to 
-distracted driving.
+their average speed is at risk of breaking the speed limit.
 
 \subsection{Primary Objectives}\label{subsec:PrimaryObjectives}
 The Primary Objectives of this project are:
-\begin{itemize}
-    \item To develop an app (for a smartphone) that determines when the user is 
-    in an "average speed check zone", and begins tracking average speed.
+\begin{enumerate}
+    \item To develop an app (for a smartphone) that determines when the user enters an "average speed check zone", and begins tracking average speed.
     \item Said app then warns, with an audible warning, if the user's average 
     speed is above the limit.
-    \item Voice commands may be used to launch the app at the user's request 
-    (for example, if there is temporary speed check area).
-\end{itemize}
+    \item Integration with a platform's voice commands\footnote{e.g. Google Assistant \citep{GoogleAssistant} or Apple Siri \citep{AppleSiri}.} may be used to launch the app at the user's request (for example, if there is temporary speed check area).
+    \item Within the application, voice commands may be used to control the functions of the app; for example, changing the speed limit, or resetting the average speed.
+    \setcounter{objectivesCounter}{\value{enumi}}
+\end{enumerate}
 
 \subsection{Secondary Objectives}
 If time allows, the project may achieve the following objectives:
-\begin{itemize}
+\begin{enumerate}
+    \setcounter{enumi}{\value{objectivesCounter}}
     \item The app allows for the user to manually set what the speed limit is 
     (for example if a road has a temporarily reduced speed limit).
     \item The app allows for setting the audible warning to a custom sound.
-\end{itemize}
+\end{enumerate}
 
 \subsection{Tertiary Objectives}
 In many territories globally, the use of devices to detect speed cameras is 
@@ -72,6 +67,8 @@ prevent its own usage.
 
 As well, the app may allow the users to contribute to an open dataset of 
 average speed check zones.
+
+Different classes of vehicles have different speed limits; for example, the National Speed Limit for LGVs over 7.5 metric tonnes is 60, regardless of whether the road is single or dual carriageway \citep{GovUKSpeedLimits}. It would be useful if the application allowed for the user to set what type of vehicle they are driving, and then altered the speed limit used for warnings accordingly.
 
 \section{Scope}\label{sec:Scope}
 There is scope within the project to provide an app that is cross platform, 
@@ -99,7 +96,7 @@ app's users; so this may well be within the scope of the project.
 
 \section{Deliverables}
 The Project will deliver a smartphone application that meets the Primary 
-Objectives (defined in section \ref{subsec:PrimaryObjectives}).
+Objectives (defined in section \ref{subsec:PrimaryObjectives}), and the Final Report.
 
 The project will have met its objectives when the app matches provides features 
 defined by the Primary Objectives. If the project \textbf{also} implements 
@@ -127,8 +124,12 @@ emulated device and "falsified" location data.
 Otherwise, there are no external constraints known at this time.
 
 \section{Assumptions}
-There are currently no unknowns for this project; hence, there are no 
-assumptions to be made.
+The assumptions being made during the development of this project are:
+\begin{itemize}
+    \item That a future version of the platform(s)/framework(s) being used does not deprecate key features/APIs that the application depends on (e.g. increased restrictions on accurate location access).
+    \item That any external dataset used does not become unavailable, or increase costs to an unsustainable level.
+    \item That the UK does not introduce laws similar to France's that ban the use of the app.
+\end{itemize}
 
 \chapter{Project Rationale and Operation}
 \section{Project Benefits}
@@ -317,59 +318,62 @@ possibly be tested by users, independent of the underlying application.
 \end{figure}
 
 \chapter{Risk Analysis Table}\label{app:RiskAnalysis}
-\begin{table}
-    \begin{tabular}{p{0.3\textwidth} p{0.5\textwidth} c c c p{0.5\textwidth} p{0.5\textwidth}}
-        Risk &
-        Description &
-        Likelihood &
-        Severity &
-        Impact Score &
-        Mitigation Taken &
-        Recovery \\
-        Total Equipment Failure &
-        The Author's equipment (computer, phone) experiences total failure, preventing progress on the project until repaired. &
-        1 &
-        4 &
-        4 &
-        Regular Maintenance is performed on the equipment, and backups are made. As well, the data for this Project is stored as a repository on Github, so data loss should be minimal. &
-        The Author shall use the University of Hull's library computers, until such a time as replacement equipment can be sourced. \\
-        Partial Equipment Failure &
-        A part of the Author's equipment fails, degrading the ability to progress with the project. &
-        1 &
-        3 &
-        3 &
-        Very similar to Total Equipment Failure, mitigation relies on maintenance, backup, and Github. &
-        Similar to Total Failure, Hull University's library has computers available for student use. \\
-        Covid Lockdown &
-        The UK goes into another lockdown due to rising covid cases, preventing access to campus and &
-        2 &
-        3 &
-        6 &
-        Covid is a public health issue, hence mitigation requires societal collaboration on individual actions, such as mask wearing and social distancing. &
-        Lockdown won't directly affect the writing of code in this project, but may affect the Author's mental health, or other health aspects. Hence, recovery involves mental wellbeing and awaiting the end of lockdown. \\
-        Use of Phone in a Car &
-        While testing the application, bugs or other issues cause distracted driving, which leads to a vehicular accident, injury, or death. &
-        1 &
-        4 &
-        4 &
-        The app will not be tested on the public roads. Instead it will be tested using the Android Emulator. &
-        There is no recovery from death. However recovery from Injury involves various medical treatments. \\
-        Application causes Damage to a device. &
-        The application, through serious errors, causes physical or "software"" damage to a user's device." &
-        1 &
-        4 &
-        4 &
-        The app will not use obscure and undocumented features of the platform, unless absolutely necessary. This shifts the risk from the application to the developers of the standard library of the platform. &
-        A device damaged by the application would be sent to a repair shop/manufacturer for repair. \\
-        Application gives user false average speed. &
-        The application either miscalculates the average speed of the vehicle, or believes the speed limit is higher than it actually is; leading to the user speeding and receiving a fine. &
-        2 &
-        2 &
-        4 &
-        Regarding the miscalculation: comprehensive software tests and a thorough review and understanding of the relevant kinematics will reduce the chance of miscalculation. Regarding the erroneous speed limit: this is mitigated by allowing the user to set their own speed limit outside of what is automatically detected, and by attempting to keep the dataset in use up to date. &
-        There is not much the application can do to recover the speeding fine the user may receive; however, reports of such issues should be used as feedback to improve the application.
-    \end{tabular}
-\end{table}
+\begin{enumerate}
+    \item Total Equipment Failure
+    \begin{itemize}
+        \item Description: The Author's equipment (computer, phone) experiences total failure, preventing progress on the project until repaired.
+        \item Likelihood: 1.
+        \item Severity: 4.
+        \item Impact Score: 4.
+        \item Mitigation: Regular Maintenance is performed on the equipment, and backups are made. As well, the data for this Project is stored as a repository on Github, so data loss should be minimal.
+        \item Recovery: The Author shall use the University of Hull's library computers, until such a time as replacement equipment can be sourced.
+    \end{itemize}
+    \item Partial Equipment Failure
+    \begin{itemize}
+        \item Description: A part of the Author's equipment fails, degrading the ability to progress with the project.
+        \item Likelihood: 1.
+        \item Severity: 3.
+        \item Impact Score: 3.
+        \item Mitigation: Very similar to Total Equipment Failure, mitigation relies on maintenance, backup, and Github.
+        \item Recovery: Similar to Total Failure, Hull University's library has computers available for student use.
+    \end{itemize}
+    \item Covid Lockdown
+    \begin{itemize}
+        \item Description: The UK goes into another lockdown due to rising covid cases, preventing access to campus.
+        \item Likelihood: 2.
+        \item Severity: 3.
+        \item Impact Score: 6.
+        \item Mitigation: Covid is a public health issue, hence mitigation requires societal collaboration on individual actions, such as mask wearing and social distancing.
+        \item Recovery: Lockdown won't directly affect the writing of code in this project, but may affect the Author's mental health, or other health aspects. Hence, recovery involves mental wellbeing and awaiting the end of lockdown.
+    \end{itemize}
+    \item Use of Phone in a Car
+    \begin{itemize}
+        \item Description: While testing the application, bugs or other issues cause distracted driving, which leads to a vehicular accident, injury, or death.
+        \item Likelihood: 1.
+        \item Severity: 4.
+        \item Impact Score: 4.
+        \item Mitigation: The app will not be tested on the public roads. Instead it will be tested using the Android Emulator.
+        \item Recovery: There is no recovery from death. However recovery from Injury involves various medical treatments.
+    \end{itemize}
+    \item Application causes Damage to a device.
+    \begin{itemize}
+        \item Description: The application, through serious errors, causes physical or "software" damage to a user's device.
+        \item Likelihood: 1.
+        \item Severity: 4.
+        \item Impact Score: 4.
+        \item Mitigation: The app will not use obscure and undocumented features of the platform, unless absolutely necessary. This shifts the risk from the application to the developers of the standard library of the platform.
+        \item Recovery: A device damaged by the application would be sent to a repair shop/manufacturer for repair.
+    \end{itemize}
+    \item Application gives user false average speed.
+    \begin{itemize}
+        \item Description: The application either miscalculates the average speed of the vehicle, or believes the speed limit is higher than it actually is; leading to the user speeding and receiving a fine.
+        \item Likelihood: 2.
+        \item Severity: 2.
+        \item Impact Score: 4.
+        \item Mitigation: Regarding the miscalculation: comprehensive software tests and a thorough review and understanding of the relevant kinematics will reduce the chance of miscalculation. Regarding the erroneous speed limit: this is mitigated by allowing the user to set their own speed limit outside of what is automatically detected, and by attempting to keep the dataset in use up to date.
+        \item Recovery: There is not much the application can do to recover the speeding fine the user may receive; however, reports of such issues should be used as feedback to improve the application.
+    \end{itemize}
+\end{enumerate}    
 
 \bibliography{pidbib}
 \end{document}
