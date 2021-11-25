@@ -18,19 +18,16 @@
     Word Count: ?? %exclude acknowledgements, abstract, table of contents, references and appendices) of your document.
 \end{center}
 \newpage
+\section{Abstract}
+Average speed check zones (ASC zones), typically enforced using SPECS\footnote{SPECS \citep{specsjenop}} in the UK, are being increasingly deployed in throughout the UK; doubling between 2013 and 2016 \citep{BBCSpeedCameraDoubled}. While useful for enforcing speed limits and increasing safety, with \citet{owenAllsop} finding that fatal and serious collisions dropped by 36.4\% at ASC zones installed purposely to reduce collisions, ASC Zones can lead to distracted driving, as the driver has to monitor their speed, which means looking away from the road to their speedometer for brief periods of time.
+
+This project seeks to create a software application for a smartphone, that detects when a vehicle the phone is in enters an ASC zone, starts tracking the vehicle's speed, and gives the driver an audible alert if their average speed is at risk of breaking the speed limit, so as to reduce dependence on the driver to check their speedometer.
 
 \tableofcontents
 
-\section{Abstract}
-Average speed check zones (In the UK, typically enforced using SPECS \citep{specsjenop}) are being increasingly deployed in throughout the UK, doubling between 2013 and 2016 \citep{BBCSpeedCameraDoubled}. While useful for enforcing speed limits, and increasing safety \citep{owenAllsop}, they can lead to distracted driving, as the driver has to monitor their speed, which means looking away from the road to their speedometer for brief periods of time.
-
-This project seeks to create a software application for a smartphone, that detects when a vehicle the phone is in enters an "Average Speed Check zone", starts tracking the vehicle's speed, and gives the driver an audible alert if their average speed is at risk of breaking the speed limit, so as to reduce dependence on the driver to check their speedometer.
-
 \chapter{Introduction}
 \section{Context}
-Currently, there are various products for monitoring a driver's speed; the main smartphone applications in this space are Google Maps \citep{googleMaps} (specifically when the user is using the navigation feature), Waze (cite) and Apple Maps(?? does it do this??).
-
-
+Currently, there are various products for monitoring a driver's speed; the main smartphone applications in this space are Google Maps \citep{googleMaps} and Waze \citep{waze}; Apple Maps \citep{appleMaps} will inform you of fixed speed cameras\footnote{In the UK, these were originally "Gatso" cameras, later followed by Truvelo and Truvelo d-cam \citep{dcam}}, but it does not inform you of ASC zones. However, Google Maps does not register ASCs as actual "zones", but instead as a fixed speed camera at the start of the zone. Waze displays your progression through an ASC, but does not calculate your average speed. TomTom GO Navigation \citep{tomtomGo} does track your average speed in an ASC zone, but operates on a paid subscription model, so is not available to everyone. Hence, there is space in the market for a (free) solution to monitoring speed in ASC zones.
 
 \bibliography{finalrep}
 \end{document}
