@@ -2,6 +2,10 @@
 \usepackage[utf8]{inputenc} % Ensures we can use UTF8.
 \usepackage[round,colon]{natbib}
 \bibliographystyle{hull}
+\usepackage{hyperref} % Must come last; allows for links.
+\hypersetup{
+    hidelinks
+}
 
 \title{Smart Kart (Project Initiation Document)}
 \date{April 2022}
@@ -14,4 +18,19 @@
     Word Count: ?? %exclude acknowledgements, abstract, table of contents, references and appendices) of your document.
 \end{center}
 \newpage
+
+\tableofcontents
+
+\section{Abstract}
+Average speed check zones (In the UK, typically enforced using SPECS \citep{specsjenop}) are being increasingly deployed in throughout the UK, doubling between 2013 and 2016 \citep{BBCSpeedCameraDoubled}. While useful for enforcing speed limits, and increasing safety \citep{owenAllsop}, they can lead to distracted driving, as the driver has to monitor their speed, which means looking away from the road to their speedometer for brief periods of time.
+
+This project seeks to create a software application for a smartphone, that detects when a vehicle the phone is in enters an "Average Speed Check zone", starts tracking the vehicle's speed, and gives the driver an audible alert if their average speed is at risk of breaking the speed limit, so as to reduce dependence on the driver to check their speedometer.
+
+\chapter{Introduction}
+\section{Context}
+Currently, there are various products for monitoring a driver's speed; the main smartphone applications in this space are Google Maps \citep{googleMaps} (specifically when the user is using the navigation feature), Waze (cite) and Apple Maps(?? does it do this??).
+
+
+
+\bibliography{finalrep}
 \end{document}
