@@ -27,7 +27,17 @@ This project seeks to create a software application for a smartphone, that detec
 
 \chapter{Introduction}
 \section{Context}
-Currently, there are various products for monitoring a driver's speed; the main smartphone applications in this space are Google Maps \citep{googleMaps} and Waze \citep{waze}; Apple Maps \citep{appleMaps} will inform you of fixed speed cameras\footnote{In the UK, these were originally "Gatso" cameras, later followed by Truvelo and Truvelo d-cam \citep{dcam}}, but it does not inform you of ASC zones. However, Google Maps does not register ASCs as actual "zones", but instead as a fixed speed camera at the start of the zone. Waze displays your progression through an ASC, but does not calculate your average speed. TomTom GO Navigation \citep{tomtomGo} does track your average speed in an ASC zone, but operates on a paid subscription model, so is not available to everyone. Hence, there is space in the market for a (free) solution to monitoring speed in ASC zones.
+Average speed check zones are an alternative to traditional fixed point speed cameras. Fixed point cameras take two photos a given time-delta apart and measure the car's distance using road markings, to calculate the speed: $ speed = distance/time $. This is good for enforcing speed in that one position, but does no enforcement for the road before or after the camera. In contrast, ASC zones effectively use the same methodology but across a longer distance (such as half a mile or 1.5 miles between cameras, and a series of cameras across tens of miles); hence effectively enforcing the speed limit across much larger areas of road.
+
+Currently, there are various products for monitoring a driver's speed and for indicating speed cameras; the main smartphone applications in this space are Google Maps \citep{googleMaps} and Waze \citep{waze}; while Apple Maps \citep{appleMaps} will inform you of fixed speed cameras\footnote{In the UK, these were originally "Gatso" cameras, later followed by Truvelo and Truvelo d-cam \citep{dcam}}, it does not inform you of ASC zones.
+
+However, Google Maps does not register ASCs as actual "zones", but instead as a fixed speed camera at the start of the zone. Waze displays your progression through an ASC, but does not calculate your average speed. TomTom GO Navigation \citep{tomtomGo} does track your average speed in an ASC zone, but operates on a paid subscription model, so is not available to everyone. Hence, there is space in the market for a free solution to monitoring speed in ASC zones.
+\section{The Problem}
+While lawful drivers should be aware of their speed anyway, it is likely that many check their speed more often and with more discretion whilst within an ASC zone. This means they may be focused on their speedometer when something important is passed, such as a direction sign, a signal from another road user, or an overhead gantry message - such as the "Red X" on Smart Motorways, or a speed limit change. 
+\section{A solution}
+By creating a smartphone application that warns a user if they are about to exceed the speed limit, the load on the driver can be reduced, allowing them to have more awareness of the road. By making this application free to use (whether free or supported by advertisements), this increases availability, potentially increasing the impact of this project.
+\section{Report Structure}
+
 
 \bibliography{finalrep}
 \end{document}
