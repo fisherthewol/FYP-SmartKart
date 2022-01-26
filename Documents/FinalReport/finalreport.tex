@@ -26,8 +26,8 @@ This project seeks to create a software application for a smartphone, that detec
 \tableofcontents
 
 \chapter{Introduction}
-\section{Context}
-Average speed check zones are an alternative to traditional fixed point speed cameras. Fixed point cameras take two photos a given time-delta apart and measure the car's distance using road markings, to calculate the speed: $ speed = distance/time $. This is good for enforcing speed in that one position, but does no enforcement for the road before or after the camera. In contrast, ASC zones effectively use the same methodology but across a longer distance (such as half a mile or 1.5 miles between cameras, and a series of cameras across tens of miles); hence effectively enforcing the speed limit across much larger areas of road.
+\section{Context}\label{sec:Context}
+Average speed check zones are an alternative to traditional fixed point speed cameras. Fixed point cameras take two photos a given time-delta apart and measure the car's distance using road markings, to calculate the speed: $ speed = distance \div time $. This is good for enforcing speed in that one position, but does no enforcement for the road before or after the camera. In contrast, ASC zones effectively use the same methodology but across a longer distance (such as half a mile or 1.5 miles between cameras, and a series of cameras across tens of miles); hence effectively enforcing the speed limit across much larger areas of road.
 
 Currently, there are various products for monitoring a driver's speed and for indicating speed cameras; the main smartphone applications in this space are Google Maps \citep{googleMaps} and Waze \citep{waze}; while Apple Maps \citep{appleMaps} will inform you of fixed speed cameras\footnote{In the UK, these were originally "Gatso" cameras, later followed by Truvelo and Truvelo d-cam \citep{dcam}}, it does not inform you of ASC zones.
 
@@ -53,9 +53,10 @@ After which there will be Appendices and the Bibliography. % Remove this?
 \chapter{Background}
 The development of this project requires understanding and examination of various topics across various fields; including Kinematics, Programming, Law, and UX. Hence this chapter discusses and describes relevant topics.
 \section{Speed Cameras}
+\subsection{Fixed-Point Cameras}
 In the United Kingdom, traditional fixed-point speed cameras were of a "Gatso" type, later replaced by "Truvelo", and later Truvelo D-Cam. They are installed either by the Local Authority, the local Police Force, or the relevant highways agency\footnote{National Highways in England, Transport Scotland in Scotland, Traffic Wales in Wales, and DfI Roads in Northern Ireland.}; with all three often forming "Road Safety Partnerships" for given areas, that can then receive grants from the central government \citep{RSPGrantDetails} to use for, among other things, the installation of speed cameras. The decision of where to install a speed camera is made on a few factors; with \citet{SpeedCameraInstalltion} claiming that at the proposed location, greater than 20\% of drivers must exceed the speed limit, and that there must be a history of serious accidents.
 
-
+Fixed-point cameras work on a rather simple principle. As described in the \nameref{sec:Context}, the simplest view of how to obtain the speed of a vehicle is $ speed = distance \div time $. Hence the camera can take two measurements a known time apart, work out the distance the vehicle travels between those measurements, and calculate the speed. Gatso cameras used K-band Radar signals to measure the distance between the camera and the vehicle. %source.
 
 \appendix
 \chapter{Development Log}\label{app:GitLog}
