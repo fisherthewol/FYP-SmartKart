@@ -55,21 +55,36 @@ After which there will be Appendices and the Bibliography. % Remove this?
 The development of this project requires understanding and examination of various topics across various fields; including Kinematics, Programming, Law, and UX. Hence this chapter discusses and describes relevant topics.
 \section{Speed Cameras}
 \subsection{Fixed-Point Cameras}
-In the United Kingdom, traditional fixed-point speed cameras were of a "Gatso" type, later replaced by "Truvelo", and later Truvelo D-Cam. They are installed either by the Local Authority, the local Police Force, or the relevant highways agency\footnote{National Highways in England, Transport Scotland in Scotland, Traffic Wales in Wales, and DfI Roads in Northern Ireland.}; with all three often forming "Road Safety Partnerships" for given areas, that can then receive grants from the central government \citep{RSPGrantDetails} to use for, among other things, the installation of speed cameras. The decision of where to install a speed camera is made on a few factors; with \citet{SpeedCameraInstalltion} claiming that at the proposed location, greater than 20\% of drivers must exceed the speed limit, and that there must be a history of serious accidents.
+In the United Kingdom, traditional fixed-point speed cameras were of a "Gatso" type, later replaced by "Truvelo", and later Truvelo D-Cam. They are installed either by the Local Authority, the local Police Force, or the relevant highways agency\footnote{\textit{National Highways} in England, \textit{Transport Scotland} in Scotland, \textit{Traffic Wales} in Wales, and \textit{DfI Roads} in Northern Ireland.}; with all three often forming "Road Safety Partnerships" for given areas, that can then receive grants from the central government \citep{RSPGrantDetails} to use for, among other things, the installation of speed cameras. The decision of where to install a speed camera is made on a few factors; with \citet{SpeedCameraInstalltion} claiming that at the proposed location, greater than 20\% of drivers must exceed the speed limit, and that there must be a history of serious accidents.
 
 At first glance, fixed-point cameras appear to work on a rather simple principle. As described in the \nameref{sec:Context}, the simplest view of how to obtain the speed of a vehicle is $ speed = distance~\div~time $. Hence the camera can take two measurements a known time apart, work out the distance the vehicle travels between those measurements, and calculate the speed. 
-Fixed-point cameras use K and Ku-band Radar signals to determine the speed of the vehicle; K-band meaning that the frequency used is between 18 and 27 GHz \citep{IEEERadar}; and Radar, an acronym for Radio Detection and Ranging \citep{RadarNaming}, referring to the usage of a transmitter, receiver, and processing of K-Band or adjacent frequencies (in the Radio or Microwave ranges) to determine properties of an object. The time of flight is the total time between transmitting a signal and receiving the reflection; and this can be used to determine the distance. The speed of light is known\footnote{299 792 458 metres per second in a vacuum, known as \textit{c}, and slower in air: which can be calculated with $ speed = c \div n $ \citep{HechtOptics}; where n is the refractive index of the medium}, and so the distance can be calculated using a rearrangement of the formula: $ distance = speed \times time $. Hence, overall, the speed of a vehicle travelling away from camera can be calculated by:
+Fixed-point cameras use K and Ku-band Radar signals to determine the speed of the vehicle; K-band meaning that the frequency used is between 18 and 27 GHz \citep{IEEERadar}; and Radar, an acronym for Radio Detection and Ranging \citep{RadarNaming}, referring to the usage of a transmitter, receiver, and processing of K-Band or adjacent frequencies (in the Radio or Microwave ranges) to determine properties of an object. The time of flight is the total time between transmitting a signal and receiving the reflection; and this can be used to determine the distance. The speed of light is known\footnote{299 792 458 metres per second in a vacuum, known as \textit{c}, and slower in air: which can be calculated with $ speed = c \div n $ \citep{HechtOptics}; where n is the refractive index of the medium. \citet{refIndxAir} gives 1.0003 as the approximate refractive index of light in air.}, and so the distance can be calculated using a rearrangement of the previous formula: $ distance = speed  \cdot time $. Hence, overall, the speed of a vehicle travelling towards/away from the camera can be calculated by:
 \begin{equation}
-	first~measurement = \frac{c}{1.0003}\footnote{1.0003 is the approximate refractive index of light in Air \citep{refIndxAir}} \times time~of~flight
+	c' = \frac{c}{1.003}
 \end{equation}
 \begin{equation}
-	second~measurement = \frac{c}{1.0003} \times time~of~flight
+	first~measurement = c' \cdot time~of~flight
 \end{equation}
 \begin{equation}
-	speed = \frac{second~measurement~-~first~measurement}{time~between~measurements}
+	second~measurement = c' \cdot time~of~flight
 \end{equation}
-However, this requires storage and memory of 
+\begin{equation}
+	speed = \frac{\left|second~measurement~-~first~measurement\right|}{time~between~measurements}
+\end{equation}
 
+However, this requires storage and memory of two time of flight measurements, and two distance measurements. Instead, an inherent property of waves can be used to determine the speed. The Doppler effect, first described by \citet{dopplerGerman} but better described for Radar applications by \citet{dopplerWolff}, is the property of waves that, as an emitter moves away or towards a stationary receiver (or vice versa), there is an apparent change in the frequency. The frequency is higher if the motion is towards the stationary point, as the receiver will receive a greater number of waves per second; and lower frequency if motion is away from the stationary point as it receives less waves per second. Due to this, the "doppler shift" - the difference between real and effective frequency, $ \Delta f $ - can be calculated as follows:
+\begin{equation}
+	\Delta v = -(v_{receiver} - v_{source})
+\end{equation}
+\begin{equation}
+	\Delta f = \frac{\Delta v}{c'} \cdot f_{emitted}
+\end{equation}
+In the case of the speed camera, we can control $ f_{emitted} $, and we must take into account the fact that doppler shift will occur twice. Hence, the velocity $ v $ of a car can be calculated as such:
+\begin{equation}\label{eq:DopplerSpeed}
+	v = \frac{\Delta f}{f_{emitted}} \cdot \frac{c'}{2}
+\end{equation}
+
+If the vehicle's velocity calculated by \ref{eq:DopplerSpeed} exceeds the speed limit, the camera takes two photos in quick succession. In the original Gatso cameras these photos were on photographic film, which would be collected and processed by the local police force on a regular basis. Retrofitted Gatso and the newer Truvelo \& DCam systems upload their photographs and Radar Measurements to a central system; this central system is believed to be connected with the Police National Computer (PNC) \citep{PNC}. These photos contain the registration plate of the vehicle\footnote{Gatso cameras must take a photo of the rear of the vehicle due to the use of a bright flash, so will always obtain the registration plate; but do not photograph the driver and so the identity of the offender can be disputed. Truvelo \& DCam may take photos of the front, thereby identifying the offender, but some vehicles lack front plates.}, and markings on the road. These markings are graduated and are used to determine the distance the vehicle travels between the photos, and hence a speed can be determined; this \textit{secondary measurement} is used by prosecution teams to confirm an offence was made.
 \appendix
 \chapter{Development Log}\label{app:GitLog}
 TestTestTest
