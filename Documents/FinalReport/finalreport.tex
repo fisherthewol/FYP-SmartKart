@@ -3,6 +3,8 @@
 \usepackage[round,colon]{natbib}
 \bibliographystyle{hull}
 \usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
 \usepackage{hyperref} % Must come last; allows for links.
 \hypersetup{
     hidelinks
@@ -89,8 +91,9 @@ If the vehicle's velocity calculated by equation \ref{eq:DopplerSpeed} exceeds t
 \subsection{Average Speed Cameras}
 It may be wise to think, since average speed cameras were introduced after fixed-point cameras, that they would be significantly more advanced. In some ways they are, but in other ways they are much simpler.
 
-\citet{ANPRNPCC} tells us that ANPR, Automatic Number Plate Recognition, refers to the reading of vehicle numberplates using OCR\footnote{Optical Character Recognition \citep{OCR}.}, storing information about those number plates (such as the location and time of the scan), and querying a central system (such as the PNC) for details about the vehicle and its registered keeper. Number plates in the UK and generally in the EU are retroreflective; meaning that light is reflected back in direction it came from. Hence, most ANPR systems, including those used by Average Speed Cameras, take photos and use a flash in the infrared range to take a clearer image of a number plate.
+\citet{ANPRNPCC} tells us that ANPR, Automatic Number Plate Recognition, refers to the reading of vehicle number-plates using OCR\footnote{Optical Character Recognition \citep{OCR}.}, storing information about those number-plates (such as the location and time of the scan), and querying a central system (such as the PNC) for details about the vehicle and its registered keeper. Number plates in the UK and generally in the EU are retroreflective; meaning that light is reflected back in direction it came from. Hence, most ANPR systems, including those used by Average Speed Cameras, take photos and use a flash in the infrared range to take a clearer image of a number plate.
 
+Average Speed Cameras are deployed as systems consisting of multiple ANPR-equipped cameras, at known intervals, along a road or roads. These cameras can be permanently installed along roads, or temporarily installed at the site of roadworks. The system has knowledge of the road distance (as opposed to direct distance, colloquially "as the crow flies") between cameras, and uses this knowledge combined with timestamped photographs of vehicles passing the cameras (with ANPR being used to match number-plates to timestamps) to calculate an average speed.
 \appendix
 \chapter{Development Log}\label{app:GitLog}
 TestTestTest
