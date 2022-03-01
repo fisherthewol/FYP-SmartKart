@@ -10,7 +10,7 @@
     hidelinks
 }
 
-\title{Smart Kart (Project Initiation Document)}
+\title{Smart Kart}
 \date{April 2022}
 \author{George Jacob Anthony Kokinis}
 \begin{document}
@@ -108,8 +108,14 @@ With regards to the application this project produces, from the previous knowled
     \item If the dataset does not have specific locations, and only the start and end, then the average speed should be calculated between the start and end.
 \end{itemize}
 
-\section{}
+\section{Predicting Speed}
+The change in speed over time, acceleration, is
+\begin{equation}\label{eq:Accel}
+    a = \frac{v - u}{t}
+\end{equation}
+This allows for finding change of speed in the past; but the application must effectively forecast if a user's vehicle is going to exceed the speed limit. \citet{accelerationForecasting} provides and validates a model to predict maximum acceleration for trucks (LGVs). However it does not suggest whether their model works for smaller vehicles, and the model requires input parameters of tractive effort calculated from transmission efficiency, current speed, engine power, etcetera; it's a very comprehensive model, but an average driver isn't going to want to go and find these details for their vehicle just to track average speed. Hence this model is unsuitable for the application; however the methodology may be useful to analyse.  
 
+Instead of a specific model, the application can just use past acceleration to predict future speed. This is naive model, but by using appropriate development techniques such as separation of concerns, this model can be changed for a more accurate one in the future.
 \appendix
 \chapter{Development Log}\label{app:GitLog}
 TestTestTest
