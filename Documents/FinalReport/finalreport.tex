@@ -115,7 +115,13 @@ The change in speed over time, acceleration, is
 \end{equation}
 This allows for finding change of speed in the past; but the application must effectively forecast if a user's vehicle is going to exceed the speed limit. \citet{accelerationForecasting} provides and validates a model to predict maximum acceleration for trucks (LGVs). However it does not suggest whether their model works for smaller vehicles, and the model requires input parameters of tractive effort calculated from transmission efficiency, current speed, engine power, etcetera; it's a very comprehensive model, but an average driver isn't going to want to go and find these details for their vehicle just to track average speed. Hence this model is unsuitable for the application; however the methodology may be useful to analyse.  
 
-Instead of a specific model, the application can just use past acceleration to predict future speed. This is naive model, but by using appropriate development techniques such as separation of concerns, this model can be changed for a more accurate one in the future.
+Instead of a complex model, the application can just use past acceleration to predict future speed. This is naive model, but by using appropriate development techniques such as separation of concerns, this model can be changed for a more accurate one in the future. The basis, then, is a simple rearrangement of \ref{eq:Accel}:
+\begin{equation}
+    v = u + a \cdot t
+\end{equation}
+The main tuning parameter of this model for forecasting is t, time; whether this is user configurable (a setting saying "Notify me t seconds before exceeding the limit") or "hardcoded" is a consideration to be made. As well, this needs to be used with some hysteresis; it will be exceedingly annoying to the user if the application constantly alternates the alerting state.
+
+
 \appendix
 \chapter{Development Log}\label{app:GitLog}
 TestTestTest
