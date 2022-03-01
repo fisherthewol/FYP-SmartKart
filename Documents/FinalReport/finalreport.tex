@@ -98,6 +98,18 @@ Average Speed Cameras are deployed as systems consisting of multiple ANPR-equipp
 A given system must have at least two cameras (so there are two measurements to calculate speed from), but there is no legal or algorithmic upper bound on the number of cameras in, or the length of, a single system \citep{cbASC}. Any upper bound is likely to be budgetary, technological, or jurisdictional; that is, the authority responsible for the system cannot afford the number of cameras, the computers to store and process data from the cameras, or legally cannot deploy cameras past a county or city boundary.
 
 Put simply, average speed cameras go back to using the simple equation of $ speed = \frac{distance}{time} $. By applying this over a larger distance of road, rather than a small section, it encourages drivers to stay at or below the speed limit, and to drive in a smoother manner.
+
+\subsection{Summary}
+With regards to the application this project produces, from the previous knowledge, the following factors should be noted:
+\begin{itemize}
+    \item Fixed-point cameras are not relevant to average speed cameras in terms of applied technology, and therefore aren't relevant to the application. At most, there may be scope to provide notice of fixed cameras within the app.
+    \item There is no public knowledge of pairing between any two cameras in a system; they may be paired sequentially or randomly.
+    \item Hence, if a dataset has specific locations of cameras within a system, it is reasonable that average speed should be calculated between sequential cameras - IE between the current position and the previous camera, then reset at the next camera.
+    \item If the dataset does not have specific locations, and only the start and end, then the average speed should be calculated between the start and end.
+\end{itemize}
+
+\section{}
+
 \appendix
 \chapter{Development Log}\label{app:GitLog}
 TestTestTest
