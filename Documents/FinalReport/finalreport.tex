@@ -4,7 +4,7 @@
 \bibliographystyle{hull}
 \usepackage{amsmath}
 \usepackage{graphicx}
-\graphicspath{ {./images/} }
+\graphicspath{ {./images} }
 \usepackage{hyperref} % Must come last; allows for links.
 \hypersetup{
     hidelinks
@@ -121,6 +121,26 @@ Instead of a complex model, the application can just use past acceleration to pr
 \end{equation}
 The main tuning parameter of this model for forecasting is t, time; whether this is user configurable (a setting saying "Notify me t seconds before exceeding the limit") or "hardcoded" is a consideration to be made. As well, this needs to be used with some hysteresis; it will be exceedingly annoying to the user if the application constantly alternates the alerting state.
 
+\chapter{Aims and Objectives}
+Fill later.
+\chapter{Design}
+Once an initial design is proposed, any changes to that design should be noted and tested to ensure there are no regressions. In this section, initial designs for the UI, the user flows, and application structures are proposed.
+\section{User Flows}
+The basic flow of application is laid out in figure \ref{fig:BasFlow}. The rest of the flows are effectively automation around this basic flow.
+\begin{figure}
+    \centering
+    \caption{Basic flow for the application.}
+    \label{fig:BasFlow}
+    \scalebox{0.5}{\includegraphics{UserStartedFlow.png}}
+\end{figure}
+
+The main automation is effectively a separate loop that invokes the original flow, by checking for location of the user and comparing to a dataset of average speed zones; and similarly the original flow must now return to the invocation loop when it determines it has exited a zone. This is displayed in figure \ref{fig:AutoFlow}.
+\begin{figure}
+    \centering
+    \caption{Flow with automation.}
+    \label{fig:AutoFlow}
+    \scalebox{0.5}{\includegraphics{AutomatedFlow.png}}
+\end{figure}
 
 \appendix
 \chapter{Development Log}\label{app:GitLog}
