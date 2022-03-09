@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SmartKart</string>
+    <string name="SettingsButtonString">Settings</string>
 </resources>

@@ -142,6 +142,14 @@ The main automation is effectively a separate loop that invokes the original flo
     \scalebox{0.5}{\includegraphics{AutomatedFlow.png}}
 \end{figure}
 
+\chapter{Technical Development}
+While the actual development of code can be found in appendix \ref{app:GitLog}, it is worthwhile discussing, separately to that, justification and reasoning behind certain decisions and implementations.
+
+\subsection{Settings Page}
+Certain parameters of the application are user configurable; for example, except for in Automatic mode, the speed limit can be changed by the user, and the forecast time for the model can be configured by the user. However, the speed limit should be changeable from the main interface of the application, while the forecast time does not need to be. Hence a "settings page" should be created.
+
+\citet{settingsAndroid} provides a guide on how to implement a settings screen, using a \textit{PreferenceScreen} fragment. By using this part of the Android Jetpack library, a developer doesn't have to implement their own Settings system. However, to get to this settings page, the user must interact with something; one idea is for a settings button on the top bar of the application.
+
 \appendix
 \chapter{Development Log}\label{app:GitLog}
 TestTestTest
