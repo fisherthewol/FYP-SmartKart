@@ -1,9 +1,9 @@
 package uk.fisherthewol.smartkart
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
+import android.view.View
 import androidx.appcompat.widget.Toolbar
 
 class MainActivity : AppCompatActivity() {
@@ -14,6 +14,12 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(ab)
     }
 
+    fun settingsClick(view: View) {
+        startActivity(Intent(this, SettingsPage::class.java))
+    }
+
+
+    /*
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.SettingsButton -> {
             // TODO: Intent to settings window.
@@ -24,4 +30,5 @@ class MainActivity : AppCompatActivity() {
             super.onOptionsItemSelected(item)
         }
     }
+    */
 }
