@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity() {
 
 
     /*
+    //TODO: Get a setting button on top bar. Consider drawer??
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.SettingsButton -> {
-            // TODO: Intent to settings window.
             Toast.makeText(applicationContext, "Pressed Button", Toast.LENGTH_SHORT).show()
             true
         }
