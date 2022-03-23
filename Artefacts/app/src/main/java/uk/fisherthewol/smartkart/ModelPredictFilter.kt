@@ -3,7 +3,7 @@ package uk.fisherthewol.smartkart
 import android.text.InputFilter
 import android.text.Spanned
 
-class ModelPredictFilter : InputFilter {
+class ModelPredictFilter(private val minBound: Int, private val maxBound: Int) : InputFilter {
     override fun filter(
         source: CharSequence?,
         start: Int,
@@ -12,9 +12,17 @@ class ModelPredictFilter : InputFilter {
         dstart: Int,
         dend: Int
     ): CharSequence? {
-        val attemptInt = source.toString().toIntOrNull() ?: return R.integer.predict_min_bound.toString()
-        if (attemptInt < R.integer.predict_min_bound) return R.integer.predict_min_bound.toString()
-        if (attemptInt > R.integer.predict_max_bound) return R.integer.predict_max_bound.toString()
-        return source
+        // If length is 0, we're deleting text; accept buffer.
+        if (source?.length == 0) {
+            return null
+        }
+        // Calculate value after input
+        val inputInt = source.toString().toIntOrNull() ?: return this.minBound.toString()
+        // If below lower bound, return lower bound.
+        if (inputInt < this.minBound) return this.minBound.toString()
+        // If above upper bound, return upper bound.
+        if (inputInt > this.maxBound) return this.maxBound.toString()
+        // Else, accept original char sequence.
+        return null
     }
 }
