@@ -5,7 +5,8 @@
             app:title="@string/model_setting_category_text">
         <SeekBarPreference
             app:key="model_predict_time"
-            app:title="@string/model_predict_time_text" />
+            app:title="@string/model_predict_time_text" 
+            app:showSeekBarValue="true"/>
     </PreferenceCategory>
     
 </PreferenceScreen>
