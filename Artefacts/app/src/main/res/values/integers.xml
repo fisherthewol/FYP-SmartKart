@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="predict_min_bound">1</integer>
+    <integer name="predict_max_bound">30</integer>
+</resources>
