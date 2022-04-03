@@ -9,6 +9,10 @@ import androidx.appcompat.widget.Toolbar
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.dashboardFragContainer, DashboardFragment())
+            .commit()
         setContentView(R.layout.activity_main)
         val ab: Toolbar = findViewById(R.id.ActionBar)
         setSupportActionBar(ab)

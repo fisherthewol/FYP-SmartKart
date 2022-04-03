@@ -8,7 +8,7 @@ class SettingsPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragmentContainerView, SettingsFragment())
+            .replace(R.id.settingsFragmentContainer, SettingsFragment())
             .commit()
 
         setContentView(R.layout.activity_settings_page)
