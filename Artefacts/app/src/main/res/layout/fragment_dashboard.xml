@@ -31,4 +31,19 @@
         android:textSize="48sp"
         app:layout_constraintStart_toEndOf="@+id/speedDigits"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/speedLimitText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/ic_uklimitbackground"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="60sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/speedDigits"
+        tools:text="00" />
 </androidx.constraintlayout.widget.ConstraintLayout>

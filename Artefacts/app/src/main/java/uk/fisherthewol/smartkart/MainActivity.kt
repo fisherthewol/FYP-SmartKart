@@ -18,10 +18,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(ab)
     }
 
-    fun settingsClick(view: View) {
+    /*fun settingsClick(view: View) {
         startActivity(Intent(this, SettingsPage::class.java))
-    }
-
+    }*/
 
     /*
     //TODO: Get a setting button on top bar. Consider drawer??
