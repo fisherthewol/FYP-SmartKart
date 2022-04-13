@@ -35,6 +35,7 @@ class AverageSpeedModel(private val locationMan: LocationManager): LocationListe
      * Stop tracking average speed.
      */
     fun stopTracking() {
+        // Consider: Request flush here.
         locationMan.removeUpdates(this)
     }
 
@@ -51,8 +52,6 @@ class AverageSpeedModel(private val locationMan: LocationManager): LocationListe
 
     /**
      * Handle batched location updates.
-     *
-     * TODO: Check if batches are ordered or not.
      */
     override fun onLocationChanged(locations: MutableList<Location>) {
         for (loc in locations) {
