@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == LOCATION_REQ_CODE) {
             // We're dealing with a request to show permissions. From https://github.com/googlearchive/android-RuntimePermissions/blob/96612da3a0b4489fdf818a624a7e26fc768c65c9/kotlinApp/app/src/main/java/com/example/android/system/runtimepermissions/extensions/CollectionsExts.kt
             // All granted permissions.
-            if (grantResults.filter {it == PackageManager.PERMISSION_GRANTED}.size == LOCATION_PERM_ARR.size && model == null) {
+            if (grantResults.all { it == PackageManager.PERMISSION_GRANTED } && model == null) {
                 model = AverageSpeedModel(this.getSystemService(Context.LOCATION_SERVICE) as LocationManager)
             }
         } else {
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     */
     companion object {
         const val LOCATION_REQ_CODE: Int = 1
-        val LOCATION_PERM_ARR: Array<String> = arrayOf(
+        private val LOCATION_PERM_ARR: Array<String> = arrayOf(
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
         )
