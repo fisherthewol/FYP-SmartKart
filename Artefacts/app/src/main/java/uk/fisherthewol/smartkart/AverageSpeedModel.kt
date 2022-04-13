@@ -5,12 +5,21 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.util.Log
 
-/***
+/**
  * Class to model average speed.
+ *
+ * Consider https://developer.android.com/training/location/request-updates
  */
-class AverageSpeedModel(locationMan: LocationManager): LocationListener {
+class AverageSpeedModel(private val locationMan: LocationManager): LocationListener {
     private val locations: MutableList<Location> = emptyList<Location>().toMutableList()
-    init {
+    var averageSpeed: Double = 0.0
+
+    /**
+     * Start tracking average speed.
+     *
+     * Users should call [stopTracking] when they wish to stop.
+     */
+    fun startTracking() {
         try {
             locationMan.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
@@ -23,13 +32,11 @@ class AverageSpeedModel(locationMan: LocationManager): LocationListener {
     }
 
     /**
-     * Calculate average speed of device.
-     *
-     * Depends on [Location.hasSpeed] == true.
-     *
-     * @return Average speed in m/s.
+     * Stop tracking average speed.
      */
-    var averageSpeed: Double = 0.0
+    fun stopTracking() {
+        locationMan.removeUpdates(this)
+    }
 
     /**
      * On location change, check if we can get a speed; if so, add it to the list,
@@ -39,6 +46,20 @@ class AverageSpeedModel(locationMan: LocationManager): LocationListener {
         if (loc.hasSpeed()) {
             this.locations.add(loc)
             this.averageSpeed = this.locations.map { it.speed }.average()
+        }
+    }
+
+    /**
+     * Handle batched location updates.
+     *
+     * TODO: Check if batches are ordered or not.
+     */
+    override fun onLocationChanged(locations: MutableList<Location>) {
+        for (loc in locations) {
+            if (loc.hasSpeed()) {
+                this.locations.add(loc)
+                this.averageSpeed = this.locations.map { it.speed }.average()
+            }
         }
     }
 }
