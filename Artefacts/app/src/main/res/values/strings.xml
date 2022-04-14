@@ -3,8 +3,7 @@
     <string name="SettingsButtonString">Settings</string>
     <string name="model_predict_time_text">Alert me _ seconds before.</string>
     <string name="model_setting_category_text">Model Settings</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="speedunitsstringmph">mph</string>
     <string name="button_start">Start</string>
+    <string name="noLocationPermsSB">Sorry, this app doesn\'t work without location permissions.</string>
 </resources>
