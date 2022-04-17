@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -14,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     private var model: AverageSpeedModel? = null
+    private var trackingBool: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,5 +113,24 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+    }
+
+    fun toggleTracking(view: View) {
+        when (trackingBool) {
+            true -> {
+                // We are tracking; stop.
+                this.model?.stopTracking()
+                // Change text.
+                findViewById<Button>(R.id.StartButton).text = getString(R.string.button_start)
+            }
+            false -> {
+                // Start tracking.
+                // TODO: Bind UI and model.
+                // Start tracking.
+                this.model?.startTracking()
+                // Change text.
+                findViewById<Button>(R.id.StartButton).text = getString(R.string.button_stop)
+            }
+        }
     }
 }

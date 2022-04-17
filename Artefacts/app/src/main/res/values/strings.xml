@@ -5,5 +5,6 @@
     <string name="model_setting_category_text">Model Settings</string>
     <string name="speedunitsstringmph">mph</string>
     <string name="button_start">Start</string>
+    <string name="button_stop">Stop</string>
     <string name="noLocationPermsSB">Sorry, this app doesn\'t work without location permissions.</string>
 </resources>
