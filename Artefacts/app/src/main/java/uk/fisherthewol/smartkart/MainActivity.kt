@@ -6,32 +6,35 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import com.google.android.material.snackbar.Snackbar
+import uk.fisherthewol.smartkart.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private var model: AverageSpeedModel? = null
     private var trackingBool: Boolean = false
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.dashboardFragContainer, DashboardFragment())
             .commit()
-        setContentView(R.layout.activity_main)
-        val ab: Toolbar = findViewById(R.id.ActionBar)
-        setSupportActionBar(ab)
+        setContentView(binding.root)
+        setSupportActionBar(binding.ActionBar)
 
         // Attempt to get location permission:
         if (checkForLocationPermissions()) {
             if (model == null) {
                 model = AverageSpeedModel(this.getSystemService(Context.LOCATION_SERVICE) as LocationManager)
-                findViewById<Button>(R.id.StartButton).isEnabled = true
+                binding.StartButton.isEnabled = true
             }
         } else {
             requestLocationPermissions(this)
@@ -60,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 model =
                     AverageSpeedModel(this.getSystemService(Context.LOCATION_SERVICE) as LocationManager)
                 // Enable button.
-                findViewById<Button>(R.id.StartButton).isEnabled = true
+                binding.StartButton.isEnabled = true
             } else {
                 // Show snackbar.
                 Snackbar.make(
@@ -69,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                     Snackbar.LENGTH_LONG)
                     .show()
                 // Disable button.
-                findViewById<Button>(R.id.StartButton).isEnabled = false
+                binding.StartButton.isEnabled = false
             }
         } else {
             // Other requests.
@@ -88,6 +91,28 @@ class MainActivity : AppCompatActivity() {
             this,
             Manifest.permission.ACCESS_COARSE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED)
+    }
+
+    /**
+     * Toggle tracking based on current state.
+     */
+    fun toggleTracking(view: View) {
+        when (trackingBool) {
+            true -> {
+                // We are tracking; stop.
+                this.model?.stopTracking()
+                // Change text.
+                binding.StartButton.text = getString(R.string.button_start)
+            }
+            false -> {
+                // Start tracking.
+                // TODO: Bind UI and model.
+                // Start tracking.
+                this.model?.startTracking()
+                // Change text.
+                binding.StartButton.text = getString(R.string.button_stop)
+            }
+        }
     }
 
     // TODO: Get a setting button on top bar. Consider drawer??
@@ -113,24 +138,5 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-    }
-
-    fun toggleTracking(view: View) {
-        when (trackingBool) {
-            true -> {
-                // We are tracking; stop.
-                this.model?.stopTracking()
-                // Change text.
-                findViewById<Button>(R.id.StartButton).text = getString(R.string.button_start)
-            }
-            false -> {
-                // Start tracking.
-                // TODO: Bind UI and model.
-                // Start tracking.
-                this.model?.startTracking()
-                // Change text.
-                findViewById<Button>(R.id.StartButton).text = getString(R.string.button_stop)
-            }
-        }
     }
 }
