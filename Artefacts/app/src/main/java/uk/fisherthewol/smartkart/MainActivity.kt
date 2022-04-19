@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 // Show snackbar.
                 Snackbar.make(
-                    findViewById(R.id.mainActivityLayout),
+                    binding.mainActivityLayout,
                     getString(R.string.noLocationPermsSB),
                     Snackbar.LENGTH_LONG)
                     .show()
