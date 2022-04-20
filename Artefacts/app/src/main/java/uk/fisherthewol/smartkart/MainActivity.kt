@@ -2,16 +2,14 @@ package uk.fisherthewol.smartkart
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.pm.PackageManager
-import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.MutableLiveData
 import com.google.android.material.snackbar.Snackbar
 import uk.fisherthewol.smartkart.databinding.ActivityMainBinding
 
@@ -31,11 +29,9 @@ class MainActivity : AppCompatActivity() {
 
         // Attempt to get location permission:
         if (checkForLocationPermissions()) {
-            if (model == null) {
-                model = AverageSpeedModel(this.getSystemService(Context.LOCATION_SERVICE) as LocationManager)
-                binding.StartButton.isEnabled = true
-            }
+            binding.StartButton.isEnabled = true
         } else {
+            binding.StartButton.isEnabled = false
             requestLocationPermissions(this)
         }
     }
