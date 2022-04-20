@@ -4,16 +4,24 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
 /**
  * Class to model average speed.
  *
- * Consider https://developer.android.com/training/location/request-updates
+ * Consider https://developer.android.com/training/location/request-updates, https://developer.android.com/topic/libraries/architecture/viewmodel
  */
-class AverageSpeedModel(private val locationMan: LocationManager): LocationListener {
+class AverageSpeedModel(private val locationMan: LocationManager): ViewModel(), LocationListener {
     private val locations: MutableList<Location> = emptyList<Location>().toMutableList()
-    var averageSpeed: Double = 0.0
+    private var averageSpeed: MutableLiveData<Double> = MutableLiveData(0.0)
 
+    /**
+     * Get average speed as regular LiveData.
+     */
+    fun getAverageSpeed(): LiveData<Double> = averageSpeed
+    
     /**
      * Start tracking average speed.
      *
@@ -46,7 +54,7 @@ class AverageSpeedModel(private val locationMan: LocationManager): LocationListe
     override fun onLocationChanged(loc: Location) {
         if (loc.hasSpeed()) {
             this.locations.add(loc)
-            this.averageSpeed = this.locations.map { it.speed }.average()
+            this.averageSpeed.value = this.locations.map { it.speed }.average()
         }
     }
 
@@ -57,8 +65,8 @@ class AverageSpeedModel(private val locationMan: LocationManager): LocationListe
         for (loc in locations) {
             if (loc.hasSpeed()) {
                 this.locations.add(loc)
-                this.averageSpeed = this.locations.map { it.speed }.average()
             }
         }
+        this.averageSpeed.value = this.locations.map { it.speed }.average()
     }
 }
