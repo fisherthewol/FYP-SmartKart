@@ -24,7 +24,7 @@ class AverageSpeedModel(private val locationMan: LocationManager): LocationListe
             locationMan.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
                 0, // Minimum time between updates.
-                5.0f, // Minimum distance between updateds.
+                5.0f, // Minimum distance between updates.
                 this)
         } catch (e: SecurityException) {
             Log.e("AverageSpeedModel", "Activity creating model did not appropriately grep permission.", e)

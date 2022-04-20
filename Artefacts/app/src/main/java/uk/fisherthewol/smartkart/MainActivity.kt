@@ -16,9 +16,8 @@ import com.google.android.material.snackbar.Snackbar
 import uk.fisherthewol.smartkart.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private var model: AverageSpeedModel? = null
-    private var trackingBool: Boolean = false
     private lateinit var binding: ActivityMainBinding
+    private var trackingBool: MutableLiveData<Boolean> = MutableLiveData(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +58,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == LOCATION_REQ_CODE) {
             // We're dealing with a request to show permissions. From https://github.com/googlearchive/android-RuntimePermissions/blob/96612da3a0b4489fdf818a624a7e26fc768c65c9/kotlinApp/app/src/main/java/com/example/android/system/runtimepermissions/extensions/CollectionsExts.kt
             // All granted permissions.
-            if (grantResults.all { it == PackageManager.PERMISSION_GRANTED } && model == null) {
-                model =
-                    AverageSpeedModel(this.getSystemService(Context.LOCATION_SERVICE) as LocationManager)
+            if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
                 // Enable button.
                 binding.StartButton.isEnabled = true
             } else {
@@ -97,20 +94,23 @@ class MainActivity : AppCompatActivity() {
      * Toggle tracking based on current state.
      */
     fun toggleTracking(view: View) {
-        when (trackingBool) {
+        // Button pressed, toggle state of tracking boolean.
+        trackingBool.value = ! trackingBool.value!!
+        // Update text.
+        when (trackingBool.value) {
             true -> {
-                // We are tracking; stop.
-                this.model?.stopTracking()
-                // Change text.
-                binding.StartButton.text = getString(R.string.button_start)
+                // Tracking.
+                binding.StartButton.text = getString(R.string.button_stop)
             }
             false -> {
-                // Start tracking.
-                // TODO: Bind UI and model.
-                // Start tracking.
-                this.model?.startTracking()
-                // Change text.
-                binding.StartButton.text = getString(R.string.button_stop)
+                // Not tracking.
+                binding.StartButton.text = getString(R.string.button_start)
+            }
+            else -> {
+                // Really not sure how we'd get here, but sure.
+                Log.w("MainActivity", "TrackingBool has become null, somehow. Not expected.")
+                // WARN: Setting tracking to false, just to be in a known-good state.
+                trackingBool.value = false
             }
         }
     }

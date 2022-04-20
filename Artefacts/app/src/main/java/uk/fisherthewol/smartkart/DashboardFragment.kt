@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import uk.fisherthewol.smartkart.databinding.FragmentDashboardBinding
 
 /**
  * Fragment subclass representing the current average speed.
  */
-class DashboardFragment : Fragment() {
+class DashboardFragment() : Fragment(), Observer<Boolean> {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
 
@@ -29,5 +31,9 @@ class DashboardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onChanged(t: Boolean?) {
+        TODO("Not yet implemented")
     }
 }
