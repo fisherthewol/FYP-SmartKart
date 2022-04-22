@@ -36,7 +36,7 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
                 5.0f, // Minimum distance between updates.
                 this)
         } catch (e: SecurityException) {
-            Log.e("AverageSpeedModel", "Activity creating model did not appropriately grep permission.", e)
+            Log.e("AverageSpeedModel", "Creator of model did not appropriately grep permission.", e)
         }
     }
 

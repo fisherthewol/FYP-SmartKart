@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.dashboardFragContainer, DashboardFragment())
+            .replace(R.id.dashboardFragContainer, DashboardFragment(trackingBool))
             .commit()
         setContentView(binding.root)
         setSupportActionBar(binding.ActionBar)
