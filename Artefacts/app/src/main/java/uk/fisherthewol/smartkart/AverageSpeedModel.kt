@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+const val ACCEL_REVERSE_INDEX = 5
+
 /**
  * Class to model average speed.
  *
@@ -44,6 +46,34 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
     fun stopTracking() {
         // Consider: Request flush here.
         locationMan.removeUpdates(this)
+    }
+
+    /**
+     * Find recent acceleration rate.
+     *
+     * @return Acceleration in m/s^2
+     */
+    private fun findAcceleration(): Double {
+        // Use a = (v - u)/t historically
+        val (v, u) = if (locations.size < ACCEL_REVERSE_INDEX) {
+            Pair(locations.last(), locations.first())
+        } else {
+            Pair(locations.last(), locations[locations.lastIndex - ACCEL_REVERSE_INDEX])
+        }
+        val time = v.time - u.time
+        return ((v.speed - u.speed) / time).toDouble()
+    }
+
+    /**
+     * Predict what the speed will be in x seconds.
+     * @param time Time in seconds to predict ahead.
+     * @return Predicted speed in m/s.
+     */
+    private fun predictSpeed(time: Double): Double {
+        // Use v = u + at prediction.
+        // https://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
+        val accel = findAcceleration()
+        return this.averageSpeed.value?.plus((accel * time)) ?: 0.0
     }
 
     /**
