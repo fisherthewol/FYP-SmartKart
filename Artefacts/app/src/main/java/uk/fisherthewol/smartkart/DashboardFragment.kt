@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import uk.fisherthewol.smartkart.databinding.FragmentDashboardBinding
+import kotlin.math.roundToInt
 
 /**
  * Fragment subclass representing the current average speed.
@@ -32,7 +33,7 @@ class DashboardFragment() : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         // Observe average speed.
         model.getAverageSpeed().observe(viewLifecycleOwner) { value ->
-            binding.averageSpeedDigits.text = value.toString()
+            binding.averageSpeedDigits.text = value.roundToInt().toString() // Note: rounds upwards on tie.
         }
         // Observe when we're tracking:
         model.trackingBool.observe(viewLifecycleOwner) {
