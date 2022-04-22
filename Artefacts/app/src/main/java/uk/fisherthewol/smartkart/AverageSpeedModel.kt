@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModel
 class AverageSpeedModel(private val locationMan: LocationManager, private var speedLimit: MutableLiveData<Int> = MutableLiveData(0)): ViewModel(), LocationListener {
     private val locations: MutableList<Location> = emptyList<Location>().toMutableList()
     private var averageSpeed: MutableLiveData<Double> = MutableLiveData(0.0)
+    var trackingBool: MutableLiveData<Boolean> = MutableLiveData(false)
 
     /**
      * Get average speed as regular LiveData.
