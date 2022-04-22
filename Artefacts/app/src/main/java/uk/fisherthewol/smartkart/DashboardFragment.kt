@@ -38,9 +38,9 @@ class DashboardFragment() : Fragment() {
         }
         // Observe when we're tracking:
         model.trackingBool.observe(viewLifecycleOwner) {
-            val PrefMan = PreferenceManager.getDefaultSharedPreferences(this.requireContext())
+            val prefMan = PreferenceManager.getDefaultSharedPreferences(this.requireContext())
             when (it) {
-                true -> model.startTracking(PrefMan.getInt("model_predict_time", R.integer.predict_default))
+                true -> model.startTracking(prefMan.getInt("model_predict_time", R.integer.predict_default))
                 false -> model.stopTracking()
             }
         }
