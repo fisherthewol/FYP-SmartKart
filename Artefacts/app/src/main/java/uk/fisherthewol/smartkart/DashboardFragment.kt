@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.preference.PreferenceManager
 import uk.fisherthewol.smartkart.databinding.FragmentDashboardBinding
 import kotlin.math.roundToInt
 
@@ -37,8 +38,9 @@ class DashboardFragment() : Fragment() {
         }
         // Observe when we're tracking:
         model.trackingBool.observe(viewLifecycleOwner) {
+            val PrefMan = PreferenceManager.getDefaultSharedPreferences(this.requireContext())
             when (it) {
-                true -> model.startTracking()
+                true -> model.startTracking(PrefMan.getInt("model_predict_time", R.integer.predict_default))
                 false -> model.stopTracking()
             }
         }

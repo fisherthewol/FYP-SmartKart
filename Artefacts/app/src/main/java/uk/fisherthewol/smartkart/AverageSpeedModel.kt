@@ -17,8 +17,9 @@ const val ACCEL_REVERSE_INDEX = 5
  */
 class AverageSpeedModel(private val locationMan: LocationManager, private var speedLimit: MutableLiveData<Int> = MutableLiveData(0)): ViewModel(), LocationListener {
     private val locations: MutableList<Location> = emptyList<Location>().toMutableList()
-    private var averageSpeed: MutableLiveData<Double> = MutableLiveData(0.0)
-    var trackingBool: MutableLiveData<Boolean> = MutableLiveData(false)
+    private val averageSpeed: MutableLiveData<Double> = MutableLiveData(0.0)
+    private var predictTime = 1
+    val trackingBool: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun getAverageSpeed(): LiveData<Double> = averageSpeed
     fun getSpeedLimit(): LiveData<Int> = speedLimit
@@ -27,8 +28,10 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
      * Start tracking average speed.
      *
      * Users should call [stopTracking] when they wish to stop.
+     *
+     * @param predictTime Time to predict ahead for speed limit.
      */
-    fun startTracking() {
+    fun startTracking(predictTime: Int) {
         try {
             locationMan.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
@@ -38,6 +41,7 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
         } catch (e: SecurityException) {
             Log.e("AverageSpeedModel", "Creator of model did not appropriately grep permission.", e)
         }
+        this.predictTime = predictTime
     }
 
     /**
