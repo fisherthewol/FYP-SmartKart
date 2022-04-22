@@ -10,7 +10,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val predictBar: SeekBarPreference? = findPreference("model_predict_time")
         if (predictBar != null) {
             predictBar.seekBarIncrement = 10
-            predictBar.setDefaultValue(10)
+            predictBar.setDefaultValue(resources.getInteger(R.integer.predict_default))
             predictBar.max = resources.getInteger(R.integer.predict_max_bound)
             predictBar.min = resources.getInteger(R.integer.predict_min_bound)
         }
