@@ -7,15 +7,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.MutableLiveData
 import com.google.android.material.snackbar.Snackbar
 import uk.fisherthewol.smartkart.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var trackingBool: MutableLiveData<Boolean> = MutableLiveData(false)
+    private val model: AverageSpeedModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,9 +91,9 @@ class MainActivity : AppCompatActivity() {
      */
     fun toggleTracking(view: View) {
         // Button pressed, toggle state of tracking boolean.
-        trackingBool.value = ! trackingBool.value!!
+        model.trackingBool.value = ! model.trackingBool.value!!
         // Update text.
-        when (trackingBool.value) {
+        when (model.trackingBool.value) {
             true -> {
                 // Tracking.
                 binding.StartButton.text = getString(R.string.button_stop)
@@ -104,9 +104,9 @@ class MainActivity : AppCompatActivity() {
             }
             else -> {
                 // Really not sure how we'd get here, but sure.
-                Log.w("MainActivity", "TrackingBool has become null, somehow. Not expected.")
-                // WARN: Setting tracking to false, just to be in a known-good state.
-                trackingBool.value = false
+                Log.w("MainActivity", "TrackingBool has become null. Setting to false, to " +
+                        "be in a known state.")
+                model.trackingBool.value = false
             }
         }
     }
