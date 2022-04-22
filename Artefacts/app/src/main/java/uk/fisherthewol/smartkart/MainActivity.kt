@@ -2,7 +2,9 @@ package uk.fisherthewol.smartkart
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +17,13 @@ import uk.fisherthewol.smartkart.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val model: AverageSpeedModel by viewModels()
+    private val model: AverageSpeedModel by viewModels {
+        AverageSpeedModelFactory(
+            getSystemService(
+                Context.LOCATION_SERVICE
+            ) as LocationManager
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

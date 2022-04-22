@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LiveData
 import uk.fisherthewol.smartkart.databinding.FragmentDashboardBinding
 
 /**
@@ -17,7 +16,10 @@ import uk.fisherthewol.smartkart.databinding.FragmentDashboardBinding
 class DashboardFragment() : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
-    private val model: AverageSpeedModel by activityViewModels()
+    private val model: AverageSpeedModel by activityViewModels {
+        AverageSpeedModelFactory(
+            this.requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

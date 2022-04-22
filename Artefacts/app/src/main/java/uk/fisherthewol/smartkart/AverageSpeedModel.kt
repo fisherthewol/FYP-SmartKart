@@ -68,27 +68,4 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
         }
         this.averageSpeed.value = this.locations.map { it.speed }.average()
     }
-
-    companion object {
-        /**
-         * Factory method to instantiate an AverageSpeedModel.
-         * @param locMan locationManager to use for registering for updates.
-         * @return An instantiated class of AverageSpeedModel.
-         */
-        @JvmStatic
-        fun newASModel(locMan: LocationManager): AverageSpeedModel {
-            return AverageSpeedModel(locMan)
-        }
-
-        /**
-         * Factory method to instantiate an AverageSpeedModel.
-         * @param locMan locationManager to use for registering for updates.
-         * @param speedLimit Integer representing the speed limit to test against.
-         * @return An instantiated class of AverageSpeedModel.
-         */
-        @JvmStatic
-        fun newASModel(locMan: LocationManager, speedLimit: MutableLiveData<Int>): AverageSpeedModel {
-            return AverageSpeedModel(locMan, speedLimit)
-        }
-    }
 }
