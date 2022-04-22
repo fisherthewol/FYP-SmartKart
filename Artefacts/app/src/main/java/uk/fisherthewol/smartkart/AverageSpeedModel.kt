@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModel
  *
  * Consider https://developer.android.com/training/location/request-updates, https://developer.android.com/topic/libraries/architecture/viewmodel
  */
-class AverageSpeedModel(private val locationMan: LocationManager): ViewModel(), LocationListener {
+class AverageSpeedModel(private val locationMan: LocationManager, private var speedLimit: MutableLiveData<Int> = MutableLiveData(0)): ViewModel(), LocationListener {
     private val locations: MutableList<Location> = emptyList<Location>().toMutableList()
     private var averageSpeed: MutableLiveData<Double> = MutableLiveData(0.0)
 
@@ -21,6 +21,7 @@ class AverageSpeedModel(private val locationMan: LocationManager): ViewModel(), 
      * Get average speed as regular LiveData.
      */
     fun getAverageSpeed(): LiveData<Double> = averageSpeed
+    fun getSpeedLimit(): LiveData<Int> = speedLimit
     
     /**
      * Start tracking average speed.
