@@ -18,11 +18,13 @@ const val ACCEL_REVERSE_INDEX = 5
 class AverageSpeedModel(private val locationMan: LocationManager, private var speedLimit: MutableLiveData<Int> = MutableLiveData(0)): ViewModel(), LocationListener {
     private val locations: MutableList<Location> = emptyList<Location>().toMutableList()
     private val averageSpeed: MutableLiveData<Double> = MutableLiveData(0.0)
+    private val overSpeedLimit: MutableLiveData<Boolean> = MutableLiveData(false)
     private var predictTime = 1
     val trackingBool: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun getAverageSpeed(): LiveData<Double> = averageSpeed
     fun getSpeedLimit(): LiveData<Int> = speedLimit
+    fun getOverSpeedLimit(): LiveData<Boolean> = overSpeedLimit
     
     /**
      * Start tracking average speed.
@@ -89,6 +91,15 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
     }
 
     /**
+     * Function to run after updating location.
+     *
+     * Note that this originally also checked [averageSpeed]; consider if this should be checked.
+     */
+    private fun afterLocationUpdate() {
+        this.overSpeedLimit.value = (this.predictSpeed() > this.speedLimit.value!!)
+    }
+
+    /**
      * On location change, check if we can get a speed; if so, add it to the list,
      * and calculate average speed.
      */
@@ -97,6 +108,7 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
             this.locations.add(loc)
             this.averageSpeed.value = this.locations.map { it.speed }.average()
         }
+        afterLocationUpdate()
     }
 
     /**
@@ -109,5 +121,6 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
             }
         }
         this.averageSpeed.value = this.locations.map { it.speed }.average()
+        afterLocationUpdate()
     }
 }
