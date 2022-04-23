@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,10 +54,7 @@ class DashboardFragment() : Fragment() {
             when (it) {
                 true -> binding.averageSpeedDigits.setTextColor(Color.RED)
                 false -> {
-                    // Adapted from by ashughes and jpaugh https://stackoverflow.com/a/14468034; CC BY-SA 4.0
-                    val t = TypedValue()
-                    context?.theme?.resolveAttribute(com.google.android.material.R.attr.colorOnPrimary, t, true)
-                    binding.averageSpeedDigits.setTextColor(t.data)
+                    binding.averageSpeedDigits.setTextColor(Color.WHITE) // TODO: Get actual colour from theme.
                 }
             }
         }
