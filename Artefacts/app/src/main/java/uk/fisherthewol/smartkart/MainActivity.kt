@@ -99,9 +99,17 @@ class MainActivity : AppCompatActivity() {
      */
     fun toggleTracking(view: View) {
         // Button pressed, toggle state of tracking boolean.
+        if (model.trackingBool.value == null) {
+            // If null: log, set to false, set button string appropriate. Return early to stop.
+            Log.w("MainActivity", "TrackingBool has become null. Setting to false, to " +
+                    "be in a known state.")
+            model.trackingBool.value = false
+            binding.StartButton.text = getString(R.string.button_start)
+            return
+        }
         model.trackingBool.value = ! model.trackingBool.value!!
         // Update text.
-        when (model.trackingBool.value) {
+        when (model.trackingBool.value!!) {
             true -> {
                 // Tracking.
                 binding.StartButton.text = getString(R.string.button_stop)
@@ -109,12 +117,6 @@ class MainActivity : AppCompatActivity() {
             false -> {
                 // Not tracking.
                 binding.StartButton.text = getString(R.string.button_start)
-            }
-            else -> {
-                // Really not sure how we'd get here, but sure.
-                Log.w("MainActivity", "TrackingBool has become null. Setting to false, to " +
-                        "be in a known state.")
-                model.trackingBool.value = false
             }
         }
     }
