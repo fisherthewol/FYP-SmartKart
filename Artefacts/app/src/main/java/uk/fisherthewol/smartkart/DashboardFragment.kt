@@ -1,6 +1,7 @@
 package uk.fisherthewol.smartkart
 
 import android.content.Context
+import android.graphics.Color
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -46,12 +47,23 @@ class DashboardFragment() : Fragment() {
         model.getAverageSpeed().observe(viewLifecycleOwner) { value ->
             binding.averageSpeedDigits.text = convertToUnit(value).roundToInt().toString() // Note: rounds upwards on tie.
         }
+        // Observe speed limit.
+        model.getSpeedLimit().observe(viewLifecycleOwner) { value ->
+            binding.speedLimitText.text = value.toString()
+        }
         // Observe when we're tracking:
-        model.trackingBool.observe(viewLifecycleOwner) {
+        model.getTrackingBool().observe(viewLifecycleOwner) {
             val prefMan = PreferenceManager.getDefaultSharedPreferences(this.requireContext())
             when (it) {
                 true -> model.startTracking(prefMan.getInt("model_predict_time", R.integer.predict_default))
                 false -> model.stopTracking()
+            }
+        }
+        // Observe when we're over speedLimit.
+        model.getOverSpeedLimit().observe(viewLifecycleOwner) {
+            when (it) {
+                true -> binding.averageSpeedDigits.setTextColor(Color.RED)
+                false -> binding.averageSpeedDigits.setTextColor(Color.BLACK)
             }
         }
         return binding.root
