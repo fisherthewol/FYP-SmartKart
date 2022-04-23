@@ -25,6 +25,7 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
     fun getAverageSpeed(): LiveData<Double> = averageSpeed
     fun getSpeedLimit(): LiveData<Int> = speedLimit
     fun getOverSpeedLimit(): LiveData<Boolean> = overSpeedLimit
+    fun getTrackingBool(): LiveData<Boolean> = trackingBool
     
     /**
      * Start tracking average speed.
