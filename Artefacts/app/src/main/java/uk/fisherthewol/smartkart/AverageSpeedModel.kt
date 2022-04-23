@@ -53,6 +53,14 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
     }
 
     /**
+     * Reset tracking details.
+     */
+    fun resetTracking() {
+        this.averageSpeed.value = 0.0
+        this.locations.clear()
+    }
+
+    /**
      * Find recent acceleration rate.
      *
      * @return Acceleration in m/s^2
@@ -73,11 +81,11 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
      * @param time Time in seconds to predict ahead.
      * @return Predicted speed in m/s.
      */
-    private fun predictSpeed(time: Double): Double {
+    private fun predictSpeed(): Double {
         // Use v = u + at prediction.
         // https://www.calculatorsoup.com/calculators/physics/velocity_a_t.php
         val accel = findAcceleration()
-        return this.averageSpeed.value?.plus((accel * time)) ?: 0.0
+        return this.averageSpeed.value?.plus((accel * this.predictTime)) ?: 0.0
     }
 
     /**
