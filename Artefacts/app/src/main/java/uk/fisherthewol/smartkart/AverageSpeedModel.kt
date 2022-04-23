@@ -97,7 +97,12 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
      * Note that this originally also checked [averageSpeed]; consider if this should be checked.
      */
     private fun afterLocationUpdate() {
-        this.overSpeedLimit.value = (this.predictSpeed() > this.speedLimit.value!!)
+        this.overSpeedLimit.value = when {
+            (this.speedLimit.value != null) && (this.averageSpeed.value != null) -> {
+                msToUnit(this.averageSpeed.value!!) > this.speedLimit.value!!
+            }
+            else -> false
+        }
     }
 
     /**
@@ -127,7 +132,7 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
 
     companion object {
         /**
-         * Convert from mps to current speed unit.
+         * Convert from m/s to current speed unit.
          *
          * Currently only converts to MPH; should add toggle to handle KMH.
          *
@@ -135,6 +140,17 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
          * @return Speed converted to current speed unit (MPH or KMH).
          */
         @JvmStatic
-        fun convertToUnit(ms: Double): Double = ms * MS_TO_MPH_COEFFICIENT
+        fun msToUnit(ms: Double): Double = ms * MS_TO_MPH_COEFFICIENT
+
+        /**
+         * Convert from current speed unit to m/s.
+         *
+         * Currently only converts from MPH.
+         *
+         * @param unit Speed, in UNIT, to convert.
+         * @return Speed converted to m/s.
+         */
+        @JvmStatic
+        fun unitToMS(unit: Double): Double = unit / MS_TO_MPH_COEFFICIENT
     }
 }
