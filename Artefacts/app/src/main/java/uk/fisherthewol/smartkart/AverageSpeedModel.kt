@@ -124,4 +124,17 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
         this.averageSpeed.value = this.locations.map { it.speed }.average()
         afterLocationUpdate()
     }
+
+    companion object {
+        /**
+         * Convert from mps to current speed unit.
+         *
+         * Currently only converts to MPH; should add toggle to handle KMH.
+         *
+         * @param ms Speed, in metres per second, to convert.
+         * @return Speed converted to current speed unit (MPH or KMH).
+         */
+        @JvmStatic
+        fun convertToUnit(ms: Double): Double = ms * 2.237
+    }
 }

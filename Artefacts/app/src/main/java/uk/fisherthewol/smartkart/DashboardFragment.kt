@@ -28,16 +28,6 @@ class DashboardFragment() : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    /**
-     * Convert from mps to current speed unit.
-     *
-     * Currently only converts to MPH; should add toggle to handle KMH.
-     *
-     * @param ms Speed, in metres per second, to convert.
-     * @return Speed converted to current speed unit (MPH or KMH).
-     */
-    private fun convertToUnit(ms: Double): Double = ms * 2.237
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +35,7 @@ class DashboardFragment() : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         // Observe average speed.
         model.getAverageSpeed().observe(viewLifecycleOwner) { value ->
-            binding.averageSpeedDigits.text = convertToUnit(value).roundToInt().toString() // Note: rounds upwards on tie.
+            binding.averageSpeedDigits.text = AverageSpeedModel.convertToUnit(value).roundToInt().toString() // Note: rounds upwards on tie.
         }
         // Observe speed limit.
         model.getSpeedLimit().observe(viewLifecycleOwner) { value ->
