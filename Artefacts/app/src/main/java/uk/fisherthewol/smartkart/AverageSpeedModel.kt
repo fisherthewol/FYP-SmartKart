@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 const val ACCEL_REVERSE_INDEX = 5
+const val MS_TO_MPH_COEFF = 2.237
 
 /**
  * Class to model average speed.
@@ -135,6 +136,6 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
          * @return Speed converted to current speed unit (MPH or KMH).
          */
         @JvmStatic
-        fun convertToUnit(ms: Double): Double = ms * 2.237
+        fun convertToUnit(ms: Double): Double = ms * MS_TO_MPH_COEFF
     }
 }
