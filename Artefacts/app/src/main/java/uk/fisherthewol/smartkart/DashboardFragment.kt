@@ -7,11 +7,13 @@ import android.location.LocationManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.view.GestureDetectorCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.preference.PreferenceManager
+import com.google.android.material.color.MaterialColors
 import uk.fisherthewol.smartkart.databinding.FragmentDashboardBinding
 import kotlin.math.roundToInt
 
@@ -77,7 +79,9 @@ class DashboardFragment() : Fragment() {
                     mediaPlayer?.start()
                 }
                 false -> {
-                    binding.averageSpeedDigits.setTextColor(Color.WHITE) // TODO: Get actual colour from theme.
+                    // Adapted from https://stackoverflow.com/a/64509627, Chandra Sekhar, CC BY-SA 4.0
+                    val color = MaterialColors.getColor(this.requireContext(), com.google.android.material.R.attr.colorOnSecondary, Color.BLACK)
+                    binding.averageSpeedDigits.setTextColor(color)
                     mediaPlayer?.pause()
                 }
             }
