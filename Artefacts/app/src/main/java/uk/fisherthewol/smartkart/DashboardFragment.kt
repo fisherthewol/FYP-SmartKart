@@ -198,6 +198,7 @@ class DashboardFragment() : Fragment() {
          * Callback for [MediaPlayer] Asynchronous errors.
          */
         override fun onError(mp: MediaPlayer?, what: Int, extra: Int): Boolean {
+            if (mp != mediaPlayer) return false
             val what: String = when (what) {
                 MediaPlayer.MEDIA_ERROR_UNKNOWN -> "MEDIA_ERROR_UNKNOWN"
                 MediaPlayer.MEDIA_ERROR_SERVER_DIED -> "MEDIA_ERROR_SERVER_DIED"
