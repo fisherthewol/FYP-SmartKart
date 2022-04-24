@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.location.LocationManager
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.GestureDetectorCompat
@@ -26,7 +28,10 @@ class DashboardFragment() : Fragment() {
     }
     // Gesture detection to allow swiping on speed limit. https://developer.android.com/training/gestures/detector#detect-a-subset-of-supported-gestures
     private lateinit var mDetector: GestureDetectorCompat
+    // Shared Preferences reference; lateinit because we need context.
     private lateinit var prefMan: SharedPreferences
+    // Raw initialise MediaPlayer, since we want to initialise asynchronously.
+    private var mediaPlayer: MediaPlayer = MediaPlayer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +45,8 @@ class DashboardFragment() : Fragment() {
         // Bind lateinits:
         mDetector = GestureDetectorCompat(this.requireContext(), SpeedLimitGestureListener())
         prefMan = PreferenceManager.getDefaultSharedPreferences(this.requireContext())
+        // Adapted from https://stackoverflow.com/a/33266646, Naren Neelamegam, CC BY-SA 3.0
+        mediaPlayer.setDataSource(this.requireContext(), Uri.parse("android.resource://${this.requireContext().packageName}/raw/over_limit.ogg"))
         // Listen for touches on speedLimit.
         binding.speedLimitText.setOnTouchListener{
             v, event -> mDetector.onTouchEvent(event)
@@ -63,7 +70,9 @@ class DashboardFragment() : Fragment() {
         // Observe when we're over speedLimit.
         model.getOverSpeedLimit().observe(viewLifecycleOwner) {
             when (it) {
-                true -> binding.averageSpeedDigits.setTextColor(Color.RED)
+                true -> {
+                    binding.averageSpeedDigits.setTextColor(Color.RED)
+                }
                 false -> {
                     binding.averageSpeedDigits.setTextColor(Color.WHITE) // TODO: Get actual colour from theme.
                 }
