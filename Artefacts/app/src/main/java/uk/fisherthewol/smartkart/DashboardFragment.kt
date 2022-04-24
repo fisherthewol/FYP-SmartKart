@@ -31,7 +31,7 @@ class DashboardFragment() : Fragment() {
     // Shared Preferences reference; lateinit because we need context.
     private lateinit var prefMan: SharedPreferences
     // Raw initialise MediaPlayer, since we want to initialise asynchronously.
-    private var mediaPlayer: MediaPlayer = MediaPlayer()
+    private var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,24 +41,25 @@ class DashboardFragment() : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Get viewBinding.
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         // Bind lateinits:
         mDetector = GestureDetectorCompat(this.requireContext(), SpeedLimitGestureListener())
         prefMan = PreferenceManager.getDefaultSharedPreferences(this.requireContext())
-        // Adapted from https://stackoverflow.com/a/33266646, Naren Neelamegam, CC BY-SA 3.0
-        mediaPlayer.setDataSource(this.requireContext(), Uri.parse("android.resource://${this.requireContext().packageName}/raw/over_limit.ogg"))
+        prepareMediaPlayer()
+
         // Listen for touches on speedLimit.
         binding.speedLimitText.setOnTouchListener{
             v, event -> mDetector.onTouchEvent(event)
             true
         }
-        // Observe average speed.
+        // Observe changes in average speed.
         model.getAverageSpeed().observe(viewLifecycleOwner) { value ->
             binding.averageSpeedDigits.text = AverageSpeedModel.msToUnit(value).roundToInt().toString().padStart(2, '0') // Note: rounds upwards on tie.
         }
-        // Observe speed limit.
+        // Observe changes in speed limit.
         model.getSpeedLimit().observe(viewLifecycleOwner) { value ->
-            binding.speedLimitText.text = value.toString()
+            binding.speedLimitText.text = value.toString().padStart(2, '0')
         }
         // Observe when we're tracking:
         model.getTrackingBool().observe(viewLifecycleOwner) {
@@ -72,18 +73,38 @@ class DashboardFragment() : Fragment() {
             when (it) {
                 true -> {
                     binding.averageSpeedDigits.setTextColor(Color.RED)
+                    mediaPlayer?.seekTo(0)
+                    mediaPlayer?.start()
                 }
                 false -> {
                     binding.averageSpeedDigits.setTextColor(Color.WHITE) // TODO: Get actual colour from theme.
+                    mediaPlayer?.pause()
                 }
             }
         }
         return binding.root
     }
 
+    /**
+     * Initialise mediaPlayer asynchronously.
+     * Adapted from https://developer.android.com/guide/topics/media/mediaplayer#mediaplayer and https://stackoverflow.com/a/33266646, Naren Neelamegam, CC BY-SA 3.0
+     */
+    private fun prepareMediaPlayer() {
+        mediaPlayer = MediaPlayer().apply {
+            setDataSource(
+                requireContext(),
+                Uri.parse("android.resource://${requireContext().packageName}/raw/over_limit.ogg")) // This is hard-coded; consider using a uri builder to generate URI
+            prepareAsync()
+            isLooping = true
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        // Release
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 
     private inner class SpeedLimitGestureListener: GestureDetector.SimpleOnGestureListener() {
