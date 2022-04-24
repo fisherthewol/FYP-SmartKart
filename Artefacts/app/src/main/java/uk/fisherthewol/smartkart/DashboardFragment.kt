@@ -114,7 +114,11 @@ class DashboardFragment() : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        // Release
+        // Deal with mediaPlayer. Adapted from https://stackoverflow.com/a/26316828, Li3ro, CC BY-SA 3.0
+        if (mediaPlayer?.isPlaying == true) {
+            mediaPlayer?.stop()
+        }
+        mediaPlayer?.reset()
         mediaPlayer?.release()
         mediaPlayer = null
     }
