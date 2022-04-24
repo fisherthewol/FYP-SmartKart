@@ -98,8 +98,8 @@ class AverageSpeedModel(private val locationMan: LocationManager, private var sp
      */
     private fun afterLocationUpdate() {
         this.overSpeedLimit.value = when {
-            (this.speedLimit.value != null) && (this.averageSpeed.value != null) -> {
-                msToUnit(this.averageSpeed.value!!) > this.speedLimit.value!!
+            (this.speedLimit.value != null) -> {
+                msToUnit(predictSpeed()) > this.speedLimit.value!!
             }
             else -> false
         }
