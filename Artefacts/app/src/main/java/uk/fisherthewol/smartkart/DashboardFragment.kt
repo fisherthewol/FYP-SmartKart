@@ -94,11 +94,12 @@ class DashboardFragment() : Fragment() {
                 velocityY >= 0 -> {
                     // Positive Y.
                     model.speedLimit.value = model.speedLimit.value?.plus(SPEED_LIMIT_INCREMENT)
+                    if (model.speedLimit.value!! > resources.getInteger(R.integer.speedlimit_upper_bound)) model.speedLimit.value = resources.getInteger(R.integer.speedlimit_upper_bound)
                 }
                 velocityY < 0 -> {
                     // Negative Y.
-                    // Positive Y.
                     model.speedLimit.value = model.speedLimit.value?.minus(SPEED_LIMIT_INCREMENT)
+                    if (model.speedLimit.value!! < 0) model.speedLimit.value = 0
                 }
             }
             return super.onFling(e1, e2, velocityX, velocityY)
