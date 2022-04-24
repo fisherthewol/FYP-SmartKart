@@ -43,7 +43,7 @@ class DashboardFragment() : Fragment() {
         }
         // Observe average speed.
         model.getAverageSpeed().observe(viewLifecycleOwner) { value ->
-            binding.averageSpeedDigits.text = AverageSpeedModel.msToUnit(value).roundToInt().toString() // Note: rounds upwards on tie.
+            binding.averageSpeedDigits.text = AverageSpeedModel.msToUnit(value).roundToInt().toString().padStart(2, '0') // Note: rounds upwards on tie.
         }
         // Observe speed limit.
         model.getSpeedLimit().observe(viewLifecycleOwner) { value ->
