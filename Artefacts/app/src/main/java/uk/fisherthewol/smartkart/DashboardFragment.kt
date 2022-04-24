@@ -37,7 +37,10 @@ class DashboardFragment() : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         // Allow changing speedLimit.
         mDetector = GestureDetectorCompat(this.requireContext(), SpeedLimitGestureListener())
-
+        binding.speedLimitText.setOnTouchListener{
+            v, event -> mDetector.onTouchEvent(event)
+            true
+        }
         // Observe average speed.
         model.getAverageSpeed().observe(viewLifecycleOwner) { value ->
             binding.averageSpeedDigits.text = AverageSpeedModel.msToUnit(value).roundToInt().toString() // Note: rounds upwards on tie.
