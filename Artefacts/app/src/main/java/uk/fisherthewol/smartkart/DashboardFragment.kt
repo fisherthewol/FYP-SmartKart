@@ -33,8 +33,9 @@ class DashboardFragment() : Fragment() {
     private lateinit var mDetector: GestureDetectorCompat
     // Shared Preferences reference; lateinit because we need context.
     private lateinit var prefMan: SharedPreferences
-    // Raw initialise MediaPlayer, since we want to initialise asynchronously.
+    // Nullable MediaPlayer, since we want to initialise asynchronously.
     private var mediaPlayer: MediaPlayer? = null
+    private var mpHandler: MediaPlayerHandler = MediaPlayerHandler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,14 +77,13 @@ class DashboardFragment() : Fragment() {
             when (it) {
                 true -> {
                     binding.averageSpeedDigits.setTextColor(Color.RED)
-                    mediaPlayer?.seekTo(0)
-                    mediaPlayer?.start()
+                    mpHandler.startOverLimit()
                 }
                 false -> {
                     // Adapted from https://stackoverflow.com/a/64509627, Chandra Sekhar, CC BY-SA 4.0
                     val color = MaterialColors.getColor(this.requireContext(), com.google.android.material.R.attr.colorOnSecondary, Color.BLACK)
                     binding.averageSpeedDigits.setTextColor(color)
-                    mediaPlayer?.pause()
+                    mpHandler.stopOverLimit()
                 }
             }
         }
@@ -102,13 +102,13 @@ class DashboardFragment() : Fragment() {
             appendPath(resources.getResourceTypeName(R.raw.over_limit))
             appendPath(resources.getResourceEntryName(R.raw.over_limit))
         }.build()
-        val listener = MediaPlayerListener()
         val mp = MediaPlayer().apply {
             setDataSource(
                 requireContext(),
                 uri)
-            setOnPreparedListener(listener)
-            setOnErrorListener(listener)
+            setOnPreparedListener(mpHandler)
+            setOnErrorListener(mpHandler)
+            setOnSeekCompleteListener(mpHandler)
         }
         mp.prepareAsync()
     }
@@ -164,21 +164,33 @@ class DashboardFragment() : Fragment() {
     /**
      * Inner class to handle asynchronous preparation and errors for MediaPlayer.
      */
-    private inner class MediaPlayerListener: MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
+    private inner class MediaPlayerHandler:
+        MediaPlayer.OnPreparedListener,
+        MediaPlayer.OnErrorListener,
+        MediaPlayer.OnSeekCompleteListener {
+        private var isPrepared = false
+
         /**
          * Callback for [MediaPlayer.prepareAsync].
          *
          * Set member [mediaPlayer] to the returned [MediaPlayer] and set [isLooping][MediaPlayer.isLooping] to true.
+         *
+         * @param mp [MediaPlayer] that is either in Prepared state or is null.
          */
         override fun onPrepared(mp: MediaPlayer?) {
             if (mp != null) {
                 mediaPlayer = mp
                 mediaPlayer?.isLooping = true
+                isPrepared = true
             } else {
                 Log.e("DashboardFragment:MediaPlayerListener:onPrepared", "Returned mediaPlayer was null.")
+                isPrepared = false
             }
         }
 
+        /**
+         * Callback for [MediaPlayer] Asynchronous errors.
+         */
         override fun onError(mp: MediaPlayer?, what: Int, extra: Int): Boolean {
             val what: String = when (what) {
                 MediaPlayer.MEDIA_ERROR_UNKNOWN -> "MEDIA_ERROR_UNKNOWN"
@@ -195,8 +207,39 @@ class DashboardFragment() : Fragment() {
             }
             Log.e("DashboardFragment:MediaPlayerListener:onError", "Error from mediaPlayer.\n" +
                     "What: $what\nExtra: $extra")
-            return false
+            mediaPlayer?.reset()
+            prepareMediaPlayer()
+            return true
         }
 
+        /**
+         * Handle seeking completing.
+         *
+         * We seek when we "stop" the limit sound. Then, when this seek finishes, we can start again.
+         */
+        override fun onSeekComplete(p0: MediaPlayer?) {
+            isPrepared = true
+        }
+
+        /**
+         * Handle starting to play the overLimit sound.
+         */
+        fun startOverLimit() {
+            if (isPrepared && mediaPlayer?.isPlaying == false) {
+                mediaPlayer?.start()
+                isPrepared = false
+            }
+        }
+
+        /**
+         * Pause and reseek the sound to the start.
+         */
+        fun stopOverLimit() {
+            if (!isPrepared && mediaPlayer?.isPlaying == true) {
+                mediaPlayer?.pause()
+                mediaPlayer?.seekTo(0)
+                isPrepared = false
+            }
+        }
     }
 }
