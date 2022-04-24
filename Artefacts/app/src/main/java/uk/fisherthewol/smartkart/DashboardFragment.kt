@@ -4,9 +4,8 @@ import android.content.Context
 import android.graphics.Color
 import android.location.LocationManager
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.view.GestureDetectorCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.preference.PreferenceManager
@@ -19,10 +18,13 @@ import kotlin.math.roundToInt
 class DashboardFragment() : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
+    // NOTE: This is a delegate. Until AverageSpeedModel gets "cleared", this will return the same viewmodel (singleton style).
     private val model: AverageSpeedModel by activityViewModels {
         AverageSpeedModelFactory(
             this.requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager)
     }
+    // Gesture detection to allow swiping on speed limit. https://developer.android.com/training/gestures/detector#detect-a-subset-of-supported-gestures
+    private lateinit var mDetector: GestureDetectorCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +35,9 @@ class DashboardFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        // Allow changing speedLimit.
+        mDetector = GestureDetectorCompat(this.requireContext(), SpeedLimitGestureListener())
+
         // Observe average speed.
         model.getAverageSpeed().observe(viewLifecycleOwner) { value ->
             binding.averageSpeedDigits.text = AverageSpeedModel.msToUnit(value).roundToInt().toString() // Note: rounds upwards on tie.
@@ -64,5 +69,36 @@ class DashboardFragment() : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private inner class SpeedLimitGestureListener: GestureDetector.SimpleOnGestureListener() {
+        override fun onDown(e: MotionEvent?): Boolean {
+            return true
+        }
+
+        /**
+         * Handle up/down movement to change speed limit.
+         *
+         * See https://stackoverflow.com/questions/28098737/difference-between-onscroll-and-onfling-of-gesturedetector
+         */
+        override fun onFling(
+            e1: MotionEvent?,
+            e2: MotionEvent?,
+            velocityX: Float,
+            velocityY: Float
+        ): Boolean {
+            when {
+                velocityY >= 0 -> {
+                    // Positive Y.
+                    model.speedLimit.value = model.speedLimit.value?.plus(SPEED_LIMIT_INCREMENT)
+                }
+                velocityY < 0 -> {
+                    // Negative Y.
+                    // Positive Y.
+                    model.speedLimit.value = model.speedLimit.value?.minus(SPEED_LIMIT_INCREMENT)
+                }
+            }
+            return super.onFling(e1, e2, velocityX, velocityY)
+        }
     }
 }

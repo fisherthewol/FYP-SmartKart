@@ -10,13 +10,14 @@ import androidx.lifecycle.ViewModel
 
 const val ACCEL_REVERSE_INDEX = 5
 const val MS_TO_MPH_COEFFICIENT = 2.237
+const val SPEED_LIMIT_INCREMENT = 10
 
 /**
  * Class to model average speed.
  *
  * Consider https://developer.android.com/training/location/request-updates, https://developer.android.com/topic/libraries/architecture/viewmodel
  */
-class AverageSpeedModel(private val locationMan: LocationManager, private var speedLimit: MutableLiveData<Int> = MutableLiveData(0)): ViewModel(), LocationListener {
+class AverageSpeedModel(private val locationMan: LocationManager, internal var speedLimit: MutableLiveData<Int> = MutableLiveData(0)): ViewModel(), LocationListener {
     private val locations: MutableList<Location> = emptyList<Location>().toMutableList()
     private val averageSpeed: MutableLiveData<Double> = MutableLiveData(0.0)
     private val overSpeedLimit: MutableLiveData<Boolean> = MutableLiveData(false)
