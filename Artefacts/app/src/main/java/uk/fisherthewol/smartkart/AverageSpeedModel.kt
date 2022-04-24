@@ -17,7 +17,7 @@ const val SPEED_LIMIT_INCREMENT = 10
  *
  * Consider https://developer.android.com/training/location/request-updates, https://developer.android.com/topic/libraries/architecture/viewmodel
  */
-class AverageSpeedModel(private val locationMan: LocationManager, internal var speedLimit: MutableLiveData<Int> = MutableLiveData(0)): ViewModel(), LocationListener {
+class AverageSpeedModel(private val locationMan: LocationManager, internal var speedLimit: MutableLiveData<Int> = MutableLiveData(30)): ViewModel(), LocationListener {
     private val locations: MutableList<Location> = emptyList<Location>().toMutableList()
     private val averageSpeed: MutableLiveData<Double> = MutableLiveData(0.0)
     private val overSpeedLimit: MutableLiveData<Boolean> = MutableLiveData(false)
