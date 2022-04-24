@@ -3,5 +3,5 @@
     <integer name="predict_min_bound">1</integer>
     <integer name="predict_max_bound">30</integer>
     <integer name="predict_default">10</integer>
-    <integer name="speedlimit_upper_bound">350</integer>
+    <integer name="speedlimit_upper_bound">70</integer>
 </resources>
