@@ -14,6 +14,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             predictBar.max = resources.getInteger(R.integer.predict_max_bound)
             predictBar.min = resources.getInteger(R.integer.predict_min_bound)
         }
+        val speedBar: SeekBarPreference? = findPreference("max_speed_limit_mph")
+        if (speedBar != null) {
+            speedBar.setDefaultValue(resources.getInteger(R.integer.speedlimit_default))
+            speedBar.max = resources.getInteger(R.integer.speedlimit_upper_bound)
+        }
     }
 
 }

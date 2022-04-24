@@ -1,6 +1,7 @@
 package uk.fisherthewol.smartkart
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.location.LocationManager
 import android.os.Bundle
@@ -25,6 +26,7 @@ class DashboardFragment() : Fragment() {
     }
     // Gesture detection to allow swiping on speed limit. https://developer.android.com/training/gestures/detector#detect-a-subset-of-supported-gestures
     private lateinit var mDetector: GestureDetectorCompat
+    private lateinit var prefMan: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +37,10 @@ class DashboardFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
-        // Allow changing speedLimit.
+        // Bind lateinits:
         mDetector = GestureDetectorCompat(this.requireContext(), SpeedLimitGestureListener())
+        prefMan = PreferenceManager.getDefaultSharedPreferences(this.requireContext())
+        // Listen for touches on speedLimit.
         binding.speedLimitText.setOnTouchListener{
             v, event -> mDetector.onTouchEvent(event)
             true
@@ -51,7 +55,6 @@ class DashboardFragment() : Fragment() {
         }
         // Observe when we're tracking:
         model.getTrackingBool().observe(viewLifecycleOwner) {
-            val prefMan = PreferenceManager.getDefaultSharedPreferences(this.requireContext())
             when (it) {
                 true -> model.startTracking(prefMan.getInt("model_predict_time", R.integer.predict_default))
                 false -> model.stopTracking()
@@ -94,7 +97,8 @@ class DashboardFragment() : Fragment() {
                 velocityY >= 0 -> {
                     // Positive Y.
                     model.speedLimit.value = model.speedLimit.value?.plus(SPEED_LIMIT_INCREMENT)
-                    if (model.speedLimit.value!! > resources.getInteger(R.integer.speedlimit_upper_bound)) model.speedLimit.value = resources.getInteger(R.integer.speedlimit_upper_bound)
+                    val maxSpeed = prefMan.getInt("max_speed_limit_mph", 70)
+                    if (model.speedLimit.value!! > maxSpeed) model.speedLimit.value = maxSpeed
                 }
                 velocityY < 0 -> {
                     // Negative Y.
