@@ -8,6 +8,11 @@
             app:title="@string/model_predict_time_text" 
             app:showSeekBarValue="true"
             app:defaultValue="@integer/predict_default"/>
+        <SeekBarPreference
+            app:key="max_speed_limit_mph"
+            app:title="Maximum Speed Limit (MPH):"
+            app:showSeekBarValue="true"
+            app:defaultValue="@integer/speedlimit_default"/>
     </PreferenceCategory>
     
 </PreferenceScreen>
