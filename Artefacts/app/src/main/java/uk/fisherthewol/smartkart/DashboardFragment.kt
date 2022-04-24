@@ -102,13 +102,15 @@ class DashboardFragment() : Fragment() {
             appendPath(resources.getResourceTypeName(R.raw.over_limit))
             appendPath(resources.getResourceEntryName(R.raw.over_limit))
         }.build()
-        mediaPlayer = MediaPlayer().apply {
+        val listener = MediaPlayerListener()
+        val mp = MediaPlayer().apply {
             setDataSource(
                 requireContext(),
                 uri)
-            prepareAsync()
-            isLooping = true
+            setOnPreparedListener(listener)
+            setOnErrorListener(listener)
         }
+        mp.prepareAsync()
     }
 
     override fun onDestroyView() {
@@ -123,6 +125,9 @@ class DashboardFragment() : Fragment() {
         mediaPlayer = null
     }
 
+    /**
+     * Inner class to handle flings on SpeedLimit item.
+     */
     private inner class SpeedLimitGestureListener: GestureDetector.SimpleOnGestureListener() {
         override fun onDown(e: MotionEvent?): Boolean {
             return true
@@ -154,5 +159,29 @@ class DashboardFragment() : Fragment() {
             }
             return super.onFling(e1, e2, velocityX, velocityY)
         }
+    }
+
+    /**
+     * Inner class to handle asynchronous preparation and errors for MediaPlayer.
+     */
+    private inner class MediaPlayerListener: MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
+        /**
+         * Callback for [MediaPlayer.prepareAsync].
+         *
+         * Set member [mediaPlayer] to the returned [MediaPlayer] and set [isLooping][MediaPlayer.isLooping] to true.
+         */
+        override fun onPrepared(p0: MediaPlayer?) {
+            if (p0 != null) {
+                mediaPlayer = p0
+                mediaPlayer?.isLooping = true
+            } else {
+                Log.e("DashboardFragment:MediaPlayerListener:onPrepared", "Returned mediaPlayer was null.")
+            }
+        }
+
+        override fun onError(p0: MediaPlayer?, p1: Int, p2: Int): Boolean {
+            TODO("Not yet implemented")
+        }
+
     }
 }
