@@ -16,6 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.preference.PreferenceManager
 import com.google.android.material.color.MaterialColors
 import uk.fisherthewol.smartkart.databinding.FragmentDashboardBinding
+import java.lang.IllegalStateException
 import kotlin.math.roundToInt
 
 /**
@@ -233,7 +234,11 @@ class DashboardFragment() : Fragment() {
          */
         fun startOverLimit() {
             if (isPrepared && mediaPlayer?.isPlaying == false) {
-                mediaPlayer?.start()
+                try {
+                    mediaPlayer?.start()
+                } catch (e: IllegalStateException) {
+                    Log.e("startOverLimit", "Illegal state when trying to start.", e)
+                }
                 isPrepared = false
             }
         }
@@ -243,8 +248,12 @@ class DashboardFragment() : Fragment() {
          */
         fun stopOverLimit() {
             if (!isPrepared && mediaPlayer?.isPlaying == true) {
-                mediaPlayer?.pause()
-                mediaPlayer?.seekTo(0)
+                try {
+                    mediaPlayer?.pause()
+                    mediaPlayer?.seekTo(0)
+                } catch (e: IllegalStateException) {
+                    Log.e("stopOverLimit", "Illegal state when trying to pause and seek.", e)
+                }
                 isPrepared = false
             }
         }
