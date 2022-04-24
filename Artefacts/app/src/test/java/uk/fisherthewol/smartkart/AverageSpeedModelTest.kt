@@ -1,14 +1,13 @@
 package uk.fisherthewol.smartkart
 
-import android.app.Activity
 import android.content.Context
 import android.location.LocationManager
-import androidx.core.content.getSystemService
+import android.location.provider.ProviderProperties
+import androidx.lifecycle.MutableLiveData
 import org.junit.Test
+import org.junit.Assert.*
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 
 
@@ -17,7 +16,6 @@ import org.mockito.kotlin.mock
  */
 @RunWith(MockitoJUnitRunner::class)
 class AverageSpeedModelTest {
-    private lateinit var speedModelUnderTest: AverageSpeedModel
     private var mockLocationManager: LocationManager
     private var mockContext: Context
 
@@ -28,6 +26,13 @@ class AverageSpeedModelTest {
 
     @Test
     fun initAverageSpeedModel_withTestLocationManager() {
-
+        val prop = ProviderProperties.Builder().apply {
+            setAccuracy(ProviderProperties.ACCURACY_FINE)
+            setHasSpeedSupport(true)
+            setPowerUsage(ProviderProperties.POWER_USAGE_HIGH)
+        }.build()
+        mockLocationManager.addTestProvider(LocationManager.GPS_PROVIDER, prop)
+        val speedModelUnderTest = AverageSpeedModel(mockLocationManager, MutableLiveData(30))
+        assertEquals(speedModelUnderTest.getSpeedLimit().value, 30)
     }
 }
