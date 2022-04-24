@@ -170,17 +170,32 @@ class DashboardFragment() : Fragment() {
          *
          * Set member [mediaPlayer] to the returned [MediaPlayer] and set [isLooping][MediaPlayer.isLooping] to true.
          */
-        override fun onPrepared(p0: MediaPlayer?) {
-            if (p0 != null) {
-                mediaPlayer = p0
+        override fun onPrepared(mp: MediaPlayer?) {
+            if (mp != null) {
+                mediaPlayer = mp
                 mediaPlayer?.isLooping = true
             } else {
                 Log.e("DashboardFragment:MediaPlayerListener:onPrepared", "Returned mediaPlayer was null.")
             }
         }
 
-        override fun onError(p0: MediaPlayer?, p1: Int, p2: Int): Boolean {
-            TODO("Not yet implemented")
+        override fun onError(mp: MediaPlayer?, what: Int, extra: Int): Boolean {
+            val what: String = when (what) {
+                MediaPlayer.MEDIA_ERROR_UNKNOWN -> "MEDIA_ERROR_UNKNOWN"
+                MediaPlayer.MEDIA_ERROR_SERVER_DIED -> "MEDIA_ERROR_SERVER_DIED"
+                else -> "Unknown What, value $what"
+            }
+            val extra: String = when (extra) {
+                MediaPlayer.MEDIA_ERROR_IO -> "MEDIA_ERROR_IO"
+                MediaPlayer.MEDIA_ERROR_MALFORMED -> "MEDIA_ERROR_MALFORMED"
+                MediaPlayer.MEDIA_ERROR_UNSUPPORTED -> "MEDIA_ERROR_UNSUPPORTED"
+                MediaPlayer.MEDIA_ERROR_TIMED_OUT -> "MEDIA_ERROR_TIMED_OUT"
+                else -> "Unknown Extra, value $extra"
+
+            }
+            Log.e("DashboardFragment:MediaPlayerListener:onError", "Error from mediaPlayer.\n" +
+                    "What: $what\nExtra: $extra")
+            return false
         }
 
     }
