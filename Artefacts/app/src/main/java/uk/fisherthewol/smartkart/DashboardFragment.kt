@@ -178,13 +178,19 @@ class DashboardFragment() : Fragment() {
          * @param mp [MediaPlayer] that is either in Prepared state or is null.
          */
         override fun onPrepared(mp: MediaPlayer?) {
-            if (mp != null) {
-                mediaPlayer = mp
-                mediaPlayer?.isLooping = true
+            if (mediaPlayer != null) {
+                // Existing mediaPlayer.
                 isPrepared = true
             } else {
-                Log.e("DashboardFragment:MediaPlayerListener:onPrepared", "Returned mediaPlayer was null.")
-                isPrepared = false
+                // New mediaPlayer.
+                if (mp != null) {
+                    mediaPlayer = mp
+                    mediaPlayer?.isLooping = true
+                    isPrepared = true
+                } else {
+                    Log.e("DashboardFragment:MediaPlayerListener:onPrepared", "Returned mediaPlayer was null.")
+                    isPrepared = false
+                }
             }
         }
 
