@@ -17,16 +17,22 @@ class AverageSpeedModelTest {
     init {
         context = InstrumentationRegistry.getInstrumentation().targetContext
         locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager.addTestProvider(
+            LocationManager.GPS_PROVIDER,
+            true,
+            true,
+            false,
+            false,
+            true,
+            true,
+            true,
+            ProviderProperties.POWER_USAGE_HIGH,
+            ProviderProperties.ACCURACY_FINE
+        )
     }
 
     @Test
-    fun initAverageSpeedModel_withTestLocationManager() {
-        val prop = ProviderProperties.Builder().apply {
-            setAccuracy(ProviderProperties.ACCURACY_FINE)
-            setHasSpeedSupport(true)
-            setPowerUsage(ProviderProperties.POWER_USAGE_HIGH)
-        }.build()
-        locationManager.addTestProvider(LocationManager.GPS_PROVIDER, prop)
+    fun initialisesToProvidedSpeedLimit() {
         val modelUnderTest = AverageSpeedModel(locationManager, MutableLiveData(30))
         assertEquals(modelUnderTest.getSpeedLimit().value, 30)
     }
