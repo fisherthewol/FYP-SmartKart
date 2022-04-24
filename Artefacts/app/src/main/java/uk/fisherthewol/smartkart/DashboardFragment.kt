@@ -1,5 +1,6 @@
 package uk.fisherthewol.smartkart
 
+import android.content.ContentResolver
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -90,10 +91,17 @@ class DashboardFragment() : Fragment() {
      * Adapted from https://developer.android.com/guide/topics/media/mediaplayer#mediaplayer and https://stackoverflow.com/a/33266646, Naren Neelamegam, CC BY-SA 3.0
      */
     private fun prepareMediaPlayer() {
+        // Adapted from https://stackoverflow.com/a/38340580, Uli, CC BY-SA 4.0
+        val uri: Uri = Uri.Builder().apply {
+            scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+            authority(resources.getResourcePackageName(R.raw.over_limit))
+            appendPath(resources.getResourceTypeName(R.raw.over_limit))
+            appendPath(resources.getResourceEntryName(R.raw.over_limit))
+        }.build()
         mediaPlayer = MediaPlayer().apply {
             setDataSource(
                 requireContext(),
-                Uri.parse("android.resource://${requireContext().packageName}/raw/over_limit.ogg")) // This is hard-coded; consider using a uri builder to generate URI
+                uri)
             prepareAsync()
             isLooping = true
         }
