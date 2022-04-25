@@ -14,10 +14,28 @@
 \date{April 2022}
 \author{George Jacob Anthony Kokinis}
 \begin{document}
-\maketitle
 \begin{center}
-    Student Number 201910280
+	{\Huge Smart Kart}
+	
+	\bigskip
+	{\Large Final Report}
+	
+	\bigskip
+	Submitted for the BSc in
+	
+	\bigskip
+	{\LARGE Computer Science}
+	
+	\bigskip
+	April 2022
+	
+	\bigskip
+	by 
+	
+	\bigskip
+	{\LARGE George Jacob Anthony Kokinis}
     
+    \bigskip
     Word Count: ?? %exclude acknowledgements, abstract, table of contents, references and appendices) of your document.
 \end{center}
 \newpage
@@ -25,6 +43,9 @@
 Average speed check zones (ASC zones), typically enforced using SPECS\footnote{SPECS \citep{specsjenop}} in the UK, are being increasingly deployed in throughout the UK; doubling between 2013 and 2016 \citep{BBCSpeedCameraDoubled}. While useful for enforcing speed limits and increasing safety, with \citet{owenAllsop} finding that fatal and serious collisions dropped by 36.4\% at ASC zones installed purposely to reduce collisions, ASC Zones can lead to distracted driving, as the driver has to monitor their speed, which means looking away from the road to their speedometer for brief periods of time.
 
 This project seeks to create a software application for a smartphone, that detects when a vehicle the phone is in enters an ASC zone, starts tracking the vehicle's speed, and gives the driver an audible alert if their average speed is at risk of breaking the speed limit, so as to reduce dependence on the driver to check their speedometer.
+
+\section{Acknowledgements}
+I would like to acknowledge the invaluable contributions of Eur Ing Brian Tompsett and Lydia Bryan-Smith (both, at the time of Writing, of Hull University) with regards to Latex typesetting; without their guidance I would be stuck with regards to some of its peculiarities.
 
 \tableofcontents
 
@@ -121,6 +142,30 @@ Instead of a complex model, the application can just use past acceleration to pr
 \end{equation}
 The main tuning parameter of this model for forecasting is t, time; whether this is user configurable (a setting saying "Notify me t seconds before exceeding the limit") or "hardcoded" is a consideration to be made. As well, this needs to be used with some hysteresis; it will be exceedingly annoying to the user if the application constantly alternates the alerting state.
 
+\section{Programming and Development}
+There are various options for platforms on which this application could be developed. This section discusses options, and ultimately decides as to which platform should be used.
+
+\subsection{Cross-platform frameworks}
+One contemporary paradigm is the use of cross-platform frameworks; where a developer writes their code using provided libraries, and the framework handles the "mapping" between calls into the libraries and the various host features. These frameworks can range from intrinsic to the language - in the case of Java and the openJDK \citep{openJdk}, where a JVM is almost completely necessary for running the program and so is provided by the Java developers - to external frameworks developed by entities separate to those who develop the language.
+
+\paragraph{Flutter}
+Flutter \citep{FlutterWebsite} is a cross-platform framework provided by Google (but is open source, so can be modified by the general public) that allows developers to build "multi-platform applications from a single codebase". It uses and itself is written in Dart, Google's "client optimized language for fast apps on any platform" \citep{dartWebsite}. Bar the singular codebase, it provides explicit widgets for specific platform actions, such as permissions dialogs.
+
+Being provided by Google and using a language from Google means there is a high level of integration between langauge features and the framework, whilst still maintaining separate development groups.
+
+\paragraph{UNO Platform}
+UNO Platform is a framework for "Pixel-Perfect Multi-Platform Applications with C\# and WinUI" \citep{UnoWebsite}. It allows a developer to write once and compile applications for most major platforms, whilst also allowing for platform-specific code. 
+
+The use of C\# and WinUI is advantageous, as the University of Hull teaches C\# throughout undergraduate courses, so prior knowledge can be reused; and WinUI knowledge can be reused in future applications.
+
+\paragraph{MAUI}
+.NET MAUI is a cross-platform UI framework that allows .NET developers to write UIs that work on multiple .NET targets \citep{MAUIWebsite}. All .NET targets on .NET 6 share the same "base class library", meaning the underlying hardware and platform is abstracted away, but UI definition is still platform specific. MAUI allows a developer to use XAML to define UIs that work across Android, iOS, macOS, and Windows.
+
+Again, the use of .NET (and therefore most likely C\#) is advantageous for building on prior knowledge. However, being a framework still in "preview", whilst meaning there's still improvements to be made and inherent longevity, means that MAUI may be more prone to bugs and errors than a more mature framework.
+
+\paragraph{Summary}
+Whilst these 
+
 \chapter{Aims and Objectives}
 Fill later.
 \chapter{Design}
@@ -180,7 +225,7 @@ Manipulating views within a layout has historically been a case of calling \text
 \subsection{Strings}
 Android allows for easy localisation through the use of string resources. When the developer uses some text, the code refers to the string resource instead; based on the device's locale, this is substituted for a translated string if available.
 
-This extraction of string resources also allows for a "single source of truth"; rather than having to find all instances of a string in code and replace them, a developer wishing to change text just has one place to change it.
+This extraction of string resources also allows for a "single source of truth"; rather than having to find all instances of a string in code and replace them, a developer wishing to change text just has one location to alter.
 
 \appendix
 \chapter{Development Log}\label{app:GitLog}
