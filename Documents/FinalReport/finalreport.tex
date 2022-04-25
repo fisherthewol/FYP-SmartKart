@@ -156,7 +156,7 @@ Being provided by Google and using a language from Google means there is a high 
 \paragraph{UNO Platform}
 UNO Platform is a framework for "Pixel-Perfect Multi-Platform Applications with C\# and WinUI" \citep{UnoWebsite}. It allows a developer to write once and compile applications for most major platforms, whilst also allowing for platform-specific code. 
 
-The use of C\# and WinUI is advantageous, as the University of Hull teaches C\# throughout undergraduate courses, so prior knowledge can be reused; and WinUI knowledge can be reused in future applications.
+The use of C\# and WinUI is advantageous, as the University of Hull teaches C\# throughout undergraduate Computer Science courses, so prior knowledge can be reused; and WinUI knowledge can be reused in future applications.
 
 \paragraph{MAUI}
 .NET MAUI is a cross-platform UI framework that allows .NET developers to write UIs that work on multiple .NET targets \citep{MAUIWebsite}. All .NET targets on .NET 6 share the same "base class library", meaning the underlying hardware and platform is abstracted away, but UI definition is still platform specific. MAUI allows a developer to use XAML to define UIs that work across Android, iOS, macOS, and Windows.
@@ -164,7 +164,9 @@ The use of C\# and WinUI is advantageous, as the University of Hull teaches C\# 
 Again, the use of .NET (and therefore most likely C\#) is advantageous for building on prior knowledge. However, being a framework still in "preview", whilst meaning there's still improvements to be made and inherent longevity, means that MAUI may be more prone to bugs and errors than a more mature framework.
 
 \paragraph{Summary}
-Whilst these 
+Whilst these frameworks all ease cross-platform development, and help developers use a single codebase instead of multiple, for this project expediency and ease of development means that cross-platform is less important than a working application in the first place. For example, all of these frameworks enable the application to run on a desktop or laptop computer; but the chances of a user bringing even a laptop into their vehicle is very low, and the objective of this project is a smartphone application. So the potential added complexity of using a multi-platform framework to enable use on a platform that isn't relevant is not conducive to the project.
+
+Hence, this project will not use a multi-platform framework, and will instead use platform-native development on a mobile platform.
 
 \chapter{Aims and Objectives}
 Fill later.
