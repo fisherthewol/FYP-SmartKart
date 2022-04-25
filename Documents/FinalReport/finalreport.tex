@@ -168,6 +168,25 @@ Whilst these frameworks all ease cross-platform development, and help developers
 
 Hence, this project will not use a multi-platform framework, and will instead use platform-native development on a mobile platform.
 
+\subsection{Platform Native}
+\citet{MobileMarketShare} gives Android and iOS an approximate combined market share of 99.27\% as of March 2022. However, even in the remaining 0.73\% of the market, there are various options; Tizen\footnote{Backed by the Linux Foundation, but primarily developed by Samsung.}, KaiOS, and SailfishOS to name a few, as well as mobile versions of desktop systems, such as pureOS.
+
+While all could be good platforms for this project, Android and iOS' combined dominance and availability make them the two platforms to decide between, if this application is to provide the largest benefit to the public. Hence it is prudent to contrast and compare these platforms, and discount the others.
+
+\paragraph{Android} Android is a platform originally developed by the Android Open Source Project, but later adopted and marketed by Google. The platform is based around the JVM, originally Dalvik (which JIT'd\footnote{JIT: Just-in-Time, a methodology in which code is compiled to an intermediate form, then during runtime interpreted into machine instructions; See \citet{JITHistory}.} all applications) but later ART (in which applications are compiled to native code during installation), and hence originally development was done in Java.
+
+However, since 2017 Kotlin has had "first-class support" from the Android Team \citep{KotlinPreferred}, and since 2019 has been the preferred language for android development \citep{KotlinFirst}. Kotlin is a language from JetBrains\texttrademark\, with modern functional and object-oriented features; originally on the JVM, but since Kotlin 1.3, a beta feature to compile directly to native executables has been available. When originally announced, \citet{KotlinAnnounced} described Kotlin as has having "features so desperately wanted by the developers".
+
+\paragraph{iOS} iOS is the platform used by Apple on their iPhones and the majority of their iPads (until the introduction of iPadOS). Apple provides an iOS development kit, iOS SDK, and an IDE, XCode, as well as documentation and other tooling.
+
+Historically iOS applications were written in Objective-C, an object-oriented language originally developed in the 1980s. However since reaching version 1.0 in 2014, Swift \citep{Swift1.0} has transitioned into being the main language for iOS development. Swift is also an object-oriented language.
+
+\paragraph{Summary} Both Android and iOS have mature and full-featured SDKs, tools, and ecosystems. Both have historical and current languages, with iOS' languages integrating more tightly with the SDK than Android's.
+
+However, the advantage Android holds over iOS is one of cost. To develop for iOS native, a developer is required to have a MacOSX device to run XCode and the rest of the toolkit; even when using cross-platform frameworks, this requirement remains. At the time of writing the cheapest MacOSX system from Apple UK is £699 for a base Mac mini; and that price doesn't include a screen or any peripherals.
+
+In comparison, Android Studio\footnote{The primary IDE for Android development, \citep{androidstudio}} is OS agnostic; it will run on Windows, Mac, Linux, and even some ChromeBooks, as long as they have a 64-bit processor, and enough RAM and Storage. It is also possible to develop an Android app without Android Studio; the build system, gradle, is usable from the command line, so any text editor could be used for development.
+
 \chapter{Aims and Objectives}
 Fill later.
 \chapter{Design}
