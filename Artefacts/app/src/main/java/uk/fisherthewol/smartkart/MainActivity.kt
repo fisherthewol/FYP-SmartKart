@@ -3,6 +3,7 @@ package uk.fisherthewol.smartkart
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
@@ -122,6 +123,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     // TODO: Get a setting button on top bar. Consider drawer??
+    fun settingsClick(view: View) {
+        startActivity(Intent(this, SettingsPage::class.java))
+    }
 
     companion object {
         // Request code for getting location permissions.
