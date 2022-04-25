@@ -145,24 +145,42 @@ The main automation is effectively a separate loop that invokes the original flo
 \chapter{Technical Development}
 While the actual development of code can be found in appendix \ref{app:GitLog}, it is worthwhile discussing, separately to that, justification and reasoning behind certain decisions and implementations, as well as more general discussion about development on Android.
 
-\subsection{Settings Page}
+\section{Settings Page}
 Certain parameters of the application are user configurable; for example, except for in Automatic mode, the speed limit can be changed by the user, and the forecast time for the model can be configured by the user. However, the speed limit should be changeable from the main interface of the application, while the forecast time does not need to be. Hence a "settings page" should be created.
 
 \citet{settingsAndroid} provides a guide on how to implement a settings screen, using a \textit{PreferenceScreen} fragment. By using this part of the Android Jetpack library, a developer doesn't have to implement their own Settings system. However, to get to this settings page, the user must interact with something; one idea is for a settings button on the top bar of the application, which on Android is referred to as the "ActionBar". \citet{toolbarAndroid} provides information on how to configure an ActionBar that works across past and future android versions, and allows for action buttons. However, despite implementing this in the project, a settings button was never seen on the action bar throughout development. A future task for this project would be revisit and attempt to implement this; it is more likely to be a bug with the project's code than with the underlying Android libraries.
 
 For testing purposes, a button to reach the settings page was explicitly added. It was removed during design of the rest of the UI, then re-added at the end. The settings page itself can be found in figure \ref{fig:settingsPage}; currently containing just two settings, but could easily be extended for further features.
+
 \begin{figure}
 	\centering
 	\caption{Settings page at end of main development.}
 	\label{fig:settingsPage}
 	\scalebox{0.2}{\includegraphics{SettingsPage.png}}
 \end{figure}
+\pagebreak
 
-\subsection{Android Resources}
-Android resources are "additional files and static content that your code uses" \citep{resourcesAndroid}, including images, sounds, layouts, and (static) values.
+\section{Android Resources}
+Android resources are "additional files and static content that your code uses" \citep{resourcesAndroid}, including images, sounds, layouts, and (static) values. In this section the use and features of some resource forms is discussed.
 
-\paragraph{Drawables}
-Images in Android are considered to be "Drawables", and they can be either raw images in Bitmap or Vector form, or 
+Resources can be "qualified" with a number of factors, such as device orientation, type, "night mode", language, etc.
+
+\subsection{Drawables}
+Images in Android are considered to be "Drawables", and they can be either raw images in Bitmap or Vector form, or more Complex forms. For example, you can define a StateList composed of other drawables, and change between them from within your code.
+
+This project's only explicit use of a drawable is as a background SVG\footnote{Scalable Vector Graphics \citep{SVGW3C}} used to display the speed limit, imitating the background of a UK Speed Limit sign. However, this could become part of a StateList, with other countries backgrounds, or signs with specific meaning (E.G. the UK's National Speed Limit sign), to better improve a user's recognition of the speed limit.
+
+The use of an SVG instead of a bitmap allows for better scaling for different UI sizes; bitmap (also known as raster) graphics are prone to artifacts on upscaling (as information has to be interpolated).
+
+\subsection{Layouts}
+When defining an activity's or fragment's initial state, a developer should provide a layout file that defines the initial state in XML. It is theoretically possible to build a layout in code, and it is sometimes necessary to make changes in code; when \textit{inflating} its layout, an Activity needs to add a fragment to take the place of a \textit{FragmentContainerView}. However the actual layout should be in the layout resource file, and the code should manipulate the data displayed within the layout.
+
+Manipulating views within a layout has historically been a case of calling \textit{findViewById()} to get the view to manipulate. However this is not type safe and has few compile-time guarantees. Since Android Studio 3.6 (and the version of Jetpack released alongside it), this can be replaced by View Binding \citep{viewBindingAndroid}; upon creation of an activity or fragment, it inflates its layout and stores the root element as a member field. Then, instead of calling findViewById(), a developer can access binding.viewId.property, which provides nullability and type-safety.
+
+\subsection{Strings}
+Android allows for easy localisation through the use of string resources. When the developer uses some text, the code refers to the string resource instead; based on the device's locale, this is substituted for a translated string if available.
+
+This extraction of string resources also allows for a "single source of truth"; rather than having to find all instances of a string in code and replace them, a developer wishing to change text just has one place to change it.
 
 \appendix
 \chapter{Development Log}\label{app:GitLog}
