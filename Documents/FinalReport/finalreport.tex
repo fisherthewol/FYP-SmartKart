@@ -45,7 +45,7 @@ Average speed check zones (ASC zones), typically enforced using SPECS\footnote{S
 This project seeks to create a software application for a smartphone, that detects when a vehicle the phone is in enters an ASC zone, starts tracking the vehicle's speed, and gives the driver an audible alert if their average speed is at risk of breaking the speed limit, so as to reduce dependence on the driver to check their speedometer.
 
 \section{Acknowledgements}
-I would like to acknowledge the invaluable contributions of Eur Ing Brian Tompsett and Lydia Bryan-Smith (both, at the time of Writing, of Hull University) with regards to Latex typesetting; without their guidance I would be stuck with regards to some of its peculiarities.
+I would like to acknowledge the invaluable contributions of Eur Ing Brian Tompsett and Lydia Bryan-Smith (both, at the time of writing, of Hull University) with regards to Latex typesetting; without their guidance I would be stuck with regards to some of its peculiarities.
 
 \tableofcontents
 
@@ -183,9 +183,20 @@ Historically iOS applications were written in Objective-C, an object-oriented la
 
 \paragraph{Summary} Both Android and iOS have mature and full-featured SDKs, tools, and ecosystems. Both have historical and current languages, with iOS' languages integrating more tightly with the SDK than Android's.
 
-However, the advantage Android holds over iOS is one of cost. To develop for iOS native, a developer is required to have a MacOSX device to run XCode and the rest of the toolkit; even when using cross-platform frameworks, this requirement remains. At the time of writing the cheapest MacOSX system from Apple UK is £699 for a base Mac mini; and that price doesn't include a screen or any peripherals.
+However, the advantage Android holds over iOS is one of cost. To develop for iOS native, a developer is required to have a MacOSX device to run XCode and the rest of the toolkit; even when using cross-platform frameworks, this requirement remains. At the time of writing the cheapest MacOSX system from Apple UK is £699 for a base Mac mini; and that price doesn't include a screen or any peripherals. £699 is a significant outlay for a singular developer.
 
 In comparison, Android Studio\footnote{The primary IDE for Android development, \citep{androidstudio}} is OS agnostic; it will run on Windows, Mac, Linux, and even some ChromeBooks, as long as they have a 64-bit processor, and enough RAM and Storage. It is also possible to develop an Android app without Android Studio; the build system, gradle, is usable from the command line, so any text editor could be used for development.
+
+Furthermore, publishing an application is another advantage for Android. To publish an iOS app, a developer must enrol in the Apple Developer Program and pay an annual fee of \$99 for individuals or \$299 for companies \citep{AppleDevProgram}; this is regardless of whether your application is free or not. Other than this, there is no supported way of publishing applications.
+
+On Android, a developer can publish their application to the Google Play Store \citep{googlePlay}, to alternative marketplaces, or just offer application files (specifically APKs) for download.
+\begin{itemize}
+	\item To publish on Google Play, a developer must pay a one-off fee of \$25; bar this, any costs are as proportions of advert revenue and of transactions users make when buying an application or making in-app purchases; so a completely free app is free to publish.
+	\item Alternative markets include F-Droid \citep{FDroid}, which is completely free to publish to, but doesn't allow your application to cost money; it does allow for you to ask for donations, or have some in-app purchases.
+	\item Finally, although disabled by default, Android allows for installing applications from downloaded files, also known as sideloading \citep{sideloading}. A developer could develop and compile their application, then distribute the resulting apk file through any method they like - whether a download link on a website, or with some form of repository.
+\end{itemize}
+
+Hence, this project will develop an application for Android native; as it provides the most broad and easily accessible platform to develop and publish on. Furthermore, this project will use Kotlin as the language for development, as this is the contemporary choice; with \citet{KotlinFirst} quoting Google as saying "If you’re starting a new project, you should write it in Kotlin".
 
 \chapter{Aims and Objectives}
 Fill later.
