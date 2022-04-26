@@ -1,4 +1,5 @@
 \documentclass[11pt, a4paper, notitlepage]{report}
+\newcounter{objectivesCounter}
 \usepackage[utf8]{inputenc} % Ensures we can use UTF8.
 \usepackage[round,colon]{natbib}
 \bibliographystyle{hull}
@@ -154,14 +155,14 @@ Flutter \citep{FlutterWebsite} is a cross-platform framework provided by Google 
 Being provided by Google and using a language from Google means there is a high level of integration between langauge features and the framework, whilst still maintaining separate development groups.
 
 \paragraph{UNO Platform}
-UNO Platform is a framework for "Pixel-Perfect Multi-Platform Applications with C\# and WinUI" \citep{UnoWebsite}. It allows a developer to write once and compile applications for most major platforms, whilst also allowing for platform-specific code. 
+UNO Platform is a framework for "Pixel-Perfect Multi-Platform Applications with C\textsubscript{\#} and WinUI" \citep{UnoWebsite}. It allows a developer to write once and compile applications for most major platforms, whilst also allowing for platform-specific code. 
 
-The use of C\# and WinUI is advantageous, as the University of Hull teaches C\# throughout undergraduate Computer Science courses, so prior knowledge can be reused; and WinUI knowledge can be reused in future applications.
+The use of C\textsubscript{\#} and WinUI is advantageous, as the University of Hull teaches C\textsubscript{\#} throughout undergraduate Computer Science courses, so prior knowledge can be reused; and WinUI knowledge can be reused in future applications.
 
 \paragraph{MAUI}
 .NET MAUI is a cross-platform UI framework that allows .NET developers to write UIs that work on multiple .NET targets \citep{MAUIWebsite}. All .NET targets on .NET 6 share the same "base class library", meaning the underlying hardware and platform is abstracted away, but UI definition is still platform specific. MAUI allows a developer to use XAML to define UIs that work across Android, iOS, macOS, and Windows.
 
-Again, the use of .NET (and therefore most likely C\#) is advantageous for building on prior knowledge. However, being a framework still in "preview", whilst meaning there's still improvements to be made and inherent longevity, means that MAUI may be more prone to bugs and errors than a more mature framework.
+Again, the use of .NET (and therefore most likely C\textsubscript{\#}) is advantageous for building on prior knowledge. However, being a framework still in "preview", whilst meaning there's still improvements to be made and inherent longevity, means that MAUI may be more prone to bugs and errors than a more mature framework.
 
 \paragraph{Summary}
 Whilst these frameworks all ease cross-platform development, and help developers use a single codebase instead of multiple, for this project expediency and ease of development means that cross-platform is less important than a working application in the first place. For example, all of these frameworks enable the application to run on a desktop or laptop computer; but the chances of a user bringing even a laptop into their vehicle is very low, and the objective of this project is a smartphone application. So the potential added complexity of using a multi-platform framework to enable use on a platform that isn't relevant is not conducive to the project.
@@ -200,6 +201,47 @@ Hence, this project will develop an application for Android native; as it provid
 
 \chapter{Aims and Objectives}
 The overall aim, as stated in the Abstract, is to create an application to reduce load on drivers in average speed check zones. However, this is rather opaque as a goal, and it is hence necessary to break this aim into smaller, manageable aims and objectives.
+
+\section{Primary Objectives}\label{sec:PrimObj}
+The overall primary objectives are
+\begin{enumerate}
+	\item To develop an Android Application that can track a user's average speed.
+	\item This application will be able to use the collected data to predict if a user's average speed is going to go over a set limit, and will audibly and visually warn the user.
+	\item Tracking can be started and stopped manually by the user.
+	\item The application can detect when the user enters an Average Speed Check zone, based on location.
+	\item Tracking can be started and stopped automatically, when a user enters or exits an ASC zone.
+	\item All manual interaction can be supplanted with voice commands\footnote{For example, through integration with Google Assistant \citep{GoogleAssistant}.}.
+	\setcounter{objectivesCounter}{\value{enumi}}
+\end{enumerate}
+These primary objectives are intended to implement key functionality, with any other functionality being a "nicety" to implement later.
+
+\section{Secondary Objectives}\label{sec:SecObj}
+If possible, the application could also:
+\begin{enumerate}
+	\setcounter{enumi}{\value{objectivesCounter}}
+	\item Allow the user to change the audio used for the audible warning.
+	\item Allow the user contribute to the dataset used for automatic detection of ASC zones.
+	\setcounter{objectivesCounter}{\value{enumi}}
+\end{enumerate}
+Changing the audio allows the user a choice of how they wish to be alerted; whether they want a subtle alert or a very distinct, jarring alert. Allowing the user to contribute to the dataset is a case for the public good, but depending on the dataset may require substantial development work; hence it is a secondary objective.
+
+\section{Tertiary objectives}
+In some territories, the use of physical devices to detect speed cameras is illegal, and applications doing the same are either explicitly or potentially illegal. One such case is France; any device or system used to "detect the presence" of devices for regulation of road traffic is illegal under the Code de la route \citep{CodeDeLaRoute}. Hence, an objective for the application would be:
+\begin{enumerate}
+	\setcounter{enumi}{\value{objectivesCounter}}
+	\item To detect if the device is in a territory with such a regulation, and
+	\item Automatically prevent its own usage in those territories, providing a message to the user about why.
+	\setcounter{objectivesCounter}{\value{enumi}}
+\end{enumerate}
+
+Furthermore, different classes of vehicles have different speed limits. In the UK, the National Speed limit for LGVs over 7.5 metric tonnes is 60 MPH, regardless of whether the road is single or dual carriageway \citep{GovUKSpeedLimits}. Hence:
+\begin{enumerate}
+	\setcounter{enumi}{\value{objectivesCounter}}
+	\item The application allows the user to set what class of vehicle they're driving.
+	\item The application uses a speedlimit adjusted to account for this.
+	\setcounter{objectivesCounter}{\value{enumi}}
+\end{enumerate}
+
 
 \chapter{Design}
 Once an initial design is proposed, any changes to that design should be noted and tested to ensure there are no regressions. In this section, initial designs for the UI, the user flows, and application structures are proposed.
