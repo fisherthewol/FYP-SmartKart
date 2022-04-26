@@ -45,7 +45,7 @@ Average speed check zones (ASC zones), typically enforced using SPECS\footnote{S
 This project seeks to create a software application for a smartphone, that detects when a vehicle the phone is in enters an ASC zone, starts tracking the vehicle's speed, and gives the driver an audible alert if their average speed is at risk of breaking the speed limit, so as to reduce dependence on the driver to check their speedometer.
 
 \section{Acknowledgements}
-I would like to acknowledge the invaluable contributions of Eur Ing Brian Tompsett and Lydia Bryan-Smith (both, at the time of writing, of Hull University) with regards to Latex typesetting; without their guidance I would be stuck with regards to some of its peculiarities.
+I would like to acknowledge the invaluable contributions of Eur Ing Brian Tompsett and Lydia Bryan-Smith (both, at the time of writing, of Hull University) with regards to \LaTeX\ typesetting; without their guidance I would be stuck with regards to some of its peculiarities.
 
 \tableofcontents
 
@@ -199,7 +199,8 @@ On Android, a developer can publish their application to the Google Play Store \
 Hence, this project will develop an application for Android native; as it provides the most broad and easily accessible platform to develop and publish on. Furthermore, this project will use Kotlin as the language for development, as this is the contemporary choice; with \citet{KotlinFirst} quoting Google as saying "If you’re starting a new project, you should write it in Kotlin".
 
 \chapter{Aims and Objectives}
-Fill later.
+The overall aim, as stated in the Abstract, is to create an application to reduce load on drivers in average speed check zones.
+
 \chapter{Design}
 Once an initial design is proposed, any changes to that design should be noted and tested to ensure there are no regressions. In this section, initial designs for the UI, the user flows, and application structures are proposed.
 \section{User Flows}
@@ -222,6 +223,9 @@ The main automation is effectively a separate loop that invokes the original flo
 \chapter{Technical Development}
 While the actual development of code can be found in appendix \ref{app:GitLog}, it is worthwhile discussing, separately to that, justification and reasoning behind certain decisions and implementations, as well as more general discussion about development on Android.
 
+\section{Android Jetpack}
+Android applications previously used the Android support library to allow for some form backward compatibility; Instead of the developer explicitly handling older versions, the support library allows developers to either have an implementation of "newer features on earlier versions", or "gracefully fall back to equivalent functionality" \citep{supportLibAndroid}. However since Android 9.0, the support library has been replaced by Android Jetpack libraries. Jetpack not only provides the backwards compatibility of the support libraries, but also a large amount of classes and helper functions that "help developers follow best practices, reduce boilerplate code ... so that developers can focus on the code they care about" \citep{AndroidJetpack}. Case in point with this project; the application makes use of \textit{AppCompatActivity}, which means the main activity will have a consistent appearance across previous versions of android; and the Jetpack preferences library is used as discussed below.
+
 \section{Settings Page}
 Certain parameters of the application are user configurable; for example, except for in Automatic mode, the speed limit can be changed by the user, and the forecast time for the model can be configured by the user. However, the speed limit should be changeable from the main interface of the application, while the forecast time does not need to be. Hence a "settings page" should be created.
 
@@ -240,7 +244,7 @@ For testing purposes, a button to reach the settings page was explicitly added. 
 \section{Android Resources}
 Android resources are "additional files and static content that your code uses" \citep{resourcesAndroid}, including images, sounds, layouts, and (static) values. In this section the use and features of some resource forms is discussed.
 
-Resources can be "qualified" with a number of factors, such as device orientation, type, "night mode", language, etc.
+Resources can be "qualified" with a number of factors, such as device orientation, type, "night mode", language, etc; allowing for automatic reconfiguration when the device changes.
 
 \subsection{Drawables}
 Images in Android are considered to be "Drawables", and they can be either raw images in Bitmap or Vector form, or more Complex forms. For example, you can define a StateList composed of other drawables, and change between them from within your code.
@@ -261,7 +265,7 @@ This extraction of string resources also allows for a "single source of truth"; 
 
 \appendix
 \chapter{Development Log}\label{app:GitLog}
-TestTestTest
+Note that, as the \LaTeX\ for this report is itself hosted in the repository, this git log contains commits not relevant to the application; where possible they have been removed, but some may remain.
 
 \bibliography{finalrep}
 \end{document}
