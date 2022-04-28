@@ -59,7 +59,7 @@ Currently, there are various products for monitoring a driver's speed and for in
 However, Google Maps does not register ASCs as actual "zones", but instead as a fixed speed camera at the start of the zone. Waze displays progression through an ASC, but does not calculate average speed. TomTom GO Navigation \citep{tomtomGo} does track average speed in an ASC zone, but operates on a paid subscription model, so is not available to everyone. Hence, there is space in the market for a free solution to monitoring speed in ASC zones.
 \section{The Problem}
 While conscientious drivers should be aware of their speed anyway, it is likely that many check their speed more often and with more discretion whilst within an ASC zone. This means they may be focused on their speedometer when something important is passed, such as a direction sign, a signal from another road user, or an overhead gantry message - such as the "Red X" on Smart Motorways\footnote{Smart Motorways \citep{SmartMotorways}}, or a speed limit change.
-\section{A solution}
+\section{A Solution}
 By creating a smartphone application that warns a user if they are about to exceed the speed limit, the load on the driver can be reduced, allowing them to have more awareness of the road. By making this application free to use (whether free or supported by advertisements), this increases availability, potentially increasing the impact of this project.
 \section{Report Structure}
 The rest of this report is structured into the following chapters:
@@ -193,6 +193,7 @@ On Android, a developer can publish their application to the Google Play Store \
 	\item Finally, although disabled by default, Android allows for installing applications from downloaded files, also known as sideloading \citep{sideloading}. A developer could develop and compile their application, then distribute the resulting apk file through any method they like - whether a download link on a website, or with some form of repository.
 \end{itemize}
 
+\subsection{Summary}
 Hence, this project will develop an application for Android native; as it provides the most broad and easily accessible platform to develop and publish on. Furthermore, this project will use Kotlin as the language for development, as this is the contemporary choice; with \citet{KotlinFirst} quoting Google as saying "If you’re starting a new project, you should write it in Kotlin".
 
 \chapter{Aims and Objectives}
@@ -293,15 +294,29 @@ This project's only explicit use of a drawable is as a background SVG\footnote{S
 
 The use of an SVG instead of a bitmap allows for better scaling for different UI sizes; bitmap (also known as raster) graphics are prone to artifacts on upscaling (as information has to be interpolated).
 
-\subsection{Layouts}
+\subsection{Layouts and View Binding.}
 When defining an activity's or fragment's initial state, a developer should provide a layout file that defines the initial state in XML. It is theoretically possible to build a layout in code, and it is sometimes necessary to make changes in code; when \textit{inflating} its layout, an Activity needs to add a fragment to take the place of a \textit{FragmentContainerView}. However the actual layout should be in the layout resource file, and the code should manipulate the data displayed within the layout.
 
-Manipulating views within a layout has historically been a case of calling \textit{findViewById()} to get the view to manipulate. However this is not type safe and has few compile-time guarantees. Since Android Studio 3.6 (and the version of Jetpack released alongside it), this can be replaced by View Binding \citep{viewBindingAndroid}; upon creation of an activity or fragment, it inflates its layout and stores the root element as a member field. Then, instead of calling findViewById(), a developer can access binding.viewId.property, which provides nullability and type-safety.
+Manipulating views within a layout has historically been a case of calling \textit{findViewById()} to get the view to manipulate. However this is not type safe and has few compile-time guarantees. Since Android Studio 3.6 (and the version of Jetpack released alongside it), this can be replaced by View Binding \citep{viewBindingAndroid}; upon creation of an activity or fragment, the view inflates its layout and stores the root element as a member field. Then, instead of calling findViewById(), a developer can access binding.viewId.property, which provides nullability and type-safety.
+
+This project has a few layouts in use; two activities and two fragments, one each for the main page and the settings page. It also uses view binding in the main activity and the "DashboardFragment"; it is not necessary to do so in the settings page and fragment, as access to the components is handled preferences part of the Jetpack Library.
 
 \subsection{Strings}
 Android allows for easy localisation through the use of string resources. When the developer uses some text, the code refers to the string resource instead; based on the device's locale, this is substituted for a translated string if available.
 
 This extraction of string resources also allows for a "single source of truth"; rather than having to find all instances of a string in code and replace them, a developer wishing to change text just has one location to alter.
+
+Every string in the project is a string resource, but it provides no translations for them.
+
+\subsection{Integers}
+Similar to the single source of truth for strings, Android resources can provide a single source of truth for Integer values. In the project this is used to set default values and limit values for the settings page.
+
+\section{MediaPlayer: Playing sounds on Android.}
+As part of objective 2, the application should audibly warn the user. On Android, the default way to play an audible sound is to use an instance of MediaPlayer \citep{mediaPlayerAndroid}. Unfortunately, MediaPlayer is a very obtuse part of the Android Runtime. It works on the principle of a state machine, and this state machine is well documented and understandable; but there is no way for code interacting with it to query the state, bar a binary "isPlaying" and "isLooping" variables. The only way to handle this is for the interacting code to manually keep track of what state it "should" be in, handle callbacks, and effectively reset and start over if an error is encountered\footnote{The MediaPlayer namespace has some named errors, but most errors encountered during this project were either "attempting to pause whilst paused", or just gave back numbers with no clear meaning.}.
+
+In this project, the class written to handle this has an internal member, \textit{isPrepared}, that keeps track of if the MediaPlayer instance is ready to play the alert sound, from the beginning. The function to start playing checks this value, and does not call play if it isn't true; if it is, then it starts playing and sets the value as false. The function to stop playing checks if this value is false and if the \textit{isPlaying} value is true, and if so pauses the player and seeks the track back to 0 seconds; a full call to the MediaPlayer's \textit{stop()} method would require going through the "prepare" flow again. Seeking is also an asynchronous operation, so during creation of the MediaPlayer, the handler registers itself for "OnSeekComplete", and it is this callback function that sets \textit{isPrepared} back to true. Through this, calls to the handler's start and stop methods are idempotent.
+
+This is the simplest case for a handler for MediaPlayer. If this application was doing more complex things, such as playing multiple files, a more complex handler would have to be written. Regardless, it is interesting that there is no direct access to state for MediaPlayer.
 
 \appendix
 \chapter{Development Log}\label{app:GitLog}
