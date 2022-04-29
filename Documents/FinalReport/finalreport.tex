@@ -328,7 +328,7 @@ As part of objective two, the application should audibly warn the user. On Andro
 
 In this project, the class written to handle this has an internal member, \textit{isPrepared}, that keeps track of if the MediaPlayer instance is ready to play the alert sound, from the beginning. The function to start playing checks this value, and does not call play if it isn't true; if it is, then it starts playing and sets the value as false. The function to stop playing checks if this value is false and if the \textit{isPlaying} value is true, and if so pauses the player and seeks the track back to 0 seconds; a full call to the MediaPlayer's \textit{stop()} method would require going through the "prepare" flow again. Seeking is also an asynchronous operation, so during creation of the MediaPlayer, the handler registers itself for "OnSeekComplete", and it is this callback function that sets \textit{isPrepared} back to true. Through this, calls to the handler's start and stop methods are idempotent.
 
-This is the simplest case for a handler for MediaPlayer. If this application was doing more complex things, such as playing multiple files, a more complex handler would have to be written. Regardless, it is interesting that there is no direct access to state for MediaPlayer.
+This is the simplest case for a handler for MediaPlayer. If this application was doing more complex things, such as playing multiple files, a more complex handler would have to be written. Regardless, it is interesting that there is no direct access to state for MediaPlayer; it suggests the internal functionality of MediaPlayer is too complex to represent the state to the user.
 
 \appendix
 \chapter{Development Log}\label{app:GitLog}
