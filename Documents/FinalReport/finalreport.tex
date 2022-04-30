@@ -48,6 +48,8 @@ This project seeks to create a software application for a smartphone, that detec
 \section{Acknowledgements}
 I would like to acknowledge the invaluable contributions of Eur Ing Brian Tompsett and Lydia Bryan-Smith (both, at the time of writing, of Hull University) with regards to \LaTeX\ typesetting; without their guidance I would be stuck with regards to some of its peculiarities.
 
+Alec Kokinis MA (Oxon), my Grandfather, provided instrumental help in proof-reading this document. Thank you.
+
 \tableofcontents
 
 \chapter{Introduction}
@@ -196,7 +198,7 @@ On Android, a developer can publish their application to the Google Play Store \
 \subsection{Summary}
 Hence, this project will develop an application for Android native; as it provides the most broad and easily accessible platform to develop and publish on. Furthermore, this project will use Kotlin as the language for development, as this is the contemporary choice; with \citet{KotlinFirst} quoting Google as saying "If you’re starting a new project, you should write it in Kotlin".
 
-\chapter{Aims and Objectives}
+\chapter{Aims and Objectives}\label{ch:AnO}
 The overall aim, as stated in the Abstract, is to create an application to reduce load on drivers in average speed check zones. However, this is rather opaque as a goal, and it is hence necessary to break this aim into smaller, manageable aims and objectives.
 
 \section{Primary Objectives}\label{sec:PrimObj}
@@ -285,7 +287,7 @@ For testing purposes, a button to reach the settings page was explicitly added. 
 \section{Android Resources}
 Android resources are "additional files and static content that your code uses" \citep{resourcesAndroid}, including images, sounds, layouts, and (static) values. In this section the use and features of some resource forms is discussed.
 
-Resources can be "qualified" with a number of factors, such as device orientation, type, "night mode", language, etc; allowing for automatic reconfiguration when the device changes.
+Resources can be "qualified" with a number of factors, such as device orientation, type, "night mode", language, etcetera; allowing for automatic reconfiguration when the device changes.
 
 \subsection{Drawables}
 Images in Android are considered to be "Drawables", and they can be either raw images in Bitmap or Vector form, or more Complex forms. For example, a file can define a StateList composed of other drawables, and code can change between them, usually based on the state of the container.
@@ -333,7 +335,7 @@ This is the simplest case for a handler for MediaPlayer. If this application was
 \section{Testing and Test-driven development.}\label{sec:TDD}
 \citet{tddByExample} writes that test-driven development is when "we drive development with automated tests"; and follow the two "simple rules": "Write code only if an automated test has failed", and "eliminate duplication". A perhaps less obtuse interpretation of this, is that test-driven development is the process of writing tests first, then writing code to make those tests pass.
 
-This project started with the intention of following the TDD methodology. However due to time constraints and mismanagement, all of the code was written before implementing tests; hence there is very little to talk about in terms of test result progress throughout the project. Still, there is discussion to be had about testing in general.
+This project started with the intention of following the TDD methodology. However due to time constraints and management issues, all of the code was written before implementing tests; hence there is very little to talk about in terms of test result progress throughout the project. Still, there is discussion to be had about testing in general.
 
 \subsection{Testing on Android}
 \citet{testingAndroid} says "the most important distinction for app developers is where tests run"; and hence the two overall classifications for android tests: Local tests which run on the development machine, and Instrumented tests which run on an Android device, emulated or real.
@@ -342,11 +344,128 @@ Local tests are more suited for the traditional "unit tests", as when running th
 
 In comparison, Instrumented tests are ideal for "integration tests", as they are actually run on an Android Device; meaning the android runtime exists, and test code can use android classes and contexts. In the context of the project, some instrumented tests were written in \textit{AverageSpeedModelTest.kt}; one to test that the AverageSpeedModel is instantiated to the expected state, and one to test the basic tracking functionality. However, in part due to lack of documentation around the use of LocationManager test providers, this second test fails: the AverageSpeed is reported as 0, when it should be 17. This is likely due to a delay between calls to \textit{setTestProviderLocation} and when the LocationManager actually calls the onLocationChanged callback; however, documentation on this could not be found. The solution would be manually adding a delay in the test code, but Android Instrumented tests cannot be ran in parallel on the same device, so a delay would slow down the test speed.
 
+\chapter{Evaluation}
+This chapter evaluates the project in the context of the objectives defined in Chapter \ref{ch:AnO}, the value of the project to the public and to the author, and where the project could go in the future.
+
+\section{Aims and Objectives.}
+Due to the lack of test suite, it is hard to actually quantify whether the project meets the objectives in Chapter \ref{ch:AnO}. However, in terms of what code has actually been written, only objectives one, two, and three have had actual code. The lack of code for other objectives is down to aforementioned time constraints and management issues; however with respect to objectives four and five, information on how these could be achieved can be found in REFME(Refer to section - Technical Development?).
+
+\section{Value to the Public.}
+As it stands now, the project is not publicly available - hence it cannot provide any value to the public. However, should it be publicised, what code does exist can be of value to the public; it presents some basic examples of how to use view-binding, activities, fragments, and in particular a good amount of code around the use of LocationManager.
+
 \appendix
 \chapter{Development Log}\label{app:GitLog}
 Note that, as the \LaTeX\ for this report is itself hosted in the repository, this git log contains commits not relevant to the application; where possible they have been removed, but some may remain.
+This log is in reverse chronological order; that is, the most recent item is at the top of the list.
 
-% USE: git log --pretty=format:"\item %h %s" to get as items.
+% USE: git log --pretty=format:"\item %h %s %b" to get as items.
+\begin{itemize}
+	\item 2d56328 Re-add explicit button for settings. 
+	\item cbd414f Fix issues with times and accuracy; invert asserts to proper direction; add assert at end of checkBasicTracking. 
+	\item bddd100 Add more tests. 
+	\item e367c9c Suppress warning; we manually gave permission for testing. 
+	\item 331cbed Working Instrumented Test! 
+	\item 84eabbc Explicitly add androidx Core and androidx.test dependencies. 
+	\item 6913481 Enable Jetifier. 
+	\item 3bdab20 Switch to instrumented test. 
+	\item 2f2694a Disable minify on debug build. 
+	\item 6ce69f8 Add test to test setting up test functions. 
+	\item 359c3b6 Set default speedLimit to 30 MPH. 
+	\item e2bb493 Begin writing testing for AverageSpeedModel. 
+	\item 6f13d01 Handle synchronous exceptions. 
+	\item 9884fba Say we didn't handle this error if it's not our mediaPlayer. 
+	\item 15e5322 Handle case where we already have mediaPlayer. 
+	\item ff1bb96 Actually use handler methods to start/stop limit sound. 
+	\item c3abfbd Proper param names; actual error handling. 
+	\item 3445da4 Add inner class to handle media player events. 
+	\item a186183 Handle proper destruction of mediaPlayer. 
+	\item 2d16ea5 Merge branch 'fixStaticColor' 
+	\item 58cc052 Move to URI Builder to not have issues. 
+	\item b1397e1 Get onSecondary from theme. 
+	\item 584e01a Set night colonOnSecondary to white. 
+	\item 78e4df0 Extract function; null mediaPlayer after release. 
+	\item a2dd992 Rename resource; begin adding code ot asynchronously get mediaPlayer. 
+	\item 44c661e Add overLimit.ogg, which is from https://notificationsounds.com/message-tones/maybe-552; need to attribute (CC-BY-4.0-IL). 
+	\item c4a7cd6 Change default invocation of model to use speed limit of 30. 
+	\item 813ae34 Merge remote-tracking branch 'origin/allowSetSpeedLimit' 
+	\item 91a7099 Allow setting maximum speed limit in settings; extract prefMan as a member to reduce redundancy. 
+	\item 96feeec I promise 350 was a test value. Upper bound is 70 since UK roads have no higher limit. 
+	\item cf891d1 Add bounds checks on speed limit. 
+	\item 879037d Set speed limit text to explicit black, since background is non-transparent white. 
+	\item 36e89fd We want to check the predicted speed, not if we're currently over - well, maybe not. 
+	\item 69224c9 Pad AverageSpeed. 
+	\item 9b0f94e Set touch listener on Speed Limit. 
+	\item 75295d6 Add gesture detector to dashboard fragment. 
+	\item 3b4650e Barrier comparison fix. 
+	\item a711867 Tidy up. 
+	\item 8567439 Default back to white; need to work out how to get theme colour. 
+	\item b9d11c6 Get theme colour instead of black. 
+	\item bd2d628 Extract coefficient for conversion. 
+	\item 668d824 Move convertToUnit to static on AverageSpeedModel. 
+	\item 60a0525 Need LiveData method for trackingBool. 
+	\item aed7c9d Observe speedLimit; use non-mutable LiveData for trackingBool. Observe overSpeedLimit. 
+	\item fbdac3a Ensure no NPE with trackingBool. 
+	\item f1a99d9 Convert unit to mph for display. 
+	\item 69200f1 Predict speed and update boolean accordingly. 
+	\item 8df1b7d Add a reset to the model. 
+	\item 6acd8c3 Spelling. 
+	\item 2527049 Pass predict time to model in startTracking. 
+	\item 34b16e1 Add and use default value in preferences. 
+	\item 0c2bfe7 Add functions to predict for model. 
+	\item b94bdf9 Round to int on speedo. 
+	\item 866aa14 Add AverageSpeedModelFactory and use it for initialising AverageSpeedModel. 
+	\item 7e93295 Add fragment-ktx dependency to allow `by activityViewModels`, etc. 
+	\item 41c46ff Access model from MainActivity. Write factory for model. 
+	\item 4a546e1 Share AverageSpeedModel across fragments. 
+	\item 29d23c8 Observe trackingBool in DashboardFragment. 
+	\item a955584 Add speedLimit. 
+	\item 68bd5b9 Observer changes to average speed and update digit text. 
+	\item a6d2449 Make AverageSpeedModel a ViewModel. 
+	\item ed32d43 Use correct imports and correct onCreate. 
+	\item ea30396 Switch to liveData for tracking bool. 
+	\item 6c49c4f Use binding for snackbar. 
+	\item 2c3c403 Enable binding inside of the DashboardFragment. 
+	\item f512479 Use view binding to replace findViewById. To actually set the average speed, I think we need to move the logic into dashboard fragment, instead of inside here.
+	
+	Equally there's going to be a pattern, involving threads no doubt, to updating the text; I imagine just setting them equal isn't going to work.
+	\item ae42405 Enable view binding in gradle. 
+	\item 4e58df4 Toggle tracking on button. Still need to bind UI and model. 
+	\item 7b14d46 Enable/disable buttons. Cleanup some stuff. 
+	\item d5b2906 Add documentation to MainActivity and ASModel. 
+	\item d07264f Refactor tracking to allow for stopping and starting. 
+	\item 94035dc Start button. 
+	\item 9653c88 Fix logic error with checking results. 
+	\item 7979522 Refactor permissions check and request. Complete onRequestPermissionsResult. Move permissions to companion. 
+	\item 7f32c1a Request location permissions on main activity creation. 
+	\item ee37f3a Add speed limit to fragment\_dashboard.xml. 
+	\item 1a3e899 Reimplement average speed to be calculated on update. Autogenerate permission check to implement one layer up. 
+	\item 33115d1 Refactor to registering the model as a listener. Consider caching value instead of calculating on fly (may be a premature optimisation). 
+	
+	Need to check for permission - pass reference into constructor just to get context?
+	\item f877352 Add locationConsumer. 
+	\item 50780b0 Add location permissions. 
+	\item d467d43 Add documentation to averageSpeed. 
+	\item f79a325 Refactor averageSpeed as a property instead of function. 
+	\item 07eaed6 Begin adding code to model. 
+	\item de8e5be Add background for speed limit signs. 
+	\item cd81317 Add display fragment for average speed. 
+	\item 92b1b2c Remove uneeded filter. 
+	\item aecff63 Bounded seekbar. Yay. 
+	\item b87033e Show value on seekbar. 
+	\item 6d95fb5 Remove bounds, because something is wrong. 
+	\item 8a456f9 Change to SeekBar. 
+	\item 819a055 Fix bounds and filters. 
+	\item 5db6680 Implement actual setting we want. Introduce bounds and filters. 
+	\item f4a7c15 Change constraints on settings (still wrong but goodenough for now). 
+	\item c7cbb59 Load settingsFragment in settingsPage. 
+	\item 1d5de89 Add SettingsFragment. 
+	\item d088240 Delete Artefacts/.idea directory Delete .idea; shouldn't be in source (technically).
+	\item d44a9e4 Add SettingsPage activity. 
+	\item 4c48b0e Add button to main activity to test settings. 
+	\item a254159 Remove existing action bar; attempt to add our own. Not working :(. 
+	\item f9fbe32 Begin adding an action bar button for settings. 
+	\item 08f4e1e Add src tree for application.
+\end{itemize}
 
 \bibliography{finalrep}
 \end{document}
