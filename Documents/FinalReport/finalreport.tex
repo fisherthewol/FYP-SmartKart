@@ -330,9 +330,23 @@ In this project, the class written to handle this has an internal member, \texti
 
 This is the simplest case for a handler for MediaPlayer. If this application was doing more complex things, such as playing multiple files, a more complex handler would have to be written. Regardless, it is interesting that there is no direct access to state for MediaPlayer; it suggests the internal functionality of MediaPlayer is too complex to represent the state to the user.
 
+\section{Testing and Test-driven development.}\label{sec:TDD}
+\citet{tddByExample} writes that test-driven development is when "we drive development with automated tests"; and follow the two "simple rules": "Write code only if an automated test has failed", and "eliminate duplication". A perhaps less obtuse interpretation of this, is that test-driven development is the process of writing tests first, then writing code to make those tests pass.
+
+This project started with the intention of following the TDD methodology. However due to time constraints and mismanagement, all of the code was written before implementing tests; hence there is very little to talk about in terms of test result progress throughout the project. Still, there is discussion to be had about testing in general.
+
+\subsection{Testing on Android}
+\citet{testingAndroid} says "the most important distinction for app developers is where tests run"; and hence the two overall classifications for android tests: Local tests which run on the development machine, and Instrumented tests which run on an Android device, emulated or real.
+
+Local tests are more suited for the traditional "unit tests", as when running them the overall android runtime doesn't exist, so attempting to construct Android classes (for example, LocationManager and MediaPlayer) can end up failing unless they're mocked.
+
+In comparison, Instrumented tests are ideal for "integration tests", as they are actually run on an Android Device; meaning the android runtime exists, and test code can use android classes and contexts. In the context of the project, some instrumented tests were written in \textit{AverageSpeedModelTest.kt}; one to test that the AverageSpeedModel is instantiated to the expected state, and one to test the basic tracking functionality. However, in part due to lack of documentation around the use of LocationManager test providers, this second test fails: the AverageSpeed is reported as 0, when it should be 17. This is likely due to a delay between calls to \textit{setTestProviderLocation} and when the LocationManager actually calls the onLocationChanged callback; however, documentation on this could not be found. The solution would be manually adding a delay in the test code, but Android Instrumented tests cannot be ran in parallel on the same device, so a delay would slow down the test speed.
+
 \appendix
 \chapter{Development Log}\label{app:GitLog}
 Note that, as the \LaTeX\ for this report is itself hosted in the repository, this git log contains commits not relevant to the application; where possible they have been removed, but some may remain.
+
+% USE: git log --pretty=format:"\item %h %s" to get as items.
 
 \bibliography{finalrep}
 \end{document}
