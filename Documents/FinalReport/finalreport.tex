@@ -263,7 +263,7 @@ The main automation is effectively a separate loop that invokes the original flo
     \scalebox{0.5}{\includegraphics{AutomatedFlow.png}}
 \end{figure}
 
-\chapter{Technical Development}
+\chapter{Technical Development}\label{ch:TechDev}
 While the actual development of code can be found in appendix \ref{app:GitLog}, it is worthwhile discussing, separately to that, justification and reasoning behind certain decisions and implementations, as well as more general discussion about development on Android.
 
 \section{Android Jetpack}
@@ -348,10 +348,18 @@ In comparison, Instrumented tests are ideal for "integration tests", as they are
 This chapter evaluates the project in the context of the objectives defined in Chapter \ref{ch:AnO}, the value of the project to the public and to the author, and where the project could go in the future.
 
 \section{Aims and Objectives.}
-Due to the lack of test suite, it is hard to actually quantify whether the project meets the objectives in Chapter \ref{ch:AnO}. However, in terms of what code has actually been written, only objectives one, two, and three have had actual code. The lack of code for other objectives is down to aforementioned time constraints and management issues; however with respect to objectives four and five, information on how these could be achieved can be found in REFME(Refer to section - Technical Development?).
+Due to the lack of test suite, it is hard to actually quantify whether the project meets the objectives in Chapter \ref{ch:AnO}. However in terms of what code has actually been written, only objectives one, two, and three have had code written to implement them. The lack of code for other objectives is down to aforementioned time constraints and management issues; however with respect to objectives four and five, information on how these could be achieved can be found in REFME(Refer to section - Technical Development?).
 
 \section{Value to the Public.}
-As it stands now, the project is not publicly available - hence it cannot provide any value to the public. However, should it be publicised, what code does exist can be of value to the public; it presents some basic examples of how to use view-binding, activities, fragments, and in particular a good amount of code around the use of LocationManager.
+As it stands now, the project is not publicly available - hence it cannot provide any value to the public. However, should it be publicised, what code does exist can be of value to the public; it presents some basic examples of how to use view-binding, activities, fragments, and in particular a good amount of code around the use of LocationManager. As well, the application as it exists in its current state can provide some value; it does have manual tracking implemented, which could be used for the intended purpose.
+
+\section{Value to the Author.}
+During the duration of this project, the author has learnt:
+\begin{itemize}
+	\item About the Android development process.
+	\item That said development process benefits greatly from pre-planning.
+	\item About the Android development libraries, especially the the libraries discussed in Chapter \ref{ch:TechDev}.
+\end{itemize}
 
 \appendix
 \chapter{Development Log}\label{app:GitLog}
