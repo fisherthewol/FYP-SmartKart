@@ -368,120 +368,131 @@ During the duration of this project, the author has learnt:
 	\item About the Android development process.
 	\item That said development process benefits greatly from pre-planning.
 	\item About the Android development libraries, especially the the libraries discussed in Chapter \ref{ch:TechDev}.
+	\item About the Kotlin programming language.
 \end{itemize}
+This project, then, has provided a large amount of value to the author; it has provided an opportunity to learn valuable skills, and a lesson in the utility of preparation.
+
+\section{The Future.}
+The application as it stands is close to being an MVP\footnote{Minimum Viable Product, which \citet{mvpAGuide} defines as "version of a new product which allows a team to collect the maximum amount of validated learning about customers with the least effort."}. The future of the application involves a brief refactor, then continued implementation of the objectives.
+
+The brief refactor is required due to the use of the concrete implementation of AverageSpeedModel as opposed to an interface. Refactoring the code this way to use loose-coupling would allow for abstraction of the functionality of the model; this abstraction would then allow for the use of other models without having to refactor the code even further.
+
+More refactoring could be done with regards to the architecture of the application. Currently there are two layers, UI and Data, but the data layer is implemented as a ViewModel, which strictly speaking is part of the UI layer \citep{UILayerAndroid}. It would be useful to redesign the architecture with the Repository pattern; the current ViewModel would mostly become a Repository, and a new ViewModel would be written.
+
+The continued implementation of objectives involves what is discussed in REFME(Refer to section - Technical Development?) for objectives four and five. Objective six is case of implementing "App Actions" and "Built-in intents" with Google Assistant \citep{appActionsBII}, at least to allow the application to start on voice command or update the speed limit currently in use.
 
 \appendix
 \chapter{Development Log}\label{app:GitLog}
-Note that, as the \LaTeX\ for this report is itself hosted in the repository, this git log contains commits not relevant to the application; where possible they have been removed, but some may remain.
-This log is in reverse chronological order; that is, the most recent item is at the top of the list.
+Note that, as the \LaTeX\ for this report is itself hosted in the repository, this git log contains commits not relevant to the application; where possible they have been removed, but some may remain. 
 
-% USE: git log --pretty=format:"\item %h %s %b" to get as items.
+% USE: git log --reverse --pretty=format:"\item %h %s %b" to get as items.
 \begin{itemize}
-	\item 2d56328 Re-add explicit button for settings. 
-	\item cbd414f Fix issues with times and accuracy; invert asserts to proper direction; add assert at end of checkBasicTracking. 
-	\item bddd100 Add more tests. 
-	\item e367c9c Suppress warning; we manually gave permission for testing. 
-	\item 331cbed Working Instrumented Test! 
-	\item 84eabbc Explicitly add androidx Core and androidx.test dependencies. 
-	\item 6913481 Enable Jetifier. 
-	\item 3bdab20 Switch to instrumented test. 
-	\item 2f2694a Disable minify on debug build. 
-	\item 6ce69f8 Add test to test setting up test functions. 
-	\item 359c3b6 Set default speedLimit to 30 MPH. 
-	\item e2bb493 Begin writing testing for AverageSpeedModel. 
-	\item 6f13d01 Handle synchronous exceptions. 
-	\item 9884fba Say we didn't handle this error if it's not our mediaPlayer. 
-	\item 15e5322 Handle case where we already have mediaPlayer. 
-	\item ff1bb96 Actually use handler methods to start/stop limit sound. 
-	\item c3abfbd Proper param names; actual error handling. 
-	\item 3445da4 Add inner class to handle media player events. 
-	\item a186183 Handle proper destruction of mediaPlayer. 
-	\item 2d16ea5 Merge branch 'fixStaticColor' 
-	\item 58cc052 Move to URI Builder to not have issues. 
-	\item b1397e1 Get onSecondary from theme. 
-	\item 584e01a Set night colonOnSecondary to white. 
-	\item 78e4df0 Extract function; null mediaPlayer after release. 
-	\item a2dd992 Rename resource; begin adding code ot asynchronously get mediaPlayer. 
-	\item 44c661e Add overLimit.ogg, which is from https://notificationsounds.com/message-tones/maybe-552; need to attribute (CC-BY-4.0-IL). 
-	\item c4a7cd6 Change default invocation of model to use speed limit of 30. 
-	\item 813ae34 Merge remote-tracking branch 'origin/allowSetSpeedLimit' 
-	\item 91a7099 Allow setting maximum speed limit in settings; extract prefMan as a member to reduce redundancy. 
-	\item 96feeec I promise 350 was a test value. Upper bound is 70 since UK roads have no higher limit. 
-	\item cf891d1 Add bounds checks on speed limit. 
-	\item 879037d Set speed limit text to explicit black, since background is non-transparent white. 
-	\item 36e89fd We want to check the predicted speed, not if we're currently over - well, maybe not. 
-	\item 69224c9 Pad AverageSpeed. 
-	\item 9b0f94e Set touch listener on Speed Limit. 
-	\item 75295d6 Add gesture detector to dashboard fragment. 
-	\item 3b4650e Barrier comparison fix. 
-	\item a711867 Tidy up. 
-	\item 8567439 Default back to white; need to work out how to get theme colour. 
-	\item b9d11c6 Get theme colour instead of black. 
-	\item bd2d628 Extract coefficient for conversion. 
-	\item 668d824 Move convertToUnit to static on AverageSpeedModel. 
-	\item 60a0525 Need LiveData method for trackingBool. 
-	\item aed7c9d Observe speedLimit; use non-mutable LiveData for trackingBool. Observe overSpeedLimit. 
-	\item fbdac3a Ensure no NPE with trackingBool. 
-	\item f1a99d9 Convert unit to mph for display. 
-	\item 69200f1 Predict speed and update boolean accordingly. 
-	\item 8df1b7d Add a reset to the model. 
-	\item 6acd8c3 Spelling. 
-	\item 2527049 Pass predict time to model in startTracking. 
-	\item 34b16e1 Add and use default value in preferences. 
-	\item 0c2bfe7 Add functions to predict for model. 
-	\item b94bdf9 Round to int on speedo. 
-	\item 866aa14 Add AverageSpeedModelFactory and use it for initialising AverageSpeedModel. 
-	\item 7e93295 Add fragment-ktx dependency to allow `by activityViewModels`, etc. 
-	\item 41c46ff Access model from MainActivity. Write factory for model. 
-	\item 4a546e1 Share AverageSpeedModel across fragments. 
-	\item 29d23c8 Observe trackingBool in DashboardFragment. 
-	\item a955584 Add speedLimit. 
-	\item 68bd5b9 Observer changes to average speed and update digit text. 
-	\item a6d2449 Make AverageSpeedModel a ViewModel. 
-	\item ed32d43 Use correct imports and correct onCreate. 
-	\item ea30396 Switch to liveData for tracking bool. 
-	\item 6c49c4f Use binding for snackbar. 
-	\item 2c3c403 Enable binding inside of the DashboardFragment. 
-	\item f512479 Use view binding to replace findViewById. To actually set the average speed, I think we need to move the logic into dashboard fragment, instead of inside here.
-	
-	Equally there's going to be a pattern, involving threads no doubt, to updating the text; I imagine just setting them equal isn't going to work.
-	\item ae42405 Enable view binding in gradle. 
-	\item 4e58df4 Toggle tracking on button. Still need to bind UI and model. 
-	\item 7b14d46 Enable/disable buttons. Cleanup some stuff. 
-	\item d5b2906 Add documentation to MainActivity and ASModel. 
-	\item d07264f Refactor tracking to allow for stopping and starting. 
-	\item 94035dc Start button. 
-	\item 9653c88 Fix logic error with checking results. 
-	\item 7979522 Refactor permissions check and request. Complete onRequestPermissionsResult. Move permissions to companion. 
-	\item 7f32c1a Request location permissions on main activity creation. 
-	\item ee37f3a Add speed limit to fragment\_dashboard.xml. 
-	\item 1a3e899 Reimplement average speed to be calculated on update. Autogenerate permission check to implement one layer up. 
-	\item 33115d1 Refactor to registering the model as a listener. Consider caching value instead of calculating on fly (may be a premature optimisation). 
+	\item 08f4e1e Add src tree for application. 
+	\item f9fbe32 Begin adding an action bar button for settings. 
+	\item a254159 Remove existing action bar; attempt to add our own. Not working :(. 
+	\item 4c48b0e Add button to main activity to test settings. 
+	\item d44a9e4 Add SettingsPage activity. 
+	\item d088240 Delete Artefacts/.idea directory Delete .idea; shouldn't be in source (technically).
+	\item 1d5de89 Add SettingsFragment. 
+	\item c7cbb59 Load settingsFragment in settingsPage. 
+	\item f4a7c15 Change constraints on settings (still wrong but goodenough for now). 
+	\item 5db6680 Implement actual setting we want. Introduce bounds and filters. 
+	\item 819a055 Fix bounds and filters. 
+	\item 8a456f9 Change to SeekBar. 
+	\item 6d95fb5 Remove bounds, because something is wrong. 
+	\item b87033e Show value on seekbar. 
+	\item aecff63 Bounded seekbar. Yay. 
+	\item 92b1b2c Remove uneeded filter. 
+	\item cd81317 Add display fragment for average speed. 
+	\item de8e5be Add background for speed limit signs. 
+	\item 07eaed6 Begin adding code to model. 
+	\item f79a325 Refactor averageSpeed as a property instead of function. 
+	\item d467d43 Add documentation to averageSpeed. 
+	\item 50780b0 Add location permissions. 
+	\item f877352 Add locationConsumer. 
+	\item 33115d1 Refactor to registering the model as a listener. Consider caching value instead of calculating on fly (may be a premature optimisation).
 	
 	Need to check for permission - pass reference into constructor just to get context?
-	\item f877352 Add locationConsumer. 
-	\item 50780b0 Add location permissions. 
-	\item d467d43 Add documentation to averageSpeed. 
-	\item f79a325 Refactor averageSpeed as a property instead of function. 
-	\item 07eaed6 Begin adding code to model. 
-	\item de8e5be Add background for speed limit signs. 
-	\item cd81317 Add display fragment for average speed. 
-	\item 92b1b2c Remove uneeded filter. 
-	\item aecff63 Bounded seekbar. Yay. 
-	\item b87033e Show value on seekbar. 
-	\item 6d95fb5 Remove bounds, because something is wrong. 
-	\item 8a456f9 Change to SeekBar. 
-	\item 819a055 Fix bounds and filters. 
-	\item 5db6680 Implement actual setting we want. Introduce bounds and filters. 
-	\item f4a7c15 Change constraints on settings (still wrong but goodenough for now). 
-	\item c7cbb59 Load settingsFragment in settingsPage. 
-	\item 1d5de89 Add SettingsFragment. 
-	\item d088240 Delete Artefacts/.idea directory Delete .idea; shouldn't be in source (technically).
-	\item d44a9e4 Add SettingsPage activity. 
-	\item 4c48b0e Add button to main activity to test settings. 
-	\item a254159 Remove existing action bar; attempt to add our own. Not working :(. 
-	\item f9fbe32 Begin adding an action bar button for settings. 
-	\item 08f4e1e Add src tree for application.
+	
+	\item 1a3e899 Reimplement average speed to be calculated on update. Autogenerate permission check to implement one layer up. 
+	\item ee37f3a Add speed limit to fragment\_dashboard.xml. 
+	\item 7f32c1a Request location permissions on main activity creation. 
+	\item 7979522 Refactor permissions check and request. Complete onRequestPermissionsResult. Move permissions to companion. 
+	\item 9653c88 Fix logic error with checking results. 
+	\item 94035dc Start button. 
+	\item d07264f Refactor tracking to allow for stopping and starting. 
+	\item d5b2906 Add documentation to MainActivity and ASModel. 
+	\item 7b14d46 Enable/disable buttons. Cleanup some stuff. 
+	\item 4e58df4 Toggle tracking on button. Still need to bind UI and model. 
+	\item ae42405 Enable view binding in gradle. 
+	\item f512479 Use view binding to replace findViewById. To actually set the average speed, I think we need to move the logic into dashboard fragment, instead of inside here.
+	Equally there's going to be a pattern, involving threads no doubt, to updating the text; I imagine just setting them equal isn't going to work.
+	
+	\item 2c3c403 Enable binding inside of the DashboardFragment. 
+	\item 6c49c4f Use binding for snackbar. 
+	\item ea30396 Switch to liveData for tracking bool. 
+	\item ed32d43 Use correct imports and correct onCreate. 
+	\item a6d2449 Make AverageSpeedModel a ViewModel. 
+	\item 68bd5b9 Observer changes to average speed and update digit text. 
+	\item a955584 Add speedLimit. 
+	\item 29d23c8 Observe trackingBool in DashboardFragment. 
+	\item 4a546e1 Share AverageSpeedModel across fragments. 
+	\item 41c46ff Access model from MainActivity. Write factory for model. 
+	\item 7e93295 Add fragment-ktx dependency to allow `by activityViewModels`, etc. 
+	\item 866aa14 Add AverageSpeedModelFactory and use it for initialising AverageSpeedModel. 
+	\item b94bdf9 Round to int on speedo. 
+	\item 0c2bfe7 Add functions to predict for model. 
+	\item 34b16e1 Add and use default value in preferences. 
+	\item 2527049 Pass predict time to model in startTracking. 
+	\item 6acd8c3 Spelling. 
+	\item 8df1b7d Add a reset to the model. 
+	\item 69200f1 Predict speed and update boolean accordingly. 
+	\item f1a99d9 Convert unit to mph for display. 
+	\item fbdac3a Ensure no NPE with trackingBool. 
+	\item aed7c9d Observe speedLimit; use non-mutable LiveData for trackingBool. Observe overSpeedLimit. 
+	\item 60a0525 Need LiveData method for trackingBool. 
+	\item 668d824 Move convertToUnit to static on AverageSpeedModel. 
+	\item bd2d628 Extract coefficient for conversion. 
+	\item b9d11c6 Get theme colour instead of black. 
+	\item 8567439 Default back to white; need to work out how to get theme colour. 
+	\item a711867 Tidy up. 
+	\item 3b4650e Barrier comparison fix. 
+	\item 75295d6 Add gesture detector to dashboard fragment. 
+	\item 9b0f94e Set touch listener on Speed Limit. 
+	\item 69224c9 Pad AverageSpeed. 
+	\item 36e89fd We want to check the predicted speed, not if we're currently over - well, maybe not. 
+	\item 879037d Set speed limit text to explicit black, since background is non-transparent white. 
+	\item cf891d1 Add bounds checks on speed limit. 
+	\item 96feeec I promise 350 was a test value. Upper bound is 70 since UK roads have no higher limit. 
+	\item 91a7099 Allow setting maximum speed limit in settings; extract prefMan as a member to reduce redundancy. 
+	\item 813ae34 Merge remote-tracking branch 'origin/allowSetSpeedLimit' 
+	\item c4a7cd6 Change default invocation of model to use speed limit of 30. 
+	\item 44c661e Add overLimit.ogg, which is from https://notificationsounds.com/message-tones/maybe-552; need to attribute (CC-BY-4.0-IL). 
+	\item a2dd992 Rename resource; begin adding code ot asynchronously get mediaPlayer. 
+	\item 78e4df0 Extract function; null mediaPlayer after release. 
+	\item 584e01a Set night colonOnSecondary to white. 
+	\item b1397e1 Get onSecondary from theme. 
+	\item 58cc052 Move to URI Builder to not have issues. 
+	\item 2d16ea5 Merge branch 'fixStaticColor' 
+	\item a186183 Handle proper destruction of mediaPlayer. 
+	\item 3445da4 Add inner class to handle media player events. 
+	\item c3abfbd Proper param names; actual error handling. 
+	\item ff1bb96 Actually use handler methods to start/stop limit sound. 
+	\item 15e5322 Handle case where we already have mediaPlayer. 
+	\item 9884fba Say we didn't handle this error if it's not our mediaPlayer. 
+	\item 6f13d01 Handle synchronous exceptions. 
+	\item e2bb493 Begin writing testing for AverageSpeedModel. 
+	\item 359c3b6 Set default speedLimit to 30 MPH. 
+	\item 6ce69f8 Add test to test setting up test functions. 
+	\item 2f2694a Disable minify on debug build. 
+	\item 3bdab20 Switch to instrumented test. 
+	\item 6913481 Enable Jetifier. 
+	\item 84eabbc Explicitly add androidx Core and androidx.test dependencies. 
+	\item 331cbed Working Instrumented Test! 
+	\item e367c9c Suppress warning; we manually gave permission for testing. 
+	\item bddd100 Add more tests. 
+	\item cbd414f Fix issues with times and accuracy; invert asserts to proper direction; add assert at end of checkBasicTracking. 
+	\item 2d56328 Re-add explicit button for settings.
 \end{itemize}
 
 \bibliography{finalrep}
