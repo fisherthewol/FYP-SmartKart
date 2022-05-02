@@ -381,6 +381,15 @@ More refactoring could be done with regards to the architecture of the applicati
 
 The continued implementation of objectives involves what is discussed in REFME(Refer to section - Technical Development?) for objectives four and five. Objective six is case of implementing "App Actions" and "Built-in intents" with Google Assistant \citep{appActionsBII}, at least to allow the application to start on voice command or update the speed limit currently in use.
 
+Objective seven would be a case of implementing a preference in the preference page, and altering the resource passed into MediaPlayer. Objective eight's implementation would be dependent on the dataset used, but in its simplest form could be a list of places stored by a voice command for the user to come back to later and add to the dataset externally; that is, the user would ask the application to remember the current location as they were entering a speed check not automatically recognised, then when finished driving, check this list against the dataset and alter it as needed.
+
+For objectives nine and ten, this would be a case of maintaining a list of territories, and checking the current location on application start against this list. For objective eleven and twelve, a similar lookup would be required, based on the speed limit of the road when tracking is automatically started.
+
+Bar the existing objectives, adding a choice of multiple datasets, and saving and showing previously tracked sessions are both additional features that could be implemented in the application.
+
+\section{Conclusion.}
+In conclusion: as it stands, when publicly available this project currently offers some value to the public; most of its value is as a learning experience to the author; and there is a lot possible in the future of this project.
+
 \appendix
 \chapter{Development Log}\label{app:GitLog}
 Note that, as the \LaTeX\ for this report is itself hosted in the repository, this git log contains commits not relevant to the application; where possible they have been removed, but some may remain. 
