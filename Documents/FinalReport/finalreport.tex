@@ -353,6 +353,9 @@ Local tests are more suited for the traditional "unit tests", as when running th
 
 In comparison, Instrumented tests are ideal for "integration tests", as they are actually run on an Android Device; meaning the android runtime exists, and test code can use android classes and contexts. In the context of the project, some instrumented tests were written in \textit{AverageSpeedModelTest.kt}; one to test that the AverageSpeedModel is instantiated to the expected state, and one to test the basic tracking functionality. However, in part due to lack of documentation around the use of LocationManager test providers, this second test fails: the AverageSpeed is reported as 0, when it should be 17. This is likely due to a delay between calls to \textit{setTestProviderLocation} and when the LocationManager actually calls the onLocationChanged callback; however, documentation on this could not be found. The solution would be manually adding a delay in the test code, but Android Instrumented tests cannot be ran in parallel on the same device, so a delay would slow down the test speed.
 
+\section{Volley and OverpassQL: Automatically detecting ASC zones.}
+Althought objectives four and five were not implemented in the duration of this project, 
+
 \chapter{Evaluation}
 This chapter evaluates the project in the context of the objectives defined in Chapter \ref{ch:AnO}, the value of the project to the public and to the author, and where the project could go in the future.
 
