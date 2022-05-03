@@ -357,7 +357,7 @@ In comparison, Instrumented tests are ideal for "integration tests", as they are
 Although objectives four and five were not implemented in the duration of this project, thought was given on how to do so. This section discusses their theoretical implementation.
 
 \subsection{Public Datasets}
-A brief search of \citet{OrdananceSurvey}, the \citet{ONSHome}, and data.gov.uk \citep{dataGovUK}, revealed that there were no Governmental datasets of average speed zones publicly available. Individual localities, such as \citet{sySpeedCamera}, publish the roads on which cameras are installed, but these are mostly fixed-point cameras, and they do not provide exact locations. Therefore the project would have to use a less "official" data set, or build a dataset itself (from data like South Yorkshire Safety Cameras, or field work).
+A brief search of \citet{OrdananceSurvey}, the \citet{ONSHome}, and data.gov.uk \citep{dataGovUK}, revealed that there were no Governmental datasets of average speed zones publicly available. Individual localities, such as \citet{sySpeedCamera}, publish the roads on which cameras are installed, but these are mostly fixed-point cameras, and they do not provide exact locations. Therefore the project would have to use a less "official" data set, or build a dataset itself (from data like South Yorkshire Safety Cameras, and field work).
 
 OpenStreetMap \citep{OpenStreetMap} is an open source, publicly available, and publicly editable "map of the world". Most users will interact with the data using a map interface or through applications using various public libraries, but it is possible to interact with the data itself, through the following methods:
 \begin{itemize}
@@ -367,8 +367,11 @@ OpenStreetMap \citep{OpenStreetMap} is an open source, publicly available, and p
 	
 	\item The main OpenStreetMap API \citep{OSMAPIv6} allows for both editing and reading data from the dataset. However, this requires authentication (although "Read requests do not require authorization (except user details)"), and makes requests the main OpenStreetMap database, which is likely slower than requests to a mirror. Hence, "For downloading data for purposes other than editing... you will likely use Overpass API...".
 	
-	\item The Overpass API \citep{overpassWiki}
+	\item The Overpass API \citep{overpassWiki} is a read-only API, that "acts as a database over the web", operated separately "as a third-party service" from the main API and services; that is, individual people or organisations operate their own instances of the software. One such instance is "\href{https://overpass-api.de/}{Overpass-API.de}", which is referred to as the "Main Overpass API instance". This seems ideal for use within the project: it is "optimized for data consumers that need a few elements within a glimpse...", "selected by search criteria", and the application wants the nearest road selected by location. Hence, this is the ideal API to use for the project.
 \end{itemize}
+
+\subsection{OverpassQL}
+The Overpass API, being "a database over the web", requires the use of a query language.
 
 \chapter{Evaluation}
 This chapter evaluates the project in the context of the objectives defined in Chapter \ref{ch:AnO}, the value of the project to the public and to the author, and where the project could go in the future.
