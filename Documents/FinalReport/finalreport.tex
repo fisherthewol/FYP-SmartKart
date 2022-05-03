@@ -394,9 +394,12 @@ This does the following:
 By setting the bounding box small enough (say, effectively the size of a road), this query will return something if the user is on a road with an ASC, or nothing if they aren't. The application can even determine the current speed limit, by accessing the "maxspeed" key present in at least one node.
 
 \subsection{Volley: Making web requests on Android}
-So the query is defined, but how does the application send it to overpass.de? With android being a JVM system, it could use the standard library's java.net.http package \citep{javanethttp}, or other third-party libraries such as Ktor \citep{ktor} or http4k \citep{http4k}. For android, the lingua franca is Volley \citep{volley}. Volley is a "HTTP library that makes networking for Android apps easier"; it handles internals (such as actually making the http request and the response), as well as more advanced features, like caching, concurrency, and request parsing.
+So the query is defined, but how does the application send it to overpass.de? With android being a JVM system, it could use the standard library's java.net.http package \citep{javanethttp}, or other third-party libraries such as Ktor \citep{ktor} or http4k \citep{http4k}. For android, the lingua franca is Volley \citep{volley}. Volley is a "HTTP library that makes networking for Android apps easier"; it handles internals such as actually making the http request, as well as more advanced features, like caching, concurrency, and request parsing.
 
-Whilst caching isn't required for the application (the bounding box will change with every request), concurrency and request parsing would be extremely useful.
+Whilst caching isn't required for the application (the bounding box will change with every request), concurrency and request parsing are useful tools. The concurrency by default means that http requests don't slow down the main UI thread, and the request parsing means that, instead of the application having to parse the JSON from OverpassQL, the developer can provide parsing code to be executed in the context of Volley's threads.
+
+\subsection{Summary}
+Hence, to implement objectives four and five, the application should use Volley to make a request to Overpass.de with the above query at regular intervals, and provide code for volley to parse the response. If it is empty then Volley should return a null value (and so the application knows there was an empty response), or an object information about the relation (such as the speed limit). The application code can then automatically start/stop tracking based on this response.
 
 \chapter{Evaluation}
 This chapter evaluates the project in the context of the objectives defined in Chapter \ref{ch:AnO}, the value of the project to the public and to the author, and where the project could go in the future.
