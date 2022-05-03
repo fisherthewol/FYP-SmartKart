@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc} % Ensures we can use UTF8.
 \usepackage[round,colon]{natbib}
 \bibliographystyle{hull}
+\usepackage{listingsutf8}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \graphicspath{ {./images} }
@@ -371,7 +372,26 @@ OpenStreetMap \citep{OpenStreetMap} is an open source, publicly available, and p
 \end{itemize}
 
 \subsection{OverpassQL}
-The Overpass API, being "a database over the web", requires the use of a query language.
+The Overpass API, being "a database over the web", suggests the requirement of some form of Query Language. However, Overpass offers the choice of using a query language, OverpassQL \citep{overpassQLWiki}, or an XML format. The following is a query that would return whether the user was on a roadway with an Average Speed Zone:
+\begin{lstlisting}[language=SQL]
+[out:json][timeout:5][bbox:<lat,long>,<lat,long>];
+(
+    relation["type"="enforcement"]["enforcement"="average_speed"];
+    way(r);
+);
+(._;>;);
+out;
+\end{lstlisting}
+This does the following:
+\begin{itemize}
+	\item Set the output format to JSON, and abort the query after 5 seconds.
+	\item Set the global bounding box to lat,long at its most south-westerly and lat,long at its most north-easterly.
+	\item Generate a set containing relations with type = enforcement and enforcement = average\_speed.
+	\item Find ways within that relation; output the set as the default set.
+	\item Replace the current default set with the nodes of the default set.
+	\item Return the default set.
+\end{itemize}
+By setting the bounding box small enough (say, effectively the size of a road), this query will return something if the user is on a road with an ASC, or nothing if they aren't. The application can even determine the current speed limit, by accessing the "maxspeed" key present in at least one node.
 
 \chapter{Evaluation}
 This chapter evaluates the project in the context of the objectives defined in Chapter \ref{ch:AnO}, the value of the project to the public and to the author, and where the project could go in the future.
