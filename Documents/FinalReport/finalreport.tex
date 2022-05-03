@@ -359,6 +359,14 @@ Although objectives four and five were not implemented in the duration of this p
 \subsection{Public Datasets}
 A brief search of \citet{OrdananceSurvey}, the \citet{ONSHome}, and data.gov.uk \citep{dataGovUK}, revealed that there were no Governmental datasets of average speed zones publicly available. Individual localities, such as \citet{sySpeedCamera}, publish the roads on which cameras are installed, but these are mostly fixed-point cameras, and they do not provide exact locations. Therefore the project would have to use a less "official" data set, or build a dataset itself (from data like South Yorkshire Safety Cameras, or field work).
 
+OpenStreetMap \citep{OpenStreetMap} is an open source, publicly available, and publicly editable "map of the world". Most users will interact with the data using a map interface or through applications using various public libraries, but it is possible to interact with the data itself, through the following methods:
+\begin{itemize}
+	\item PlanetOSM \citep{planetOSM}, a service that provides downloads of the whole dataset as XML in weekly snapshots. However, this is inappropriate for the project, as the whole dataset "takes over 1583.1 GB when uncompressed" \citep{planetOSMwiki}.
+	
+	Some mirrors of PlanetOSM allow for taking subsets of the data, but they are still too large for use on a mobile device and mobile data connections.
+	
+\end{itemize}
+
 \chapter{Evaluation}
 This chapter evaluates the project in the context of the objectives defined in Chapter \ref{ch:AnO}, the value of the project to the public and to the author, and where the project could go in the future.
 
