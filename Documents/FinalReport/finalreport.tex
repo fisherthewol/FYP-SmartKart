@@ -38,7 +38,7 @@
 	{\LARGE George Jacob Anthony Kokinis}
     
     \bigskip
-    Word Count: ?? %exclude acknowledgements, abstract, table of contents, references and appendices) of your document.
+    Word Count: 7372 %exclude acknowledgements, abstract, table of contents, references and appendices) of your document.
 \end{center}
 \newpage
 \section{Abstract}
@@ -47,7 +47,7 @@ Average speed check zones (ASC zones), typically enforced using SPECS\footnote{S
 This project seeks to create a software application for a smartphone, that detects when a vehicle the phone is in enters an ASC zone, starts tracking the vehicle's speed, and gives the driver an audible alert if their average speed is at risk of breaking the speed limit, thereby reducing dependence on the driver to check their speedometer.
 
 \section{Acknowledgements}
-I would like to acknowledge the invaluable contributions of Eur Ing Brian Tompsett and Lydia Bryan-Smith (both, at the time of writing, of Hull University) with regards to \LaTeX\ typesetting; without their guidance I would be stuck with regards to some of its peculiarities.
+I would like to acknowledge the invaluable contributions of Eur Ing Brian Tompsett and Lydia Bryan-Smith (both, at the time of writing, of Hull University) with regards to \LaTeX\ typesetting; without their guidance I would be stuck struggling with some of its peculiarities.
 
 My Grandfather, Alec Kokinis, provided instrumental help in proof-reading this document. Thank you.
 
@@ -114,7 +114,7 @@ It may be wise to think, since average speed cameras were introduced after fixed
 
 \citet{ANPRNPCC} tells us that ANPR, Automatic Number Plate Recognition, refers to the reading of vehicle number-plates using OCR\footnote{Optical Character Recognition \citep{OCR}.}, storing information about those number-plates (such as the location and time of the scan), and querying a central system (such as the PNC) for details about the vehicle and its registered keeper. Number plates in the UK and generally in the EU are retroreflective; meaning that light is reflected back in direction it came from. Hence, most ANPR systems, including those used by Average Speed Cameras, take photos and use a flash in the infrared range to take a clearer image of a number plate.
 
-Average Speed Cameras are deployed as systems consisting of multiple ANPR-equipped cameras, at known intervals, along a road or roads. These cameras can be permanently installed along roads, or temporarily installed at the site of roadworks. Installations come in various forms; they are installed on their own poles, on existing street furniture (EG lampposts), and on overhead gantries. The system has knowledge of the road distance (as opposed to direct distance, colloquially "as the crow flies") between cameras, and uses this knowledge combined with timestamped photographs of vehicles passing the cameras (with ANPR being used to match number-plates to timestamps) to calculate an average speed. This average takes into account factors such as changing lanes, and using junctions in an attempt to defeat the system.
+Average Speed Cameras are deployed as systems consisting of multiple ANPR-equipped cameras, at known intervals, along a road or roads. These cameras can be permanently installed along roads, or temporarily installed at the site of roadworks. Installations come in various forms; they are installed on their own poles, on existing street furniture (for example lampposts), and on overhead gantries. The system has knowledge of the road distance (as opposed to direct distance, colloquially "as the crow flies") between cameras, and uses this knowledge combined with timestamped photographs of vehicles passing the cameras (with ANPR being used to match number-plates to timestamps) to calculate an average speed. This average takes into account factors such as changing lanes, and using junctions in an attempt to defeat the system.
 
 A given system must have at least two cameras (so there are two measurements to calculate speed from), but there is no legal or algorithmic upper bound on the number of cameras in, or the length of, a single system \citep{cbASC}. Any upper bound is likely to be budgetary, technological, or jurisdictional; that is, the authority responsible for the system cannot afford the number of cameras, the computers to store and process data from the cameras, or legally cannot deploy cameras past a county or city boundary.
 
@@ -125,7 +125,7 @@ With regards to the application this project produces, from the previous knowled
 \begin{itemize}
     \item Fixed-point cameras are not relevant to average speed cameras in terms of applied technology, and therefore aren't relevant to the application. At most, there may be scope to provide notice of fixed cameras within the app.
     \item There is no public knowledge of pairing between any two cameras in a system; they may be paired sequentially or randomly.
-    \item Hence, if a dataset has specific locations of cameras within a system, it is reasonable that average speed should be calculated between sequential cameras - IE between the current position and the previous camera, then reset at the next camera.
+    \item Hence, if a dataset has specific locations of cameras within a system, it is reasonable that average speed should be calculated between sequential cameras - that is, between the current position and the previous camera, then reset at the next camera.
     \item If the dataset does not have specific locations, and only the start and end, then the average speed should be calculated between the start and end.
 \end{itemize}
 
@@ -140,18 +140,18 @@ Instead of a complex model, the application can just use past acceleration to pr
 \begin{equation}
     v = u + a \cdot t
 \end{equation}
-The main tuning parameter of this model for forecasting is t, time; whether this is user configurable (a setting saying "Notify me t seconds before exceeding the limit") or "hardcoded" is a consideration to be made. As well, this needs to be used with some hysteresis; it will be exceedingly annoying to the user if the application constantly alternates the alerting state.
+The main tuning parameter of this model for forecasting is t, time; whether this is user configurable (a setting saying "Notify me t seconds before exceeding the limit") or set at compile-time is a consideration to be made. As well, this needs to be used with some hysteresis; it will be exceedingly annoying to the user if the application constantly alternates the alerting state.
 
 \section{Programming and Development}
 There are various options for platforms on which this application could be developed. This section discusses options, and ultimately decides as to which platform should be used.
 
 \subsection{Cross-platform frameworks}
-One contemporary paradigm is the use of cross-platform frameworks; where a developer writes their code using provided libraries, and the framework handles the "mapping" between calls into the libraries and the various host features. These frameworks can range from intrinsic to the language - in the case of Java and the openJDK \citep{openJdk}, where a JVM is almost completely necessary for running the program and so is provided by the Java developers - to external frameworks developed by entities separate to those who develop the language.
+One contemporary paradigm is the use of cross-platform frameworks; where a developer writes their code using provided libraries, and the framework handles the "mapping" between calls into the libraries and the various host features. These frameworks can range from intrinsic to the language - in the case of Java and the OpenJDK \citep{openJdk}, where a JVM is almost completely necessary for running the program and so is provided by the Java developers - to external frameworks developed by entities separate to those who develop the language.
 
 \paragraph{Flutter}
 Flutter \citep{FlutterWebsite} is a cross-platform framework provided by Google (but is open source, so can be modified by the general public) that allows developers to build "multi-platform applications from a single codebase". It uses and itself is written in Dart, Google's "client optimized language for fast apps on any platform" \citep{dartWebsite}. Bar the singular codebase, it provides explicit widgets for specific platform actions, such as permissions dialogs.
 
-Being provided by Google and using a language from Google means there is a high level of integration between langauge features and the framework, whilst still maintaining separate development groups.
+Being provided by Google and using a language from Google means there is a high level of integration between language features and the framework, whilst still maintaining separate development groups.
 
 \paragraph{UNO Platform}
 UNO Platform is a framework for "Pixel-Perfect Multi-Platform Applications with C\textsubscript{\#} and WinUI" \citep{UnoWebsite}. It allows a developer to write once and compile applications for most major platforms, whilst also allowing for platform-specific code. 
@@ -193,7 +193,7 @@ On Android, a developer can publish their application to the Google Play Store \
 \begin{itemize}
 	\item To publish on Google Play, a developer must pay a one-off fee of \$25; bar this, any costs are as proportions of advert revenue and of transactions users make when buying an application or making in-app purchases; so a completely free app is free to publish.
 	\item Alternative markets include F-Droid \citep{FDroid}, which is completely free to publish to, but doesn't allow for paid applications; it does allow for developers to have donation links, and for some in-app purchases.
-	\item Finally, although disabled by default, Android allows for installing applications from downloaded files, also known as sideloading \citep{sideloading}. A developer could develop and compile their application, then distribute the resulting apk file through any method they like - whether a download link on a website, or with some form of repository.
+	\item Finally, although disabled by default, Android allows for installing applications from downloaded files, also known as sideloading \citep{sideloading}. A developer could develop and compile their application, then distribute the resulting APK file through any method they like - whether a download link on a website, or with some form of repository.
 \end{itemize}
 
 \subsection{Summary}
@@ -238,7 +238,7 @@ Furthermore, different classes of vehicles have different speed limits. In the U
 \begin{enumerate}
 	\setcounter{enumi}{\value{objectivesCounter}}
 	\item The application allows the user to set what class of vehicle they're driving.
-	\item The application uses a speedlimit adjusted to account for this.
+	\item The application uses a speed limit adjusted to account for this.
 	\setcounter{objectivesCounter}{\value{enumi}}
 \end{enumerate}
 
@@ -304,7 +304,7 @@ Images in Android are considered to be "Drawables", and they can be either raw i
 
 This project's only explicit use of a drawable is as a background SVG\footnote{Scalable Vector Graphics \citep{SVGW3C}} used to display the speed limit, imitating the background of a UK Speed Limit sign. However, this could become part of a StateList, with other countries backgrounds, or signs with specific meaning (E.G. the UK's National Speed Limit sign), to better improve a user's recognition of the speed limit.
 
-The use of an SVG instead of a bitmap allows for better scaling for different UI sizes; bitmap (also known as raster) graphics are prone to artifacts on upscaling (as information has to be interpolated).
+The use of an SVG instead of a bitmap allows for better scaling for different UI sizes; bitmap (also known as raster) graphics are prone to artefacts on upscaling (as information has to be interpolated).
 
 \subsection{Layouts and View Binding.}
 When defining an activity's or fragment's initial state, a developer should provide a layout file that defines the initial state in XML. It is theoretically possible to build a layout in code, and it is sometimes necessary to make changes in code; when \textit{inflating} its layout, an Activity needs to add a fragment to take the place of a \textit{FragmentContainerView}. However the actual layout should be in the layout resource file, and the code should manipulate the data displayed within the layout.
@@ -385,7 +385,7 @@ out;
 This does the following:
 \begin{itemize}
 	\item Set the output format to JSON, and abort the query after 5 seconds.
-	\item Set the global bounding box to lat,long at its most south-westerly and lat,long at its most north-easterly.
+	\item Set the global bounding box to latitude,longitude at its most south-westerly and latitude,longitude at its most north-easterly.
 	\item Generate a set containing relations with type = enforcement and enforcement = average\_speed.
 	\item Find ways within that relation; output the set as the default set.
 	\item Replace the current default set with the nodes of the default set.
@@ -394,7 +394,7 @@ This does the following:
 By setting the bounding box small enough (say, effectively the size of a road), this query will return something if the user is on a road with an ASC, or nothing if they aren't. The application can even determine the current speed limit, by accessing the "maxspeed" key present in at least one node.
 
 \subsection{Volley: Making web requests on Android}
-So the query is defined, but how does the application send it to overpass.de? With android being a JVM system, it could use the standard library's java.net.http package \citep{javanethttp}, or other third-party libraries such as Ktor \citep{ktor} or http4k \citep{http4k}. For android, the lingua franca is Volley \citep{volley}. Volley is a "HTTP library that makes networking for Android apps easier"; it handles internals such as actually making the http request, as well as more advanced features, like caching, concurrency, and request parsing.
+So the query is defined, but how does the application send it to overpass.de? With android being a JVM system, it could use the standard library's Java.net.http package \citep{javanethttp}, or other third-party libraries such as Ktor \citep{ktor} or http4k \citep{http4k}. For android, the lingua franca is Volley \citep{volley}. Volley is a "HTTP library that makes networking for Android apps easier"; it handles internals such as actually making the http request, as well as more advanced features, like caching, concurrency, and request parsing.
 
 Whilst caching isn't required for the application (the bounding box will change with every request), concurrency and request parsing are useful tools. The concurrency by default means that http requests don't slow down the main UI thread, and the request parsing means that, instead of the application having to parse the JSON from OverpassQL, the developer can provide parsing code to be executed in the context of Volley's threads.
 
