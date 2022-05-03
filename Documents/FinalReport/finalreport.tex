@@ -360,7 +360,7 @@ Although objectives four and five were not implemented in the duration of this p
 \subsection{Public Datasets}
 A brief search of \citet{OrdananceSurvey}, the \citet{ONSHome}, and data.gov.uk \citep{dataGovUK}, revealed that there were no Governmental datasets of average speed zones publicly available. Individual localities, such as \citet{sySpeedCamera}, publish the roads on which cameras are installed, but these are mostly fixed-point cameras, and they do not provide exact locations. Therefore the project would have to use a less "official" data set, or build a dataset itself (from data like South Yorkshire Safety Cameras, and field work).
 
-OpenStreetMap \citep{OpenStreetMap} is an open source, publicly available, and publicly editable "map of the world". Most users will interact with the data using a map interface or through applications using various public libraries, but it is possible to interact with the data itself, through the following methods:
+OpenStreetMap \citep{OpenStreetMap} is an open source, publicly available, and publicly editable "map of the world". While not complete, it does contain some data points on the location of ASC zones. Most users will interact with the data using a map interface or through applications using various public libraries, but it is possible to interact with the data itself, through the following methods:
 \begin{itemize}
 	\item PlanetOSM \citep{planetOSM}, a service that provides downloads of the whole dataset as XML in weekly snapshots. However, this is inappropriate for the project, as the whole dataset "takes over 1583.1 GB when uncompressed" \citep{planetOSMwiki}.
 	
@@ -392,6 +392,11 @@ This does the following:
 	\item Return the default set.
 \end{itemize}
 By setting the bounding box small enough (say, effectively the size of a road), this query will return something if the user is on a road with an ASC, or nothing if they aren't. The application can even determine the current speed limit, by accessing the "maxspeed" key present in at least one node.
+
+\subsection{Volley: Making web requests on Android}
+So the query is defined, but how does the application send it to overpass.de? With android being a JVM system, it could use the standard library's java.net.http package \citep{javanethttp}, or other third-party libraries such as Ktor \citep{ktor} or http4k \citep{http4k}. For android, the lingua franca is Volley \citep{volley}. Volley is a "HTTP library that makes networking for Android apps easier"; it handles internals (such as actually making the http request and the response), as well as more advanced features, like caching, concurrency, and request parsing.
+
+Whilst caching isn't required for the application (the bounding box will change with every request), concurrency and request parsing would be extremely useful.
 
 \chapter{Evaluation}
 This chapter evaluates the project in the context of the objectives defined in Chapter \ref{ch:AnO}, the value of the project to the public and to the author, and where the project could go in the future.
