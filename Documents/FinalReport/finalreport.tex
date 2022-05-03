@@ -353,7 +353,7 @@ Local tests are more suited for the traditional "unit tests", as when running th
 
 In comparison, Instrumented tests are ideal for "integration tests", as they are actually run on an Android Device; meaning the android runtime exists, and test code can use android classes and contexts. In the context of the project, some instrumented tests were written in \textit{AverageSpeedModelTest.kt}; one to test that the AverageSpeedModel is instantiated to the expected state, and one to test the basic tracking functionality. However, in part due to lack of documentation around the use of LocationManager test providers, this second test fails: the AverageSpeed is reported as 0, when it should be 17. This is likely due to a delay between calls to \textit{setTestProviderLocation} and when the LocationManager actually calls the onLocationChanged callback; however, documentation on this could not be found. The solution would be manually adding a delay in the test code, but Android Instrumented tests cannot be ran in parallel on the same device, so a delay would slow down the test speed.
 
-\section{Volley and OverpassQL: Automatically detecting ASC zones.}
+\section{Volley and OverpassQL: Automatically detecting ASC zones.}\label{sec:Vol&OQL}
 Although objectives four and five were not implemented in the duration of this project, thought was given on how to do so. This section discusses their theoretical implementation.
 
 \subsection{Public Datasets}
@@ -365,13 +365,16 @@ OpenStreetMap \citep{OpenStreetMap} is an open source, publicly available, and p
 	
 	Some mirrors of PlanetOSM allow for taking subsets of the data, but they are still too large for use on a mobile device and mobile data connections.
 	
+	\item The main OpenStreetMap API \citep{OSMAPIv6} allows for both editing and reading data from the dataset. However, this requires authentication (although "Read requests do not require authorization (except user details)"), and makes requests the main OpenStreetMap database, which is likely slower than requests to a mirror. Hence, "For downloading data for purposes other than editing... you will likely use Overpass API...".
+	
+	\item The Overpass API \citep{overpassWiki}
 \end{itemize}
 
 \chapter{Evaluation}
 This chapter evaluates the project in the context of the objectives defined in Chapter \ref{ch:AnO}, the value of the project to the public and to the author, and where the project could go in the future.
 
 \section{Aims and Objectives.}
-Due to the lack of test suite, it is hard to actually quantify whether the project meets the objectives in Chapter \ref{ch:AnO}. However in terms of what code has actually been written, only objectives one, two, and three have had code written to implement them. The lack of code for other objectives is down to aforementioned time constraints and management issues; however with respect to objectives four and five, information on how these could be achieved can be found in REFME(Refer to section - Technical Development?).
+Due to the lack of test suite, it is hard to actually quantify whether the project meets the objectives in Chapter \ref{ch:AnO}. However in terms of what code has actually been written, only objectives one, two, and three have had code written to implement them. The lack of code for other objectives is down to aforementioned time constraints and management issues; however with respect to objectives four and five, information on how these could be achieved can be found in section \ref{sec:Vol&OQL}.
 
 \section{Value to the Public.}
 As it stands now, the project is not publicly available - hence it cannot provide any value to the public. However, should it be publicised, what code does exist can be of value to the public; it presents some basic examples of how to use view-binding, activities, fragments, and in particular a good amount of code around the use of LocationManager. As well, the application as it exists in its current state can provide some value; it does have manual tracking implemented, which could be used for the intended purpose.
@@ -393,7 +396,7 @@ The brief refactor is required due to the use of the concrete implementation of 
 
 More refactoring could be done with regards to the architecture of the application. Currently there are two layers, UI and Data, but the data layer is implemented as a ViewModel, which strictly speaking is part of the UI layer \citep{UILayerAndroid}. It would be useful to redesign the architecture with the Repository pattern; the current ViewModel would mostly become a Repository, and a new ViewModel would be written.
 
-The continued implementation of objectives involves what is discussed in REFME(Refer to section - Technical Development?) for objectives four and five. Objective six is case of implementing "App Actions" and "Built-in intents" with Google Assistant \citep{appActionsBII}, at least to allow the application to start on voice command or update the speed limit currently in use.
+Continued implementation involves what is discussed in section \ref{sec:Vol&OQL} for objectives four and five. Objective six is case of implementing "App Actions" and "Built-in intents" with Google Assistant \citep{appActionsBII}, at least to allow the application to start on voice command or update the speed limit currently in use.
 
 Objective seven would be a case of implementing a preference in the preference page, and altering the resource passed into MediaPlayer. Objective eight's implementation would be dependent on the dataset used, but in its simplest form could be a list of places stored by a voice command for the user to come back to later and add to the dataset externally; that is, the user would ask the application to remember the current location as they were entering a speed check not automatically recognised, then when finished driving, check this list against the dataset and alter it as needed.
 
