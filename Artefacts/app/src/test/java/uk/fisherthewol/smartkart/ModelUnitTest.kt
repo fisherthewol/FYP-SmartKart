@@ -2,7 +2,6 @@ package uk.fisherthewol.smartkart
 
 import android.location.Location
 import android.location.LocationManager
-import androidx.arch.core.executor.TaskExecutor
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -20,15 +19,36 @@ class ModelUnitTest {
     val rule: TestRule = InstantTaskExecutorRule()
 
     val constantSpeedms = 11.0F
-    @Test
-    fun `Single location update gets correct AverageSpeed`() {
+
+    private fun `Generate Model To Test`(): AverageSpeedModel {
         val mockLocationManager: LocationManager = mock()
-        val modelUnderTest = AverageSpeedModel(mockLocationManager)
+        return AverageSpeedModel(mockLocationManager)
+    }
+
+    @Test
+    fun `Single location update returns correct AverageSpeed`() {
+        val modelUnderTest = `Generate Model To Test`()
         val singleLocation: Location = mock {
             on {hasSpeed()} doReturn true
             on {speed} doReturn constantSpeedms
         }
         modelUnderTest.onLocationChanged(singleLocation)
+        assertEquals(constantSpeedms.toDouble(), modelUnderTest.getAverageSpeed().value)
+    }
+
+    @Test
+    fun `Batched location updates at constant speed returns correct AverageSpeed`() {
+        val modelUnderTest = `Generate Model To Test`()
+        val singleLocation: Location = mock {
+            on {hasSpeed()} doReturn true
+            on {speed} doReturn constantSpeedms
+        }
+        val multipleLocations: MutableList<Location> = buildList<Location> {
+            for (i in 0..10) {
+                add(singleLocation)
+            }
+        } as MutableList<Location>
+        modelUnderTest.onLocationChanged(multipleLocations)
         assertEquals(constantSpeedms.toDouble(), modelUnderTest.getAverageSpeed().value)
     }
 }
