@@ -75,7 +75,7 @@ class AverageSpeedModel(private val locationMan: LocationManager, internal var s
         val (v, u) = if (locations.size < ACCEL_REVERSE_INDEX) {
             Pair(locations.last(), locations.first())
         } else {
-            Pair(locations.last(), locations[locations.lastIndex - ACCEL_REVERSE_INDEX])
+            Pair(locations.last(), locations[locations.size - ACCEL_REVERSE_INDEX])
         }
         val time = v.time - u.time
         return ((v.speed - u.speed) / time).toDouble()
