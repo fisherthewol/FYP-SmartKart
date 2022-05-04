@@ -206,7 +206,7 @@ The overall aim, as stated in the Abstract, is to create an application to reduc
 The overall primary objectives are:
 \begin{enumerate}
 	\item To develop an Android Application that can track a user's average speed.
-	\item This application will be able to use the collected data to predict if a user's average speed is going to go over a set limit, and will audibly and visually warn the user.
+	\item This application will be able to use the collected data to predict whether a user's average speed is going to go over a set limit, and will audibly and visually warn the user.
 	\item Tracking can be started and stopped manually by the user.
 	\item The application can detect when the user enters an Average Speed Check zone, based on location.
 	\item Tracking can be started and stopped automatically, when a user enters or exits an ASC zone.
@@ -229,7 +229,7 @@ Changing the audio allows the user a choice of how they wish to be alerted; whet
 In some territories, the use of physical devices to detect speed cameras is illegal, and applications doing the same are either explicitly or potentially illegal. One such case is France; any device or system used to "detect the presence" of devices for regulation of road traffic is illegal under the Code de la route \citep{CodeDeLaRoute}. Hence, an objective for the application would be:
 \begin{enumerate}
 	\setcounter{enumi}{\value{objectivesCounter}}
-	\item To detect if the device is in a territory with such a regulation, and
+	\item To detect whether the device is in a territory with such a regulation, and
 	\item Automatically prevent its own usage in those territories, providing a message to the user about why.
 	\setcounter{objectivesCounter}{\value{enumi}}
 \end{enumerate}
@@ -336,7 +336,7 @@ The basis of this project involves location data. Attaining objectives four, fiv
 
 Getting location on Android involves the use of the LocationManager class \citep{locationAndroid}. LocationManager does not provide a public constructor, so code attempting to use LocationManager must get an instance in some other way. In the project, this is done through a call to \textit{context.getSystemService()} and passing in the constant \textit{Context.LOCATION\_SERVICE}; this then returns a Java \textit{Object}, so the calling code must cast the returned Object into a LocationManager.
 
-This LocationManager instance then has two paths for a developer to get location data from it. The seemingly obvious way is to call \textit{getCurrentLocation}, which "asynchronously returns a single current location fix". However, this quickly becomes complex: this method must be called with an executor as one of the parameters, to provide which thread the callback should occur on. This in itself is not terrible to work with, but the complexity comes with calling this in a loop to constantly update the average speed; this loop should be executed on a background thread as well, so now there's a background thread managing repeated calls to another background thread, and managing the transfer of data back to the main UI thread can be difficult.
+This LocationManager instance then has two paths for a developer to get location data from it. The seemingly obvious way is to call \textit{getCurrentLocation}, which "asynchronously returns a single current location fix". However, this quickly becomes complex: this method must be called with an executor as one of the parameters, to provide which thread the callback should occur on. This in itself is not impossible to work with, but the complexity comes with calling this in a loop to constantly update the average speed; this loop should be executed on a background thread as well, so now there's a background thread managing repeated calls to another background thread, and managing the transfer of data back to the main UI thread can be difficult.
 
 The alternative is through the use of \textit{requestLocationUpdates}. This method allows code to specify minimum distance and time between updates, and register a Listener to be executed when an update occurs. This is much easier, as the update loop and state of whether to get updates is handled by the system's LocationService and its own thread(s). When the user requests to stop tracking, this is as simple as calling \textit{removeUpdates}; this de-registers the Listener passed as a parameter (if it was already registered), and no further updates are provided.
 
@@ -360,7 +360,7 @@ This project started with the intention of following the TDD methodology. Howeve
 
 Local tests are more suited for the traditional "unit tests", as when running them the overall android runtime doesn't exist, so attempting to construct Android classes (for example, LocationManager and MediaPlayer) can end up failing unless they're mocked.
 
-In comparison, Instrumented tests are ideal for "integration tests", as they are actually run on an Android Device; meaning the android runtime exists, and test code can use android classes and contexts. In the context of the project, some instrumented tests were written in \textit{AverageSpeedModelTest.kt}; one to test that the AverageSpeedModel is instantiated to the expected state, and one to test the basic tracking functionality. However, in part due to lack of documentation around the use of LocationManager test providers, this second test fails: the AverageSpeed is reported as 0, when it should be 17. This is likely due to a delay between calls to \textit{setTestProviderLocation} and when the LocationManager actually calls the onLocationChanged callback; however, documentation on this could not be found. The solution would be manually adding a delay in the test code, but Android Instrumented tests cannot be ran in parallel on the same device, so a delay would slow down the test speed.
+In comparison, Instrumented tests are ideal for "integration tests", as they are actually run on an Android Device; meaning the android runtime exists, and test code can use android classes and contexts. In the context of the project, some instrumented tests were written in \textit{AverageSpeedModelTest.kt}; one to test that the AverageSpeedModel is instantiated to the expected state, and one to test the basic tracking functionality. However, in part due to lack of documentation around the use of LocationManager test providers, this second test fails: the AverageSpeed is reported as 0, when it should be 17. This is likely due to a delay between calls to \textit{setTestProviderLocation} and when the LocationManager actually calls the onLocationChanged callback; however, documentation on this could not be found. The solution would be manually adding a delay in the test code, but Android Instrumented tests cannot be run in parallel on the same device, so a delay would slow down the test speed.
 
 \section{Volley and OverpassQL: Automatically detecting ASC zones.}\label{sec:Vol&OQL}
 Although objectives four and five were not implemented in the duration of this project, thought was given on how to do so. This section discusses their theoretical implementation.
@@ -370,7 +370,7 @@ A brief search of \citet{OrdananceSurvey}, the \citet{ONSHome}, and data.gov.uk 
 
 OpenStreetMap \citep{OpenStreetMap} is an open source, publicly available, and publicly editable "map of the world". While not complete, it does contain some data points on the location of ASC zones. Most users will interact with the data using a map interface or through applications using various public libraries, but it is possible to interact with the data itself, through the following methods:
 \begin{itemize}
-	\item PlanetOSM \citep{planetOSM}, a service that provides downloads of the whole dataset as XML in weekly snapshots. However, this is inappropriate for the project, as the whole dataset "takes over 1583.1 GB when uncompressed" \citep{planetOSMwiki}.
+	\item PlanetOSM \citep{planetOSM} which is a service that provides downloads of the whole dataset as XML in weekly snapshots. However, this is inappropriate for the project, as the whole dataset "takes over 1583.1 GB when uncompressed" \citep{planetOSMwiki}.
 	
 	Some mirrors of PlanetOSM allow for taking subsets of the data, but they are still too large for use on a mobile device and mobile data connections.
 	
@@ -380,7 +380,7 @@ OpenStreetMap \citep{OpenStreetMap} is an open source, publicly available, and p
 \end{itemize}
 
 \subsection{OverpassQL}
-The Overpass API, being "a database over the web", suggests the requirement of some form of Query Language. However, Overpass offers the choice of using a query language, OverpassQL \citep{overpassQLWiki}, or an XML format. The following is a query that would return whether the user was on a roadway with an Average Speed Zone:
+The Overpass API, being "a database over the web", suggests the requirement of some form of Query Language. However, Overpass offers the choice of using a query language, OverpassQL \citep{overpassQLWiki}, or an XML format. The following is a query in OverpassQL that would return whether the user was on a roadway with an Average Speed Zone:
 \begin{lstlisting}[language=SQL]
 [out:json][timeout:5][bbox:<lat,long>,<lat,long>];
 (
@@ -392,12 +392,12 @@ out;
 \end{lstlisting}
 This does the following:
 \begin{itemize}
-	\item Set the output format to JSON, and abort the query after 5 seconds.
-	\item Set the global bounding box to latitude,longitude at its most south-westerly and latitude,longitude at its most north-easterly.
-	\item Generate a set containing relations with type = enforcement and enforcement = average\_speed.
-	\item Find ways within that relation; output the set as the default set.
-	\item Replace the current default set with the nodes of the default set.
-	\item Return the default set.
+	\item Sets the output format to JSON, and abort the query after 5 seconds.
+	\item Sets the global bounding box to latitude,longitude at its most south-westerly and latitude,longitude at its most north-easterly.
+	\item Generates a set containing relations with type = enforcement and enforcement = average\_speed.
+	\item Finds "ways" within that relation; outputs the set as the default set.
+	\item Replaces the current default set with the nodes of the default set.
+	\item Returns the default set.
 \end{itemize}
 By setting the bounding box small enough (say, effectively the size of a road), this query will return something if the user is on a road with an ASC, or nothing if they aren't. The application can even determine the current speed limit, by accessing the "maxspeed" key present in at least one node.
 
@@ -416,7 +416,7 @@ This chapter evaluates the project in the context of the objectives defined in C
 Due to the lack of test suite, it is hard to actually quantify whether the project meets the objectives in Chapter \ref{ch:AnO}. However in terms of what code has actually been written, only objectives one, two, and three have had code written to implement them. The lack of code for other objectives is down to aforementioned time constraints and management issues; however with respect to objectives four and five, information on how these could be achieved can be found in section \ref{sec:Vol&OQL}.
 
 \section{Value to the Public.}
-As it stands now, the project is not publicly available - hence it cannot provide any value to the public. However, should it be publicised, what code does exist can be of value to the public; it presents some basic examples of how to use view-binding, activities, fragments, and in particular a good amount of code around the use of LocationManager. As well, the application as it exists in its current state can provide some value; it does have manual tracking implemented, which could be used for the intended purpose.
+As it stands now, the project is not publicly available - hence it cannot provide any value to the public. However, should it be publicised, what code does exist can be of value to the public; it presents some basic examples of how to use view-binding, activities, fragments, and in particular a good amount of code around the use of LocationManager. In addition, the application as it exists in its current state can provide some value; it does have manual tracking implemented, which could be used for the intended purpose.
 
 \section{Value to the Author.}
 During the duration of this project, the author has learnt:
@@ -444,7 +444,7 @@ For objectives nine and ten, this would be a case of maintaining a list of terri
 Bar the existing objectives, adding a choice of multiple datasets, and saving and showing previously tracked sessions are both additional features that could be implemented in the application.
 
 \section{Conclusion.}
-In conclusion: as it stands, when publicly available this project currently offers some value to the public; most of its value is as a learning experience to the author; and there is a lot possible in the future of this project.
+In conclusion: as it stands, when publicly available this project currently offers not inconsiderable value to the public; most of its value is as a learning experience to the author; and there is a lot possible in the future of this project.
 
 \appendix
 \chapter{Development Log}\label{app:GitLog}
