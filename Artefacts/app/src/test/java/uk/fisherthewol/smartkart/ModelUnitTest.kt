@@ -43,12 +43,46 @@ class ModelUnitTest {
             on {hasSpeed()} doReturn true
             on {speed} doReturn constantSpeedms
         }
-        val multipleLocations: MutableList<Location> = buildList<Location> {
+        val multipleLocations: MutableList<Location> = buildList {
             for (i in 0..10) {
                 add(singleLocation)
             }
         } as MutableList<Location>
         modelUnderTest.onLocationChanged(multipleLocations)
         assertEquals(constantSpeedms.toDouble(), modelUnderTest.getAverageSpeed().value)
+    }
+
+    @Test
+    fun `Two locations with different speeds returns correct AverageSpeed`() {
+        val modelUnderTest = `Generate Model To Test`()
+        val loc1: Location = mock {
+            on {hasSpeed()} doReturn true
+            on {speed} doReturn 10.0F
+        }
+        val loc2: Location = mock {
+            on {hasSpeed()} doReturn true
+            on {speed} doReturn 20.0F
+        }
+        modelUnderTest.onLocationChanged(loc1)
+        modelUnderTest.onLocationChanged(loc2)
+        assertEquals(15.0, modelUnderTest.getAverageSpeed().value!!, 0.000)
+    }
+
+    @Test
+    fun `Ten locations with different speeds returns correct AverageSpeed`() {
+        val modelUnderTest = `Generate Model To Test`()
+        val locations: List<Location> = buildList {
+            for (i in 0..10) {
+                val loc: Location = mock {
+                    on {hasSpeed()} doReturn true
+                    on {speed} doReturn i.toFloat()
+                }
+                add(loc)
+            }
+        }
+        for (loc in locations) {
+            modelUnderTest.onLocationChanged(loc)
+        }
+        assertEquals(5.0, modelUnderTest.getAverageSpeed().value!!, 0.000)
     }
 }
