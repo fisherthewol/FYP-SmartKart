@@ -38,7 +38,7 @@
 	{\LARGE George Jacob Anthony Kokinis}
     
     \bigskip
-    Word Count: 7470 %exclude acknowledgements, abstract, table of contents, references and appendices) of your document.
+    Word Count: 7685 %exclude acknowledgements, abstract, table of contents, references and appendices) of your document.
 \end{center}
 \newpage
 \section{Abstract}
@@ -358,9 +358,26 @@ This project started with the intention of following the TDD methodology. Howeve
 \subsection{Testing on Android}
 \citet{testingAndroid} says "the most important distinction for app developers is where tests run"; and hence the two overall classifications for android tests: Local tests which run on the development machine, and Instrumented tests which run on an Android device, emulated or real.
 
-Local tests are more suited for the traditional "unit tests", as when running them the overall android runtime doesn't exist, so attempting to construct Android classes (for example, LocationManager and MediaPlayer) can end up failing unless they're mocked.
+Local tests are more suited for the traditional "unit tests", as when running them the overall android runtime doesn't exist, so attempting to construct Android classes (for example, LocationManager and MediaPlayer) will fail unless they're mocked.
 
 In comparison, Instrumented tests are ideal for "integration tests", as they are actually run on an Android Device; meaning the android runtime exists, and test code can use android classes and contexts. In the context of the project, some instrumented tests were written in \textit{AverageSpeedModelTest.kt}; one to test that the AverageSpeedModel is instantiated to the expected state, and one to test the basic tracking functionality. However, in part due to lack of documentation around the use of LocationManager test providers, this second test fails: the AverageSpeed is reported as 0, when it should be 17. This is likely due to a delay between calls to \textit{setTestProviderLocation} and when the LocationManager actually calls the onLocationChanged callback; however, documentation on this could not be found. The solution would be manually adding a delay in the test code, but Android Instrumented tests cannot be run in parallel on the same device, so a delay would slow down the test speed.
+
+Earlier in the project, an attempt to write unit tests were made; however, these tests were migrated to instrumented tests as discussed above (see commit 3bdab20), as it was more appropriate. At the very end, this was revisited, and unit tests were added. This helped fix a previously undetected bug (see commit 265a4d7), and proved both the value of testing and that this project should have used test-driven development from the beginning. The process of writing these unit tests for the application is quite simple: there must be a mock location manager to be passed into the constructor of AverageSpeedModel, and then mocked locations must be passed to the classes functions. Then the model can be tested against. For example:
+\begin{lstlisting}[language=java,breaklines=true]
+@Test
+fun `Single location update returns correct AverageSpeed`() {
+	val mockLocationManager: LocationManager = mock()
+	val modelUnderTest = AverageSpeedModel(mockLocationManager)
+	val singleLocation: Location = mock {
+		on {hasSpeed()} doReturn true
+		on {speed} doReturn 11.0F
+	}
+	modelUnderTest.onLocationChanged(singleLocation)
+	assertEquals(11.0F.toDouble(), modelUnderTest.getAverageSpeed().value)
+}
+\end{lstlisting}
+
+This test, as the name suggests, checks that a singular location with a speed of 11 m/s returns an average speed of 11 m/s (as $ 11\div1 = 11 $). In the project it is implemented in this way, except the value of 11.0F is extracted as a class member, and the creation of the model is extracted as a function.
 
 \section{Volley and OverpassQL: Automatically detecting ASC zones.}\label{sec:Vol&OQL}
 Although objectives four and five were not implemented in the duration of this project, thought was given on how to do so. This section discusses their theoretical implementation.
@@ -558,6 +575,14 @@ Note that, as the \LaTeX\ for this report is itself hosted in the repository, th
 	\item bddd100 Add more tests. 
 	\item cbd414f Fix issues with times and accuracy; invert asserts to proper direction; add assert at end of checkBasicTracking. 
 	\item 2d56328 Re-add explicit button for settings.
+	\item 66616fd Add unit test. 
+	\item e83b253 Refactor test to use singular value. 
+	\item eb3e398 Refactor generating model; add test for batched location updates. 
+	\item 1743737 Add more tests Add check for average speed calculation working.
+	
+	Add check for ten locations, to check further averages.
+	
+	\item 265a4d7 Fix off-by-one error in speed model.
 \end{itemize}
 
 \bibliography{finalrep}
