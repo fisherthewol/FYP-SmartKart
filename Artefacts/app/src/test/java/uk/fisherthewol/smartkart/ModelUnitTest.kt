@@ -19,15 +19,16 @@ class ModelUnitTest {
     @get:Rule
     val rule: TestRule = InstantTaskExecutorRule()
 
+    val constantSpeedms = 11.0F
     @Test
     fun `Single location update gets correct AverageSpeed`() {
         val mockLocationManager: LocationManager = mock()
         val modelUnderTest = AverageSpeedModel(mockLocationManager)
         val singleLocation: Location = mock {
             on {hasSpeed()} doReturn true
-            on {speed} doReturn 11.0F
+            on {speed} doReturn constantSpeedms
         }
         modelUnderTest.onLocationChanged(singleLocation)
-        assertEquals(11.0 , modelUnderTest.getAverageSpeed().value)
+        assertEquals(constantSpeedms.toDouble(), modelUnderTest.getAverageSpeed().value)
     }
 }
